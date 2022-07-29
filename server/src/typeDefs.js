@@ -2,8 +2,6 @@ import { gql } from 'apollo-server';
 
 const typeDefs = gql`
     
-    scalar DateTime
-    
     type Query {
         singleStation(id: ID!): Station!
         allStations: [Station]!
@@ -22,8 +20,8 @@ const typeDefs = gql`
 
     type Journey {
         id: ID!
-        departureTime: DateTime!
-        returnTime: DateTime!
+        departureTime: String!
+        returnTime: String!
         departureStation: Station!
         returnStation: Station!
         "The distance in meters"

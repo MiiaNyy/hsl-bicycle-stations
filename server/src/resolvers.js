@@ -1,4 +1,3 @@
-import { DateTimeScalar } from 'graphql-date-scalars';
 
 
 const journeys = [
@@ -24,8 +23,6 @@ const journeys = [
 ];
 
 const resolvers = {
-    DateTime: DateTimeScalar,
-    
     Query: {
         getJourneys: () => {
             return journeys;
