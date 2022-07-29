@@ -1,5 +1,3 @@
-
-
 const journeys = [
     {
         id: 1,
@@ -24,11 +22,12 @@ const journeys = [
 
 const resolvers = {
     Query: {
-        getJourneys: () => {
-            return journeys;
+        getJourneys: async (_, _args, { dataSources: { journeys } }) => {
+            return journeys.getJourneys();
         },
-        getJourney: (_, { id }) => {
-            return journeys.find( journey => journey.id === id );
+        
+        getJourney: async (_, { id }, { dataSources: { journeys } }) => {
+            return journeys.getJourney( id );
         }
     }
 }
