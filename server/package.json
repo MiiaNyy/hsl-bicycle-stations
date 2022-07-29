@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon --exec babel-node src/index.js"
     },
     "keywords": [],
     "author": "",
@@ -14,7 +15,9 @@
         "apollo-server": "^3.10.0",
         "dotenv": "^16.0.1",
         "graphql": "^15.8.0",
+        "graphql-date-scalars": "^0.1.4",
         "mongoose": "^6.5.0",
+        "nodemon": "^2.0.19",
         "rimraf": "^3.0.2"
     },
     "devDependencies": {
@@ -24,4 +27,3 @@
         "@babel/preset-env": "^7.18.9"
     }
 }
-

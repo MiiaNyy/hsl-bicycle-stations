@@ -1,3 +1,6 @@
+import { DateTimeScalar } from 'graphql-date-scalars';
+
+
 const journeys = [
     {
         id: 1,
@@ -18,13 +21,21 @@ const journeys = [
         coveredDistance: 2043,
         duration: 500
     }
-]
+];
 
-/*
- * 2021-05-31T23:57:25,2021-06-01T00:05:46,094,Laajalahden aukio,100,Teljäntie,2043,500
- 2021-05-31T23:56:59,2021-06-01T00:07:14,082,Töölöntulli,113,Pasilan asema,1870,611
- 2021-05-31T23:56:44,2021-06-01T00:03:26,123,Näkinsilta,121,Vilhonvuorenkatu,1025,399
- 2021-05-31T23:56:23,2021-06-01T00:29:58,004,Viiskulma,065,Hernesaarenranta,4318,2009
- 2021-05-31T23:56:11,2021-06-01T00:02:02,004,Viiskulma,065,Hernesaarenranta,1400,350
- *
- * */
+const resolvers = {
+    DateTime: DateTimeScalar,
+    
+    Query: {
+        getJourneys: () => {
+            return journeys;
+        },
+        getJourney: (_, { id }) => {
+            return journeys.find( journey => journey.id === id );
+        }
+    }
+}
+
+export { resolvers };
+
+

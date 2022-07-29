@@ -1,12 +1,15 @@
 import { gql } from 'apollo-server';
 
 const typeDefs = gql`
+    
     scalar DateTime
     
     type Query {
-        singleStation(id: ID!): Station
-        allStations: [Station]
-        journeys: [Journey]!
+        singleStation(id: ID!): Station!
+        allStations: [Station]!
+        
+        getJourneys: [Journey]!
+        getJourney(id: ID!): Journey!
 
     }
 
