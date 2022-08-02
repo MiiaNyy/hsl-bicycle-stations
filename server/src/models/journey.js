@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 
 const journeySchema = new mongoose.Schema( {
-    departureTime: Date,
-    returnTime: Date,
+    departure: Date,
+    return: Date,
     departureStation: {
         address: String,
         journeysStartingFrom: Number,

@@ -1,5 +1,3 @@
-import csvtojson from "csvtojson";
-
 
 const resolvers = {
     Query: {
