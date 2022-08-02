@@ -67,6 +67,7 @@ fs.createReadStream( csvFilePath )
 				  return toCamelCase( header );
 		  }
 	  },
+	  strict : true,
   } ) )
   .on( 'data', (data) => {
 	  if ( data.duration > 10 || data.coveredDistance > 10 ) {
