@@ -41,44 +41,12 @@ import { resolvers } from './resolvers'
 
 import { Journey as JourneyModel } from "./models/journey";
 import Journeys from "./dataSources/journeys";
-
-import toCamelCase from "./helpers/toCamelCase";
-
-import fs from 'fs';
-import csv from 'csv-parser';
-
-const results = [];
-
+import loopAndValidateJourneyData from "./parseAndValidateCsvFiles";
 
 const uri = process.env.MONGODB_URI;
 
-const csvFilePath = "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/server/src/2021-05.csv";
 
-fs.createReadStream( csvFilePath )
-  .pipe( csv( {
-	  mapHeaders : ({ header, index }) => {
-		  header = header.trim(); // Remove whitespace
-		  switch ( index ) {
-			  case 6:
-				  return toCamelCase( header.slice( 0, -3 ) );
-			  case 7:
-				  return toCamelCase( header.slice( 0, -6 ) );
-			  default:
-				  return toCamelCase( header );
-		  }
-	  },
-	  strict : true,
-  } ) )
-  .on( 'data', (data) => {
-	  if ( data.duration > 10 || data.coveredDistance > 10 ) {
-		  results.push( data );
-	  }
-	
-  } )
-  .on( 'end', () => {
-	  console.log(results[0]);
-	  console.log( "There is " + results.length + " journeys in the file" );
-  } );
+
 
 const main = async () => {
 	await mongoose.connect(
@@ -91,8 +59,12 @@ const main = async () => {
 		} );
 };
 
+
 main()
 	.then( () => {
+		loopAndValidateJourneyData().then( () => {
+			console.log( "Outside of loopAndValidateJourneyData" );
+		})
 		console.log( `🎉 Connected to database successfully VOL 1` );
 		
 	} )
