@@ -8,6 +8,7 @@ class Journeys extends MongoDataSource {
     async getJourney (id) {
         return this.findById( id );
     }
+    
 }
 
 export default Journeys;

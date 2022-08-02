@@ -8,6 +8,8 @@ const typeDefs = gql`
         
         getJourneys: [Journey]!
         getJourney(id: ID!): Journey!
+        
+        insertJourneys: String
 
     }
 

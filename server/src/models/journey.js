@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
-const Journey = mongoose.model( "Journey", {
-    departureTime: String,
-    returnTime: String,
+
+const journeySchema = new mongoose.Schema( {
+    departureTime: Date,
+    returnTime: Date,
     departureStation: {
         address: String,
         journeysStartingFrom: Number,
@@ -10,6 +11,8 @@ const Journey = mongoose.model( "Journey", {
     },
     coveredDistance: Number,
     duration: Number,
-} );
+});
+
+const Journey = mongoose.model( "Journey", journeySchema );
 
 export { Journey };
