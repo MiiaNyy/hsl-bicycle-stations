@@ -3,37 +3,23 @@ import mongoose from 'mongoose';
 
 import { ApolloServer } from 'apollo-server';
 
-import csvtojson from "csvtojson";
+const journeysCsvFilePath1 = "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/resources/2021-05.csv";
+const journeysCsvFilePath2 = "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/resources/2021-06.csv";
+const journeysCsvFilePath3 = "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/resources/2021-07.csv";
+
+const journeysCsvFilePaths = [journeysCsvFilePath1, journeysCsvFilePath2, journeysCsvFilePath3];
+
+
+import csvWriter from 'csv-write-stream';
+
 
 /* const journeyDataInJson = csvtojson().fromFile( csvFilePath );
- journeyDataInJson.then( ( data ) => {
+ journeyDataInJson.then( ( resources ) => {
  
- JourneyModel.insertMany( data, ( err, docs ) => {
+ JourneyModel.insertMany( resources, ( err, docs ) => {
  if ( err ) throw err;
  console.log( `🎉 Inserted ${ docs.length } journeys to database` );
  });*/
-
-
-/*
- const newJourney = new JourneyModel( {
- departureTime: "2020-05-20T08:00:00.000Z",
- returnTime: "2020-05-20T09:00:00.000Z",
- departureStation: {
- address: "Kauppakorkeakoulu",
- journeysStartingFrom: 10,
- journeysEndingAt: 4
- },
- returnStation: {
- address: "Kaisaniemi",
- journeysStartingFrom: 4,
- journeysEndingAt: 8
- },
- coveredDistance: 5000,
- duration: 1025
- 
- });
- newJourney.save()
- .then( () => console.log( "🎉 Saved journey to database successfully" ) );*/
 
 
 import { typeDefs } from './typeDefs'
@@ -41,12 +27,11 @@ import { resolvers } from './resolvers'
 
 import { Journey as JourneyModel } from "./models/journey";
 import Journeys from "./dataSources/journeys";
-import loopAndValidateJourneyData from "./parseAndValidateCsvFiles";
+
+import validateCSVFiles from "./validateCSVFiles";
+import fs from "fs";
 
 const uri = process.env.MONGODB_URI;
-
-
-
 
 const main = async () => {
 	await mongoose.connect(
@@ -61,11 +46,15 @@ const main = async () => {
 
 
 main()
-	.then( () => {
-		loopAndValidateJourneyData().then( () => {
-			console.log( "Outside of loopAndValidateJourneyData" );
-		})
-		console.log( `🎉 Connected to database successfully VOL 1` );
+	.then( async () => {
+		const writer = csvWriter({sendHeaders: false})
+		writer.pipe( fs.createWriteStream( "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/server/src/lazyWithAbsPath.csv", { flags : 'a' } ) );
+		writer.write({departure: "departure", return: "return", departureStationId: "departureStationId", departureStationName: "departureStationName", returnStationId: "returnStationId", returnStationName: "returnStationName", coveredDistance: "coveredDistance", duration: "duration"});
+		writer.end()
+		
+		await validateCSVFiles( journeysCsvFilePath1 );
+		// After validation import resources to mongoDB Atlas using mongoimport terminal command
+		// mongoimport --uri mongodb+srv://mongoDemo:Em3jeWBO2uAlRcu4@cluster0.azfir.mongodb.net/hslBicycleStations --collection journeys --type csv --file resources/2021-05.csv --headerline
 		
 	} )
 	.catch( error => console.error( error ) );
@@ -78,4 +67,5 @@ const server = new ApolloServer( { typeDefs, resolvers, dataSources } )
 
 server.listen( { port : process.env.PORT || 4000 } ).then( ({ url }) => {
 	console.log( `🚀 Server ready at ${ url }` );
+
 } );
