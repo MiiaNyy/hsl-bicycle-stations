@@ -16,7 +16,7 @@ import { resolvers } from './resolvers'
 
 import { Journey as JourneyModel } from "./models/journey";
 import Journeys from "./dataSources/journeys";
-import validateCSVFiles from "./validateCSVFiles";
+import validateCSVFiles from "./validateCsvFileAndAddDataToDatabase";
 
 const uri = process.env.MONGODB_URI;
 
@@ -29,7 +29,6 @@ const main = async () => {
 			if ( err ) throw err;
 			// Validate and Load CSV files to database!
 			console.log( `🎉 Connected to database successfully!!"` );
-			
 			//validateCSVFiles( journeysCsvFilePath1 ).then(() => console.log( 'After csv validation' ) );
 			
 		} );

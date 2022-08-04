@@ -2,19 +2,24 @@ import fs from "fs";
 
 import csv from "csv-parser";
 
-
 import toCamelCase from "./helpers/toCamelCase";
 import validateData from "./helpers/validateData";
 
 import { Journey as JourneyModel } from "./models/journey";
 
+function getCurrentTime() {
+	const today = new Date();
+	return today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+}
 
-
-async function validateCSVFiles (filePath) {
+async function validateCsvFileAndAddDataToDatabase (filePath) {
 	let counter = 0;
 	let batchCounter = 0;
-	let batchSize = 500;
+	let batchSize = 1000;
 	let batch = [];
+	
+	const startingTime = getCurrentTime();
+	
 	const stream = fs.createReadStream( filePath )
 					 .pipe( csv( {
 						 mapHeaders : ({ header, index }) => {
@@ -60,8 +65,6 @@ async function validateCSVFiles (filePath) {
 									 stream.resume()
 								 } )
 							 }
-			
-			
 						 } )
 					 } )
 					 .on( 'end', () => {
@@ -70,9 +73,11 @@ async function validateCSVFiles (filePath) {
 						 JourneyModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
 							 console.log( `last ${ batch.length } journeys written to database` );
+							 console.log('Stream started at: ' + startingTime + ' and ended at: ' + getCurrentTime());
 						 } )
+						 
 					 } );
 }
 
 
-export default validateCSVFiles;
+export default validateCsvFileAndAddDataToDatabase;
