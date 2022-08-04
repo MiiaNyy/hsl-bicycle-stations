@@ -22,18 +22,6 @@ function dateIsValid (date) {
 	return date instanceof Date && !isNaN( date );
 }
 
-function validateData (data, callback) {
-	if ( !validateDuration( data.duration ) ) return;
-	if ( !validateDistance( data.coveredDistance ) ) return;
-	if ( !validateStationId( data.departureStationId ) ) return;
-	if ( !validateStationId( data.returnStationId ) ) return;
-	if ( !validateStationName( data.departureStationName ) ) return;
-	if ( !validateStationName( data.returnStationName ) ) return;
-	if ( !validateDate( data.departure ) ) return;
-	if ( !validateDate( data['return'] ) ) return;
-	callback()
-}
-
 function validateDuration (duration) {
 	if ( !isNumber( duration ) ) return false;
 	if ( duration < 10 ) return false;
@@ -49,3 +37,17 @@ function validateDistance (distance) {
 function isNumber (num) {
 	return num !== null && typeof num === 'number';
 }
+
+function validateData (data, callback) {
+	if ( !validateDuration( data.duration ) ) return;
+	if ( !validateDistance( data.coveredDistance ) ) return;
+	if ( !validateStationId( data.departureStationId ) ) return;
+	if ( !validateStationId( data.returnStationId ) ) return;
+	if ( !validateStationName( data.departureStationName ) ) return;
+	if ( !validateStationName( data.returnStationName ) ) return;
+	if ( !validateDate( data.departure ) ) return;
+	if ( !validateDate( data['return'] ) ) return;
+	callback()
+}
+
+export default validateData;

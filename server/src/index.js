@@ -2,6 +2,7 @@ import 'dotenv/config'
 import mongoose from 'mongoose';
 
 import { ApolloServer } from 'apollo-server';
+import { resolve } from 'path';
 
 const journeysCsvFilePath1 = "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/resources/2021-05.csv";
 const journeysCsvFilePath2 = "/Users/miianyyssonen/Documents/Ohjelmointi/hsl-bicycle-stations/resources/2021-06.csv";
@@ -28,7 +29,8 @@ const main = async () => {
 			if ( err ) throw err;
 			// Validate and Load CSV files to database!
 			console.log( `🎉 Connected to database successfully!!"` );
-			validateCSVFiles( journeysCsvFilePath1 ).then(() => console.log( 'After csv validation' ) );
+			
+			//validateCSVFiles( journeysCsvFilePath1 ).then(() => console.log( 'After csv validation' ) );
 			
 		} );
 };
