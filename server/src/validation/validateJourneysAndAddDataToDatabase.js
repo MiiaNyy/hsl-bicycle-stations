@@ -2,21 +2,20 @@ import fs from "fs";
 
 import csv from "csv-parser";
 
-import toCamelCase from "./helpers/toCamelCase";
-import validateData from "./helpers/validateData";
+import toCamelCase from "../helpers/toCamelCase";
+import validateJourneyData from "./validateJourneyData";
 
-import { Journey as JourneyModel } from "./models/journey";
+import { Journey as JourneyModel } from "../models/journey";
 
-import getCurrentTime from "./helpers/getCurrentTime";
+import getCurrentTime from "../helpers/getCurrentTime";
 
-async function validateCsvFileAndAddDataToDatabase (filePath) {
+async function validateJourneysAndAddDataToDatabase (filePath) {
 	let counter = 0;
 	let batchCounter = 0;
 	let batchSize = 1000;
 	let batch = [];
 	
 	const startingTime = getCurrentTime();
-	console.log( `🎉 Validating ${ filePath }` );
 	
 	const stream = fs.createReadStream( filePath )
 					 .pipe( csv( {
@@ -54,7 +53,7 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 					 } ) )
 	
 					 .on( 'data', (row) => {
-						 validateData( row, () => {
+						 validateJourneyData( row, () => {
 							 batch.push( row )
 							 counter++;
 							 batchCounter++;
@@ -62,8 +61,9 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 								 stream.pause();
 								 JourneyModel.insertMany( batch, (err, docs) => {
 									 if ( err ) throw err;
-									 batch = []
-									 batchCounter = 0
+									 batch = [];
+									 batchCounter = 0;
+									 console.clear();
 									 console.log( `${ counter } journeys written to database` );
 									 stream.resume()
 								 } )
@@ -75,6 +75,7 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 		
 						 JourneyModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
+							 console.clear();
 							 console.log( `last ${ batch.length } journeys written to database` );
 							 console.log('Stream started at: ' + startingTime + ' and ended at: ' + getCurrentTime());
 						 } )
@@ -83,4 +84,4 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 }
 
 
-export default validateCsvFileAndAddDataToDatabase;
+export default validateJourneysAndAddDataToDatabase;

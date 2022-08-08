@@ -15,8 +15,8 @@ import { resolvers } from './resolvers'
 
 import { Journey as JourneyModel } from "./models/journey";
 import Journeys from "./dataSources/journeys";
-import validateCSVFiles from "./validateCsvFileAndAddDataToDatabase";
-import validateCsvFileAndAddDataToDatabase from "./validateCsvFileAndAddDataToDatabase";
+import validateCSVFiles from "./validation/validateJourneysAndAddDataToDatabase";
+import validateJourneysAndAddDataToDatabase from "./validation/validateJourneysAndAddDataToDatabase";
 
 const url = 'mongodb://127.0.0.1:27017/hslBicycles';
 
@@ -30,9 +30,9 @@ const main = async () => {
 			console.log( `🎉 Connected to database successfully!!` );
 			
 			 // Run this only once when the database is created for the first time
-			/*journeysCsvFilePaths.forEach( async (filePath) => {
-			 await validateCsvFileAndAddDataToDatabase(filePath);
-			 });*/
+			journeysCsvFilePaths.forEach( async (filePath) => {
+			 await validateJourneysAndAddDataToDatabase(filePath);
+			 });
 		} );
 };
 
