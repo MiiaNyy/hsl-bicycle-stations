@@ -8,15 +8,21 @@ const journeysCsvFilePath1 = path.join( __dirname, "resources/2021-05.csv" );
 const journeysCsvFilePath2 = path.join( __dirname, "resources/2021-06.csv" );
 const journeysCsvFilePath3 = path.join( __dirname, "resources/2021-07.csv" );
 
+const stationsCsvFilePath = path.join( __dirname, "resources/hsl-bicycle-stations.csv" );
+
 const journeysCsvFilePaths = [journeysCsvFilePath1, journeysCsvFilePath2, journeysCsvFilePath3];
 
 import { typeDefs } from './typeDefs'
 import { resolvers } from './resolvers'
 
 import { Journey as JourneyModel } from "./models/journey";
+import {Station as StationModel} from "./models/station";
+
+
 import Journeys from "./dataSources/journeys";
-import validateCSVFiles from "./validation/validateJourneysAndAddDataToDatabase";
-import validateJourneysAndAddDataToDatabase from "./validation/validateJourneysAndAddDataToDatabase";
+
+import validateStationsAndAddDataToDatabase from "./validation/validateStationsAndAddDataToDatabase";
+import { Station } from "./models/station";
 
 const url = 'mongodb://127.0.0.1:27017/hslBicycles';
 
@@ -30,9 +36,11 @@ const main = async () => {
 			console.log( `🎉 Connected to database successfully!!` );
 			
 			 // Run this only once when the database is created for the first time
-			journeysCsvFilePaths.forEach( async (filePath) => {
+			//validateStationsAndAddDataToDatabase(stationsCsvFilePath);
+			
+			/*journeysCsvFilePaths.forEach( async (filePath) => {
 			 await validateJourneysAndAddDataToDatabase(filePath);
-			 });
+			 });*/
 		} );
 };
 
@@ -52,6 +60,7 @@ main()
 
 const dataSources = () => ( {
 	journeys : new Journeys( JourneyModel ),
+	stations: new Stations( StationModel ),
 } );
 
 const server = new ApolloServer( { typeDefs, resolvers, dataSources } )
