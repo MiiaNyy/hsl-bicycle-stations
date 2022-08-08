@@ -5,8 +5,9 @@ class Stations extends MongoDataSource {
 		return this.model.find();
 	}
 	
-	async getStation (id) {
-		return this.model.findById( id );
+	async getStation (stationId) {
+		console.log('station id is:', stationId);
+		return this.model.findOne( { stationId } );
 	}
 }
 

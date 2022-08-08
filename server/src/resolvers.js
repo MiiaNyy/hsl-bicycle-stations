@@ -7,20 +7,24 @@ const resolvers = {
 		getJourney : async (_, { id }, { dataSources : { journeys } }) => {
 			return journeys.getJourney( id );
 		},
-		singleStation : async (_, { id }, { dataSources : { stations } }) => {
-			return stations.getStation( id );
+		
+		getStation : async (_, { stationId }, { dataSources : { stations } }) => {
+			console.log('station id is:', stationId);
+			return stations.getStation( stationId );
 		},
-		allStations : async (_, __, { dataSources : { stations } }) => {
+		
+		getStations : async (_, __, { dataSources : { stations } }) => {
 			return stations.getStations();
 		}
 	},
 	
 	Journey : {
-		departureStation : async (journey, __, { dataSources : { stations } }) => {
-			return stations.getStation( journey.departureStationId );
+		departureStation : async (parent, __, { dataSources : { stations } }) => {
+			console.log( "parent.departureStationId: " + parent.departureStationId );
+			return stations.getStation( parent.departureStationId );
 		},
-		returnStation : async (journey, __, { dataSources : { stations } }) => {
-			return stations.getStation( journey.returnStationId );
+		returnStation : async (parent, __, { dataSources : { stations } }) => {
+			return stations.getStation( parent.returnStationId );
 		}
 	}
 	
