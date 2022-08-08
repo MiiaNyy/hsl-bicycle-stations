@@ -3,13 +3,16 @@ import fs from "fs";
 import csv from "csv-parser";
 import getCurrentTime from "../helpers/getCurrentTime";
 import toCamelCase from "../helpers/toCamelCase";
-import validateJourneyData from "./validateJourneyData";
+
+import { Station, Station as StationModel } from "../models/station";
+
+import validateStationData from "./validateStationData";
 import { Journey as JourneyModel } from "../models/journey";
 
 async function validateStationsAndAddDataToDatabase (filePath) {
 	let counter = 0;
 	let batchCounter = 0;
-	let batchSize = 1000;
+	let batchSize = 500;
 	let batch = [];
 	
 	const startingTime = getCurrentTime();
@@ -35,23 +38,67 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 									 return "citySWE";
 								 case 9: // Kapaciteetti
 									 return "capacity";
+								 case 11: // x
+									 return "longitude";
+								 case 12: // y
+									 return "latitude";
 								 default:
 									 return toCamelCase( header );
 							 }
 						 },
 						 mapValues : ({ header, value }) => {
-							 console.log( header, value );
-							 return value;
+							 switch ( header ) {
+								 case "stationId":
+									 return parseInt( value );
+								 case "capacity":
+									 return parseInt( value );
+								 case "longitude":
+									 return parseFloat( value );
+								 case "latitude":
+									 return parseFloat( value );
+								 case "cityFIN":
+									 // On dataset only Espoo city names are shown. If the city name is not Espoo,
+									 // it is Helsinki
+									 return value === null ? "Helsinki" : value;
+								 case "citySWE":
+									 return value === null ? "Helsingfors" : value;
+								 default:
+									 return value;
+							 }
 						 },
 						 strict : true,
 					 } ) )
 	
 					 .on( 'data', (row) => {
-						 console.log( row )
+						 validateStationData( row, () => {
+							 batch.push( row )
+							 counter++;
+							 batchCounter++;
+							 if ( batchCounter >= batchSize ) {
+								 stream.pause();
+								 StationModel.insertMany( batch, (err, docs) => {
+									 if ( err ) throw err;
+									 batch = [];
+									 batchCounter = 0;
+									 console.clear();
+									 console.log( `${ counter } journeys written to database` );
+									 stream.resume()
+								 } )
+							 }
+						 } );
 					 } )
 					 .on( 'end', () => {
-						 console.log( "Done reading file" );
-		
+						 console.log( "Done reading file, adding last journeys to database" );
+						 StationModel.insertMany( batch, (err, docs) => {
+							 if ( err ) throw err;
+							 console.clear();
+							 console.log( `last ${ batch.length } stations written to database` );
+							 console.log('Stream started at: ' + startingTime + ' and ended at: ' + getCurrentTime());
+						 } )
 					 } );
 }
+
+export default validateStationsAndAddDataToDatabase;
+
+
 

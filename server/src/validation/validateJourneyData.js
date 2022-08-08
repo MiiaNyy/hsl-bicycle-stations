@@ -1,12 +1,7 @@
 import isNumber from "../helpers/isNumber";
-import isString from "../helpers/isString";
 
 function validateStationId (stationId) {
 	return !( !isNumber( stationId ) );
-}
-
-function validateStationName (stationName) {
-	return !( !isString( stationName ) );
 }
 
 function validateDate (date) {
@@ -25,8 +20,6 @@ function validateDistance (distance) {
 	
 	return distance >= 10;
 }
-
-
 
 function validateJourneyData (data, callback) {
 	if ( !validateDuration( data.duration ) ) return;

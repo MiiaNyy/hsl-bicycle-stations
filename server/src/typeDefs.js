@@ -17,8 +17,8 @@ const typeDefs = gql`
 		nameENG: String!
 		addressFIN: String!
 		addressSWE: String!
-		cityFIN: String!
-		citySWE: String!
+		cityFIN: String
+		citySWE: String
 		capacity: Int!
 		x: Float!
 		y: Float!
