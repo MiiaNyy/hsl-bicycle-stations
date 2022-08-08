@@ -3,37 +3,55 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
     type Query {
+		"Return station by id"
         getStation(stationId: Int!): Station
+        "Returns all stations"
         getStations: [Station]!
-		"Get all journeys depending on the amount"
+		"Get as many journeys as the amount is specified"
         getJourneys(amount:Int!): [Journey]!
+		"Get a journey by id"
         getJourney(id: ID!): Journey!
     }
 
     type Station {
+		"The id of the station given by the datasource files"
         stationId: Int
+		"The name of the station in Finnish"
 		nameFIN: String
+		"The name of the station in Swedish"
 		nameSWE: String
+		"The name of the station in English"
 		nameENG: String
+		"The address of the station in Finnish"
 		addressFIN: String
+		"The address of the station in Swedish"
 		addressSWE: String
+		"The city of the station in Finnish"
 		cityFIN: String
+		"The city of the station in Swedish"
 		citySWE: String
+		"How many bikes fit in the station"
 		capacity: Int
+		"The longitude of the station"
 		longitude: Float
+		"The latitude of the station"
 		latitude: Float
     }
 
 	
     type Journey {
         id: ID!
+		"Journeys departure time"
         departure: DateTime!
+		"Journeys return time"
         return: DateTime!
+		"Station where the journey starts"
 		departureStation: Station!
+		"Station where the journey ends"
         returnStation: Station!
-        "The distance in meters"
+        "The journeys covered distance in meters"
         coveredDistance: Int!
-        "The duration in seconds"
+        "The journeys duration in seconds"
         duration: Int!
     }
 	
