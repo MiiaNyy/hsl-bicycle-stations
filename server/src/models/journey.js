@@ -6,7 +6,7 @@ const journeySchema = new mongoose.Schema( {
     return: Date,
     departureStationId: Number,
 	returnStationId: Number,
-    coveredDistance: Number,
+	coveredDistance: Number,
     duration: Number,
 });
 

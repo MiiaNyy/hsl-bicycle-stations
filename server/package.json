@@ -21,6 +21,7 @@
         "fast-csv": "^4.3.6",
         "graphql": "^15.8.0",
         "graphql-date-scalars": "^0.1.4",
+        "graphql-scalars": "^1.17.0",
         "mongoose": "^6.5.0",
         "nodemon": "^2.0.19",
         "rimraf": "^3.0.2",

@@ -29,10 +29,10 @@ const main = async () => {
 			if ( err ) throw err;
 			console.log( `🎉 Connected to database successfully!!` );
 			
-			journeysCsvFilePaths.forEach( async (filePath) => {
+			 // Run this only once when the database is created for the first time
+			/*journeysCsvFilePaths.forEach( async (filePath) => {
 			 await validateCsvFileAndAddDataToDatabase(filePath);
-			 });
-			
+			 });*/
 		} );
 };
 
