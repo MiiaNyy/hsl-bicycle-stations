@@ -1,13 +1,12 @@
+import isNumber from "../helpers/isNumber";
+import isString from "../helpers/isString";
+
 function validateStationId (stationId) {
 	return !( !isNumber( stationId ) );
 }
 
 function validateStationName (stationName) {
 	return !( !isString( stationName ) );
-}
-
-function isString (str) {
-	return str !== null && typeof str === 'string';
 }
 
 function validateDate (date) {
@@ -27,21 +26,17 @@ function validateDistance (distance) {
 	return distance >= 10;
 }
 
-function isNumber (num) {
-	return num !== null && typeof num === 'number';
-}
 
-function validateData (data, callback) {
+
+function validateJourneyData (data, callback) {
 	if ( !validateDuration( data.duration ) ) return;
 	if ( !validateDistance( data.coveredDistance ) ) return;
 	if ( !validateStationId( data.departureStationId ) ) return;
 	if ( !validateStationId( data.returnStationId ) ) return;
-	if ( !validateStationName( data.departureStationName ) ) return;
-	if ( !validateStationName( data.returnStationName ) ) return;
 	if ( !validateDate( data.departure ) ) return;
 	if ( !validateDate( data['return'] ) ) return;
 	
 	callback()
 }
 
-export default validateData;
+export default validateJourneyData;
