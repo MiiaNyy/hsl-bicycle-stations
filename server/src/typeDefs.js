@@ -12,9 +12,16 @@ const typeDefs = gql`
 
     type Station {
         id: Int!
-        address: String!
-        journeysStartingFrom: Int
-        journeysEndingAt: Int
+		nameFIN: String!
+		nameSWE: String!
+		nameENG: String!
+		addressFIN: String!
+		addressSWE: String!
+		cityFIN: String!
+		citySWE: String!
+		capacity: Int!
+		x: Float!
+		y: Float!
     }
 
 	
