@@ -7,10 +7,7 @@ import validateData from "./helpers/validateData";
 
 import { Journey as JourneyModel } from "./models/journey";
 
-function getCurrentTime() {
-	const today = new Date();
-	return today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-}
+import getCurrentTime from "./helpers/getCurrentTime";
 
 async function validateCsvFileAndAddDataToDatabase (filePath) {
 	let counter = 0;
@@ -19,15 +16,16 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 	let batch = [];
 	
 	const startingTime = getCurrentTime();
+	console.log( `🎉 Validating ${ filePath }` );
 	
 	const stream = fs.createReadStream( filePath )
 					 .pipe( csv( {
 						 mapHeaders : ({ header, index }) => {
 							 header = header.trim(); // Remove whitespace
 							 switch ( index ) {
-								 case 6:
+								 case 6: // Covered distance (m)
 									 return toCamelCase( header.slice( 0, -3 ) );
-								 case 7:
+								 case 7: // Duration (sec.)
 									 return toCamelCase( header.slice( 0, -6 ) );
 								 default:
 									 return toCamelCase( header );
@@ -35,6 +33,10 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 						 },
 						 mapValues : ({ header, value }) => {
 							 switch ( header ) {
+								 case "departure":
+									 return new Date( value );
+								 case "return":
+									 return new Date( value );
 								 case "departureStationId":
 									 return parseInt( value );
 								 case "returnStationId":
@@ -42,6 +44,7 @@ async function validateCsvFileAndAddDataToDatabase (filePath) {
 								 case "duration":
 									 return parseInt( value );
 								 case "coveredDistance":
+									 if ( value === isNaN(value) ) console.log( `🚫 Invalid distance: ${ value }` );
 									 return parseInt( value );
 								 default:
 									 return value;

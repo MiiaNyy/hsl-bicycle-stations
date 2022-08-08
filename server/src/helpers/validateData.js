@@ -1,12 +1,9 @@
-
 function validateStationId (stationId) {
-	if ( !isNumber( stationId ) ) return false;
-	return true;
+	return !( !isNumber( stationId ) );
 }
 
 function validateStationName (stationName) {
-	if ( !isString( stationName ) ) return false;
-	return true;
+	return !( !isString( stationName ) );
 }
 
 function isString (str) {
@@ -14,24 +11,20 @@ function isString (str) {
 }
 
 function validateDate (date) {
-	if ( date === null ) return false;
-	return true;
-}
-
-function dateIsValid (date) {
-	return date instanceof Date && !isNaN( date );
+	return date !== null;
 }
 
 function validateDuration (duration) {
 	if ( !isNumber( duration ) ) return false;
-	if ( duration < 10 ) return false;
-	return true;
+	return duration >= 10;
 }
 
 function validateDistance (distance) {
-	if ( !isNumber( distance ) ) return false;
-	if ( distance < 10 ) return false;
-	return true;
+	if ( !isNumber( distance ) || isNaN( distance ) ) {
+		return false;
+	}
+	
+	return distance >= 10;
 }
 
 function isNumber (num) {
@@ -47,6 +40,7 @@ function validateData (data, callback) {
 	if ( !validateStationName( data.returnStationName ) ) return;
 	if ( !validateDate( data.departure ) ) return;
 	if ( !validateDate( data['return'] ) ) return;
+	
 	callback()
 }
 
