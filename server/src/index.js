@@ -23,6 +23,7 @@ import Journeys from "./dataSources/journeys";
 
 import validateStationsAndAddDataToDatabase from "./validation/validateStationsAndAddDataToDatabase";
 import { Station } from "./models/station";
+import validateJourneysAndAddDataToDatabase from "./validation/validateJourneysAndAddDataToDatabase";
 
 const url = 'mongodb://127.0.0.1:27017/hslBicycles';
 
@@ -36,14 +37,13 @@ const main = async () => {
 			console.log( `🎉 Connected to database successfully!!` );
 			
 			 // Run this only once when the database is created for the first time
-			//validateStationsAndAddDataToDatabase(stationsCsvFilePath);
+			validateStationsAndAddDataToDatabase(stationsCsvFilePath);
 			
-			/*journeysCsvFilePaths.forEach( async (filePath) => {
+			journeysCsvFilePaths.forEach( async (filePath) => {
 			 await validateJourneysAndAddDataToDatabase(filePath);
-			 });*/
+			 });
 		} );
 };
-
 
 main()
 	.then( () => {

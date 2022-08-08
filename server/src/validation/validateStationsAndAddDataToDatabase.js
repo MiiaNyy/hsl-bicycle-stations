@@ -12,7 +12,7 @@ import { Journey as JourneyModel } from "../models/journey";
 async function validateStationsAndAddDataToDatabase (filePath) {
 	let counter = 0;
 	let batchCounter = 0;
-	let batchSize = 500;
+	let batchSize = 100;
 	let batch = [];
 	
 	const startingTime = getCurrentTime();
@@ -22,6 +22,8 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 						 mapHeaders : ({ header, index }) => {
 							 header = header.trim();
 							 switch ( index ) {
+								 case 1: // ID
+									 return "stationId";
 								 case 2: // Nimi
 									 return "nameFIN";
 								 case 3: // Namn
@@ -36,7 +38,7 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 									 return "cityFIN";
 								 case 8: // Stad
 									 return "citySWE";
-								 case 9: // Kapaciteetti
+								 case 10: // Kapaciteetti
 									 return "capacity";
 								 case 11: // x
 									 return "longitude";
@@ -80,8 +82,7 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 									 if ( err ) throw err;
 									 batch = [];
 									 batchCounter = 0;
-									 console.clear();
-									 console.log( `${ counter } journeys written to database` );
+									 console.log( `${ counter } stations written to database` );
 									 stream.resume()
 								 } )
 							 }
@@ -91,9 +92,7 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 						 console.log( "Done reading file, adding last journeys to database" );
 						 StationModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
-							 console.clear();
 							 console.log( `last ${ batch.length } stations written to database` );
-							 console.log('Stream started at: ' + startingTime + ' and ended at: ' + getCurrentTime());
 						 } )
 					 } );
 }

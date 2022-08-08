@@ -10,8 +10,8 @@ const stationSchema = new mongoose.Schema( {
 	cityFIN: String,
 	citySWE: String,
 	capacity: Number,
-	x: Number,
-	y: Number,
+	longitude: Number,
+	latitude: Number,
 });
 
 const Station = mongoose.model( "Station", stationSchema );
