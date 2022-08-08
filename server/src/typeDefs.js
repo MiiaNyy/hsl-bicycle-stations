@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
     type Query {
-        singleStation(id: ID!): Station!
+        singleStation(id: Int!): Station!
         allStations: [Station]!
 		"Get all journeys depending on the amount"
         getJourneys(amount:Int!): [Journey]!
@@ -11,7 +11,7 @@ const typeDefs = gql`
     }
 
     type Station {
-        id: Int!
+        stationId: Int!
 		nameFIN: String!
 		nameSWE: String!
 		nameENG: String!
@@ -20,8 +20,8 @@ const typeDefs = gql`
 		cityFIN: String
 		citySWE: String
 		capacity: Int!
-		x: Float!
-		y: Float!
+		longitude: Float!
+		latitude: Float!
     }
 
 	
@@ -30,7 +30,9 @@ const typeDefs = gql`
         departure: DateTime!
         return: DateTime!
         departureStationId: Int!
-        returnStationId: Int!
+		returnStationId: Int!
+		departureStation: Station!
+        returnStation: Station!
         "The distance in meters"
         coveredDistance: Int!
         "The duration in seconds"
