@@ -1,3 +1,5 @@
+import formatSecondsToMSS from "./helpers/formatSecondsToMSS";
+
 const resolvers = {
 	Query : {
 		getJourneys : async (_, { amount }, { dataSources : { journeys } }) => {
@@ -19,13 +21,21 @@ const resolvers = {
 	},
 	
 	Journey : {
+		coveredDistance : async (parent) => {
+			return parent.coveredDistance / 1000;
+		},
+		
+		duration : async (parent) => {
+			return formatSecondsToMSS( parent.duration );
+		},
+		
 		departureStation : async (parent, __, { dataSources : { stations } }) => {
 			console.log( "parent.departureStationId: " + parent.departureStationId );
 			return stations.getStation( parent.departureStationId );
 		},
 		returnStation : async (parent, __, { dataSources : { stations } }) => {
 			return stations.getStation( parent.returnStationId );
-		}
+		},
 	}
 	
 }

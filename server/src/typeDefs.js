@@ -15,13 +15,13 @@ const typeDefs = gql`
 
     type Station {
 		"The id of the station given by the datasource files"
-        stationId: Int
+        stationId: Int!
 		"The name of the station in Finnish"
-		nameFIN: String
+		nameFIN: String!
 		"The name of the station in Swedish"
-		nameSWE: String
+		nameSWE: String!
 		"The name of the station in English"
-		nameENG: String
+		nameENG: String!
 		"The address of the station in Finnish"
 		addressFIN: String
 		"The address of the station in Swedish"
@@ -31,11 +31,11 @@ const typeDefs = gql`
 		"The city of the station in Swedish"
 		citySWE: String
 		"How many bikes fit in the station"
-		capacity: Int
+		capacity: Int!
 		"The longitude of the station"
-		longitude: Float
+		longitude: Float!
 		"The latitude of the station"
-		latitude: Float
+		latitude: Float!
     }
 
 	
@@ -49,10 +49,10 @@ const typeDefs = gql`
 		departureStation: Station!
 		"Station where the journey ends"
         returnStation: Station!
-        "The journeys covered distance in meters"
-        coveredDistance: Int!
-        "The journeys duration in seconds"
-        duration: Int!
+        "The journeys covered distance in kilometers"
+        coveredDistance: Float!
+        "The journeys duration in minutes"
+        duration: String!
     }
 	
 	scalar DateTime
