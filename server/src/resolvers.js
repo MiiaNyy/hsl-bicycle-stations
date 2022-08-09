@@ -64,6 +64,13 @@ const resolvers = {
 			const journeysReturnStationIds = journeysDepartingFrom.map( journey => journey.returnStationId );
 			const mostPopularStationIds = getMostFrequentIds( journeysReturnStationIds );
 			return stations.getMultipleStations( mostPopularStationIds );
+		},
+		
+		mostPopularDepartureStationsForJourneysReturnedTo : async (parent, __, { dataSources : { journeys, stations } }) => {
+			const journeysReturningTo = await journeys.getJourneysReturnedToStation( parent.stationId );
+			const journeysDepartStationIds = journeysReturningTo.map( journey => journey.departureStationId );
+			const mostPopularStationIds = getMostFrequentIds( journeysDepartStationIds );
+			return stations.getMultipleStations( mostPopularStationIds );
 		}
 	}
 	
