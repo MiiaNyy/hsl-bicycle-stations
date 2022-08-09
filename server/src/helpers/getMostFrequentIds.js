@@ -10,7 +10,6 @@ function getMostFrequentIds (arr) {
 	// sort array by frequency
 	const sorted = entries.sort( (a, b) => b[1] - a[1] );
 	return sorted.slice( 0, 5 ).map( (entry) => entry[0] );
-	
 }
 
 export default getMostFrequentIds;

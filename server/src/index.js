@@ -8,7 +8,7 @@ const journeysCsvFilePath1 = path.join( __dirname, "resources/2021-05.csv" );
 const journeysCsvFilePath2 = path.join( __dirname, "resources/2021-06.csv" );
 const journeysCsvFilePath3 = path.join( __dirname, "resources/2021-07.csv" );
 
-const stationsCsvFilePath = path.join( __dirname, "resources/hsl-bicycle-stations.csv" );
+const stationsCsvFilePath = path.join( __dirname, "resources/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv" );
 
 const journeysCsvFilePaths = [journeysCsvFilePath1, journeysCsvFilePath2, journeysCsvFilePath3];
 
@@ -18,13 +18,11 @@ import { resolvers } from './resolvers'
 import { Journey as JourneyModel } from "./models/journey";
 import {Station as StationModel} from "./models/station";
 
-
+import Stations from "./dataSources/stations";
 import Journeys from "./dataSources/journeys";
 
 import validateStationsAndAddDataToDatabase from "./validation/validateStationsAndAddDataToDatabase";
-import { Station } from "./models/station";
 import validateJourneysAndAddDataToDatabase from "./validation/validateJourneysAndAddDataToDatabase";
-import Stations from "./dataSources/stations";
 
 const url = 'mongodb://127.0.0.1:27017/hslBicycles';
 
@@ -36,8 +34,8 @@ const main = async () => {
 		(err) => {
 			if ( err ) throw err;
 			console.log( `🎉 Connected to database successfully!!` );
-			/*
-			 // Run this only once when the database is created for the first time
+			
+			/* // Run this only once when the database is created for the first time
 			validateStationsAndAddDataToDatabase(stationsCsvFilePath);
 			
 			journeysCsvFilePaths.forEach( async (filePath) => {

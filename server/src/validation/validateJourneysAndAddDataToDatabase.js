@@ -38,7 +38,6 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 									 if ( err ) throw err;
 									 batch = [];
 									 batchCounter = 0;
-									 console.clear();
 									 console.log( `${ counter } journeys written to database` );
 									 stream.resume()
 								 } )
@@ -49,9 +48,8 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 						 console.log( '🎉 Journeys csv file validation complete. Adding last journeys to db...' );
 						 JourneyModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
-							 console.clear();
-							 console.log( `last ${ batch.length } journeys written to database` );
-							 console.log('Stream started at: ' + startingTime + ' and ended at: ' + getCurrentTime());
+							 console.log('🎊 Stream ended!! Journey stream started at: ' + startingTime + ' and ended' +
+								 ' at: ' + getCurrentTime());
 						 } )
 						 
 					 } );

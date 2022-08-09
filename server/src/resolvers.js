@@ -87,7 +87,6 @@ const resolvers = {
 	}
 }
 
-
 export { resolvers };
 
 

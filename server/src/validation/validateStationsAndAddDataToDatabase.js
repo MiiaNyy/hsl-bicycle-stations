@@ -49,8 +49,8 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 						 console.log( '🎉 Station csv file validation complete. Adding last stations to db...' );
 						 StationModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
-							 console.log( `last ${ batch.length } stations written to database` );
-							 console.log('Stream started at: ' + startingTime + ' and ended at: ' + getCurrentTime());
+							 console.log('🎊 Stream ended!! Station stream started at: ' + startingTime + ' and ended' +
+								 ' at: ' + getCurrentTime());
 						 } )
 					 } );
 }

@@ -32,12 +32,10 @@ const typeDefs = gql`
 		averageDistanceStartingFrom: Float!
 		"The average distance of a journey returning to the station in kilometers"
 		averageDistanceReturnedTo: Float!
-		
 		"Top 5 most popular return stations for journeys starting from this station"
 		mostPopularReturnStationsForJourneysStartingFrom: [Station]!
 		"Top 5 most popular departure stations for journeys returning to the station"
 		mostPopularDepartureStationsForJourneysReturnedTo: [Station]!
-		
 		"The longitude of the station"
 		longitude: Float!
 		"The latitude of the station"
