@@ -1,5 +1,6 @@
 import formatSecondsToMSS from "./helpers/formatSecondsToMSS";
 import getAverageDistance from "./helpers/getAverageDistance";
+import getMostFrequentIdsAndFrequency from "./helpers/getMostFrequentIdsAndFrequency";
 
 const resolvers = {
 	Query : {
@@ -39,8 +40,8 @@ const resolvers = {
 	
 	Station : {
 		numOfJourneysStartingFrom : async (parent, __, { dataSources : { journeys } }) => {
-			const journeysStartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
-			return journeysStartingFrom.length;
+			const journeysDepartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
+			return journeysDepartingFrom.length;
 		},
 		
 		numOfJourneysReturningTo : async (parent, __, { dataSources : { journeys } }) => {
@@ -49,18 +50,24 @@ const resolvers = {
 		},
 		
 		averageDistanceStartingFrom : async (parent, __, { dataSources : { journeys } }) => {
-			const journeysStartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
-			return getAverageDistance( journeysStartingFrom );
+			const journeysDepartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
+			return getAverageDistance( journeysDepartingFrom );
 		},
 		
 		averageDistanceReturnedTo : async (parent, __, { dataSources : { journeys } }) => {
 			const journeysReturningTo = await journeys.getJourneysReturnedToStation( parent.stationId );
 			return getAverageDistance( journeysReturningTo );
+		},
+		
+		mostPopularReturnStationsForJourneysStartingFrom : async (parent, __, { dataSources : { journeys, stations } }) => {
+			const journeysDepartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
+			const journeysReturnStationIds = journeysDepartingFrom.map( journey => journey.returnStationId );
+			const mostPopularStationIds = getMostFrequentIdsAndFrequency( journeysReturnStationIds );
+			return stations.getMultipleStations( mostPopularStationIds );
 		}
 	}
 	
 }
-
 
 
 export { resolvers };

@@ -6,8 +6,11 @@ class Stations extends MongoDataSource {
 	}
 	
 	async getStation (stationId) {
-		console.log('station id is:', stationId);
 		return this.model.findOne( { stationId } );
+	}
+	
+	async getMultipleStations (stationIds) {
+		return this.model.find( { stationId : stationIds } );
 	}
 }
 
