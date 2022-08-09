@@ -16,20 +16,12 @@ const typeDefs = gql`
     type Station {
 		"The id of the station given by the datasource files"
         stationId: Int!
-		"The name of the station in Finnish"
-		nameFIN: String!
-		"The name of the station in Swedish"
-		nameSWE: String!
 		"The name of the station in English"
-		nameENG: String!
-		"The address of the station in Finnish"
-		addressFIN: String
-		"The address of the station in Swedish"
-		addressSWE: String
-		"The city of the station in Finnish"
-		cityFIN: String
-		"The city of the station in Swedish"
-		citySWE: String
+		name: String!
+		"The address of the station"
+		address: String
+		"The city that the station is in"
+		city: String
 		"How many bikes fit in the station"
 		capacity: Int!
 		"Number of journeys starting from the station"

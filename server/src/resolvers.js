@@ -73,7 +73,6 @@ const resolvers = {
 			return stations.getMultipleStations( mostPopularStationIds );
 		}
 	}
-	
 }
 
 

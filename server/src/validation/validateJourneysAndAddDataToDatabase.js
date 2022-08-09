@@ -1,13 +1,12 @@
 import fs from "fs";
-
 import csv from "csv-parser";
 
 import toCamelCase from "../helpers/toCamelCase";
+import getCurrentTime from "../helpers/getCurrentTime";
+
 import validateJourneyData from "./validateJourneyData";
 
 import { Journey as JourneyModel } from "../models/journey";
-
-import getCurrentTime from "../helpers/getCurrentTime";
 
 async function validateJourneysAndAddDataToDatabase (filePath) {
 	let counter = 0;
@@ -20,34 +19,10 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 	const stream = fs.createReadStream( filePath )
 					 .pipe( csv( {
 						 mapHeaders : ({ header, index }) => {
-							 header = header.trim(); // Remove whitespace
-							 switch ( index ) {
-								 case 6: // Covered distance (m)
-									 return toCamelCase( header.slice( 0, -3 ) );
-								 case 7: // Duration (sec.)
-									 return toCamelCase( header.slice( 0, -6 ) );
-								 default:
-									 return toCamelCase( header );
-							 }
+							 return mapJourneyHeaders( header, index );
 						 },
 						 mapValues : ({ header, value }) => {
-							 switch ( header ) {
-								 case "departure":
-									 return new Date( value );
-								 case "return":
-									 return new Date( value );
-								 case "departureStationId":
-									 return parseInt( value );
-								 case "returnStationId":
-									 return parseInt( value );
-								 case "duration":
-									 return parseInt( value );
-								 case "coveredDistance":
-									 if ( value === isNaN(value) ) console.log( `🚫 Invalid distance: ${ value }` );
-									 return parseInt( value );
-								 default:
-									 return value;
-							 }
+							return mapJourneyValues({header, value});
 						 },
 						 strict : true,
 					 } ) )
@@ -71,8 +46,7 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 						 } )
 					 } )
 					 .on( 'end', () => {
-						 console.log( '🎉 CSV file validation complete. Adding last journeys to db' );
-		
+						 console.log( '🎉 Journeys csv file validation complete. Adding last journeys to db...' );
 						 JourneyModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
 							 console.clear();
@@ -83,5 +57,35 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 					 } );
 }
 
+function mapJourneyHeaders (header, index) {
+	header = header.trim(); // Remove whitespace
+	switch ( index ) {
+		case 6: // Covered distance (m)
+			return toCamelCase( header.slice( 0, -3 ) );
+		case 7: // Duration (sec.)
+			return toCamelCase( header.slice( 0, -6 ) );
+		default:
+			return toCamelCase( header );
+	}
+}
+
+function mapJourneyValues ({ header, value }) {
+	switch ( header ) {
+		case "departure":
+			return new Date( value );
+		case "return":
+			return new Date( value );
+		case "departureStationId":
+			return parseInt( value );
+		case "returnStationId":
+			return parseInt( value );
+		case "duration":
+			return parseInt( value );
+		case "coveredDistance":
+			return parseInt( value );
+		default:
+			return value;
+	}
+}
 
 export default validateJourneysAndAddDataToDatabase;
