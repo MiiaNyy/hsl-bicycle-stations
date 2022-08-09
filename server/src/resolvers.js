@@ -1,6 +1,6 @@
 import formatSecondsToMSS from "./helpers/formatSecondsToMSS";
 import getAverageDistance from "./helpers/getAverageDistance";
-import getMostFrequentIdsAndFrequency from "./helpers/getMostFrequentIdsAndFrequency";
+import getMostFrequentIds from "./helpers/getMostFrequentIds";
 
 const resolvers = {
 	Query : {
@@ -62,7 +62,7 @@ const resolvers = {
 		mostPopularReturnStationsForJourneysStartingFrom : async (parent, __, { dataSources : { journeys, stations } }) => {
 			const journeysDepartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
 			const journeysReturnStationIds = journeysDepartingFrom.map( journey => journey.returnStationId );
-			const mostPopularStationIds = getMostFrequentIdsAndFrequency( journeysReturnStationIds );
+			const mostPopularStationIds = getMostFrequentIds( journeysReturnStationIds );
 			return stations.getMultipleStations( mostPopularStationIds );
 		}
 	}
