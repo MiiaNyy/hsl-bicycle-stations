@@ -11,7 +11,6 @@ const resolvers = {
 		},
 		
 		getStation : async (_, { stationId }, { dataSources : { stations } }) => {
-			console.log('station id is:', stationId);
 			return stations.getStation( stationId );
 		},
 		
@@ -30,12 +29,23 @@ const resolvers = {
 		},
 		
 		departureStation : async (parent, __, { dataSources : { stations } }) => {
-			console.log( "parent.departureStationId: " + parent.departureStationId );
 			return stations.getStation( parent.departureStationId );
 		},
 		returnStation : async (parent, __, { dataSources : { stations } }) => {
 			return stations.getStation( parent.returnStationId );
 		},
+	},
+	
+	Station : {
+		numOfJourneysStartingFrom : async (parent, __, { dataSources : { journeys } }) => {
+			const journeysStartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
+			return journeysStartingFrom.length;
+		},
+		
+		numOfJourneysReturningTo : async (parent, __, { dataSources : { journeys } }) => {
+			const journeysReturningTo = await journeys.getJourneysReturnedToStation( parent.stationId );
+			return journeysReturningTo.length;
+		}
 	}
 	
 }

@@ -32,10 +32,13 @@ const typeDefs = gql`
 		citySWE: String
 		"How many bikes fit in the station"
 		capacity: Int!
+		numOfJourneysStartingFrom: Int!
+		numOfJourneysReturningTo: Int!
 		"The longitude of the station"
 		longitude: Float!
 		"The latitude of the station"
 		latitude: Float!
+		
     }
 
 	
