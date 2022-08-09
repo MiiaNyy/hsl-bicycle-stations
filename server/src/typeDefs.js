@@ -32,8 +32,14 @@ const typeDefs = gql`
 		citySWE: String
 		"How many bikes fit in the station"
 		capacity: Int!
+		"Number of journeys starting from the station"
 		numOfJourneysStartingFrom: Int!
+		"Number of journeys returning to the station"
 		numOfJourneysReturningTo: Int!
+		"The average distance of a journey starting from the station in kilometers"
+		averageDistanceStartingFrom: Float!
+		"The average distance of a journey returning to the station in kilometers"
+		averageDistanceReturnedTo: Float!
 		"The longitude of the station"
 		longitude: Float!
 		"The latitude of the station"

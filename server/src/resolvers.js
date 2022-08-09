@@ -45,6 +45,20 @@ const resolvers = {
 		numOfJourneysReturningTo : async (parent, __, { dataSources : { journeys } }) => {
 			const journeysReturningTo = await journeys.getJourneysReturnedToStation( parent.stationId );
 			return journeysReturningTo.length;
+		},
+		
+		averageDistanceStartingFrom : async (parent, __, { dataSources : { journeys } }) => {
+			const journeysStartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
+			const totalDistance = journeysStartingFrom.reduce( (acc, journey) => acc + journey.coveredDistance, 0 );
+			const averageInKM = ( totalDistance / journeysStartingFrom.length ) / 1000;
+			return parseFloat( averageInKM.toFixed( 2 ) ); // 2 decimal places
+		},
+		
+		averageDistanceReturnedTo : async (parent, __, { dataSources : { journeys } }) => {
+			const journeysReturningTo = await journeys.getJourneysReturnedToStation( parent.stationId );
+			const totalDistance = journeysReturningTo.reduce( (acc, journey) => acc + journey.coveredDistance, 0 );
+			const averageInKM = ( totalDistance / journeysReturningTo.length ) / 1000;
+			return parseFloat( averageInKM.toFixed( 2 ) ); // 2 decimal places
 		}
 	}
 	
