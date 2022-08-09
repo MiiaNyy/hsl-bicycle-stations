@@ -39,6 +39,18 @@ const resolvers = {
 	},
 	
 	Station : {
+		name: async (parent) => {
+			return parent.nameENG;
+		},
+		
+		address: async (parent) => {
+			return parent.addressFIN;
+		},
+		
+		city: async (parent) => {
+			return parent.cityFIN;
+		},
+		
 		numOfJourneysStartingFrom : async (parent, __, { dataSources : { journeys } }) => {
 			const journeysDepartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
 			return journeysDepartingFrom.length;

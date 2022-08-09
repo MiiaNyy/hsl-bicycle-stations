@@ -1,12 +1,12 @@
 import fs from "fs";
-
 import csv from "csv-parser";
+
 import getCurrentTime from "../helpers/getCurrentTime";
 import toCamelCase from "../helpers/toCamelCase";
 
-import { Station as StationModel } from "../models/station";
-
 import validateStationData from "./validateStationData";
+
+import { Station as StationModel } from "../models/station";
 
 async function validateStationsAndAddDataToDatabase (filePath) {
 	let counter = 0;
