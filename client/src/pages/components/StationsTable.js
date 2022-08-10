@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 const GET_STATIONS = gql`
     query Query($amount: Int!) {
@@ -45,13 +45,13 @@ function StationsTable () {
 function TableRow ({ station }) {
 	
 	return (
-		<tr key={ station.id }>
+		<tr key={ station.stationId }>
 			<td>{ station.stationId }</td>
 			<td>{ station.name }</td>
 			<td>{ station.city }</td>
 			<td>{ station.capacity }</td>
 			<td>
-				<button>➡</button>
+				<a href={"station/" + station.stationId }>&#8594;</a>
 			</td>
 		</tr>
 	);

@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap";
 const GET_JOURNEYS = gql`
     query Query($amount: Int!) {
         getJourneys(amount: $amount) {
+			id
             duration
             coveredDistance
             returnStation {
@@ -27,13 +28,12 @@ function JourneysTable () {
 	const { loading, error, data } = useQuery( GET_JOURNEYS, {
 		variables : { amount : 20 },
 	} );
-	
 	if ( loading ) return <p>Loading...</p>;
 	if ( error ) return <p>Error :(</p>;
 	
 	
 	return (
-		<Table striped bordered style={styles}>
+		<Table striped bordered hover style={styles}>
 			<thead>
 			<tr>
 				<th>Covered Distance (km)</th>
@@ -62,7 +62,9 @@ function TableRow ( {journey} ) {
 			<td>{ journey.duration }</td>
 			<td><a href={"station/" + departureStation.stationId }>{ departureStation.name }</a> </td>
 			<td><a href={"station/" + returnStation.stationId }>{ returnStation.name }</a> </td>
-			<td><button>➡</button></td>
+			<td>
+				<a href={"journey/" + journey.id }>&#8594;</a>
+			</td>
 		</tr>
 	);
 }

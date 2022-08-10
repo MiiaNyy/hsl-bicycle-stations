@@ -14,10 +14,8 @@ function Home () {
 		
 	};
 	
-	
 	return (
 		<>
-			<Navigation/>
 			<Container style={ border }>
 				<Row>
 					<h2>Helsinki city bicycle data</h2>
