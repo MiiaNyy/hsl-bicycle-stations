@@ -2,7 +2,7 @@ import fs from "fs";
 import csv from "csv-parser";
 
 import toCamelCase from "../helpers/toCamelCase";
-import getCurrentTime from "../helpers/getCurrentTime";
+import getCurrentTimeInHMSS from "../helpers/getCurrentTimeInHMSS";
 
 import validateJourneyData from "./validateJourneyData";
 
@@ -14,7 +14,7 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 	let batchSize = 1000;
 	let batch = [];
 	
-	const startingTime = getCurrentTime();
+	const startingTime = getCurrentTimeInHMSS();
 	
 	const stream = fs.createReadStream( filePath )
 					 .pipe( csv( {
@@ -49,7 +49,7 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 						 JourneyModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
 							 console.log('🎊 Stream ended!! Journey stream started at: ' + startingTime + ' and ended' +
-								 ' at: ' + getCurrentTime());
+								 ' at: ' + getCurrentTimeInHMSS());
 						 } )
 						 
 					 } );

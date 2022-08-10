@@ -43,14 +43,6 @@ const typeDefs = gql`
 		
     }
 	
-	type mostPopularStation {
-		"Number of journeys departed or returned to the station"
-		numOfJourneys: Int!
-		"The station"
-		station: Station!
-    }
-
-	
     type Journey {
         id: ID!
 		"Journeys departure time"

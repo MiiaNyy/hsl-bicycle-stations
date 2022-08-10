@@ -6,7 +6,6 @@ class Journeys extends MongoDataSource {
     }
     
     async getJourney (id) {
-		console.log('journeys id is:', id);
         return this.model.findById( id );
     }
 	

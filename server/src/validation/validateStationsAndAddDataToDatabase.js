@@ -1,7 +1,7 @@
 import fs from "fs";
 import csv from "csv-parser";
 
-import getCurrentTime from "../helpers/getCurrentTime";
+import getCurrentTimeInHMSS from "../helpers/getCurrentTimeInHMSS";
 import toCamelCase from "../helpers/toCamelCase";
 
 import validateStationData from "./validateStationData";
@@ -14,7 +14,7 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 	let batchSize = 100;
 	let batch = [];
 	
-	const startingTime = getCurrentTime();
+	const startingTime = getCurrentTimeInHMSS();
 	
 	const stream = fs.createReadStream( filePath )
 					 .pipe( csv( {
@@ -50,7 +50,7 @@ async function validateStationsAndAddDataToDatabase (filePath) {
 						 StationModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
 							 console.log('🎊 Stream ended!! Station stream started at: ' + startingTime + ' and ended' +
-								 ' at: ' + getCurrentTime());
+								 ' at: ' + getCurrentTimeInHMSS());
 						 } )
 					 } );
 }

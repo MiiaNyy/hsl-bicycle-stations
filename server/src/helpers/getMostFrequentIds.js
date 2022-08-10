@@ -5,7 +5,7 @@ function getMostFrequentIds (arr) {
 		return acc
 	}, {} );
 	
-	// change hashmap to array of [value, frequency]
+	// change hashmap to array of [[value, frequency]]
 	const entries = Object.entries( hashmap );
 	// sort array by frequency
 	const sorted = entries.sort( (a, b) => b[1] - a[1] );
