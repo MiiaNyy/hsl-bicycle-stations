@@ -6,7 +6,7 @@ const typeDefs = gql`
 		"Return station by id"
         getStation(stationId: Int!): Station
         "Returns all stations"
-        getStations: [Station]!
+        getStations(amount:Int!): [Station]!
 		"Get as many journeys as the amount is specified"
         getJourneys(amount:Int!): [Journey]!
 		"Get a journey by id"

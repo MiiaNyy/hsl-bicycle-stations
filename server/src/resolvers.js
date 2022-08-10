@@ -16,8 +16,8 @@ const resolvers = {
 			return stations.getStation( stationId );
 		},
 		
-		getStations : async (_, __, { dataSources : { stations } }) => {
-			return stations.getStations();
+		getStations : async (_, { amount }, { dataSources : { stations } }) => {
+			return stations.getStations( amount );
 		}
 	},
 	
@@ -39,15 +39,15 @@ const resolvers = {
 	},
 	
 	Station : {
-		name: async (parent) => {
+		name : async (parent) => {
 			return parent.nameENG;
 		},
 		
-		address: async (parent) => {
+		address : async (parent) => {
 			return parent.addressFIN;
 		},
 		
-		city: async (parent) => {
+		city : async (parent) => {
 			return parent.cityFIN;
 		},
 		
@@ -71,14 +71,24 @@ const resolvers = {
 			return getAverageDistance( journeysReturningTo );
 		},
 		
-		mostPopularReturnStationsForJourneysStartingFrom : async (parent, __, { dataSources : { journeys, stations } }) => {
+		mostPopularReturnStationsForJourneysStartingFrom : async (parent, __, {
+			dataSources : {
+				journeys,
+				stations
+			}
+		}) => {
 			const journeysDepartingFrom = await journeys.getJourneysStartingFromStation( parent.stationId );
 			const journeysReturnStationIds = journeysDepartingFrom.map( journey => journey.returnStationId );
 			const mostPopularStationIds = getMostFrequentIds( journeysReturnStationIds );
 			return stations.getMultipleStations( mostPopularStationIds );
 		},
 		
-		mostPopularDepartureStationsForJourneysReturnedTo : async (parent, __, { dataSources : { journeys, stations } }) => {
+		mostPopularDepartureStationsForJourneysReturnedTo : async (parent, __, {
+			dataSources : {
+				journeys,
+				stations
+			}
+		}) => {
 			const journeysReturningTo = await journeys.getJourneysReturnedToStation( parent.stationId );
 			const journeysDepartStationIds = journeysReturningTo.map( journey => journey.departureStationId );
 			const mostPopularStationIds = getMostFrequentIds( journeysDepartStationIds );
