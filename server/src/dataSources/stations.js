@@ -3,15 +3,15 @@ import { MongoDataSource } from "apollo-datasource-mongodb";
 class Stations extends MongoDataSource {
 	
 	async getStations (amount) {
-		return this.model.find().limit(amount);
+		return this.model.find().limit( amount );
 	}
 	
-	async getStation (stationId) {
-		return this.model.findOne( { stationId } );
+	async getStation (id) {
+		return this.model.findOne( { stationId : id } );
 	}
 	
-	async getMultipleStations (stationIds) {
-		return this.model.find( { stationId : stationIds } );
+	async getMultipleStations (ids) {
+		return this.model.find( { stationId : ids } );
 	}
 }
 

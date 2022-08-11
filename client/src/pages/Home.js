@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 
 import JourneysTable from "./components/JourneysTable";
 import StationsTable from "./components/StationsTable";
-import Navigation from "./components/Navigation";
 
 
 function Home () {
@@ -17,9 +16,6 @@ function Home () {
 	return (
 		<>
 			<Container style={ border }>
-				<Row>
-					<h2>Helsinki city bicycle data</h2>
-				</Row>
 				<Row>
 					<Col md>
 						<h2>Stations</h2>

@@ -9,14 +9,14 @@ function App () {
 	return (
 		<BrowserRouter>
 			<Navigation/>
-			<Container>
+			<Container className="mt-4">
 				<Routes>
 					<Route path="/" element={ <Home/> }/>
 					<Route path="/journey" element={ <Journey/> }>
 						<Route path=":id" element={ <Journey/> }/>
 					</Route>
 					<Route path="station" element={ <Station/> }>
-						<Route path=":id" element={ <Station/> }/>
+						<Route exact path=":id" element={ <Station/> }/>
 					</Route>
 				</Routes>
 			</Container>

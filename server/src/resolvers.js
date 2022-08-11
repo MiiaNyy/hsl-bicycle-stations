@@ -12,11 +12,14 @@ const resolvers = {
 			return journeys.getJourney( id );
 		},
 		
-		getStation : async (_, { stationId }, { dataSources : { stations } }) => {
-			return stations.getStation( stationId );
+		
+		getStation : async (_, { id }, { dataSources : { stations } }) => {
+			console.log( "getStation", id );
+			return stations.getStation( id );
 		},
 		
 		getStations : async (_, { amount }, { dataSources : { stations } }) => {
+			console.log( "getStations", amount );
 			return stations.getStations( amount );
 		}
 	},
