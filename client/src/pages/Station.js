@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import { Table } from "react-bootstrap";
 import TableBorder from "./components/TableBorder";
 import Container from "react-bootstrap/Container";
+import TableDataBorder from "./components/TableDataBorder";
 
 
 const GET_STATION = gql`
@@ -87,10 +88,10 @@ function MostPopularStationTable ({ stations }) {
 					<tbody>
 					{ stations.map( station => (
 						<tr key={ station.stationId }>
-							<td className="border-end border-2 border-warning">{ station.stationId }</td>
+							<TableDataBorder>{ station.stationId }</TableDataBorder>
 							<td>{ station.name }</td>
 							<td className="border-start border-2 border-warning">
-								<a href={ "station/" + station.stationId }>&#8594;</a>
+								<a href={ "station/" + station.stationId } className="btn__link">&#8594;</a>
 							</td>
 						</tr>
 					) ) }
@@ -106,7 +107,7 @@ function MostPopularStationTable ({ stations }) {
 function StationBasicInfo ({ station }) {
 	return (
 		<div className="text-center station__container">
-			<h1 className="mb-4 ">{ station.stationId } { station.name } station</h1>
+			<h1 className="mb-4 ">{ station.stationId }, { station.name }</h1>
 			<Row className=" ">
 			</Row>
 			<Row className="border border-2 border-warning rounded box-shadow">

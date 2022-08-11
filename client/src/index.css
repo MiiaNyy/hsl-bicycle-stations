@@ -74,6 +74,10 @@ footer {
 
 }
 
+table td {
+    vertical-align: middle;
+}
+
 .btn__link {
     font-size: 1.5rem;
     text-decoration: none;
@@ -83,7 +87,7 @@ footer {
 }
 
 .btn__link:hover {
-    opacity: 0.8;
+    color: #ffc107;
 }
 
 

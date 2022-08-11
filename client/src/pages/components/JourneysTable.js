@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import TableBorder from "./TableBorder";
+import TableDataBorder from "./TableDataBorder";
 
 const GET_JOURNEYS = gql`
     query Query($amount: Int!) {
@@ -61,10 +62,10 @@ function TableRow ({ journey }) {
 	
 	return (
 		<tr key={ journey.id }>
-			<td className="border-end border-2 border-warning">{ journey.coveredDistance } km</td>
-			<td className="border-end border-2 border-warning">{ journey.duration }</td>
-			<td className="border-end border-2 border-warning"><a href={ "station/" + departureStation.stationId }>{ departureStation.name }</a></td>
-			<td className="border-end border-2 border-warning"><a href={ "station/" + returnStation.stationId }>{ returnStation.name }</a></td>
+			<TableDataBorder> <p className="m-1">{ journey.coveredDistance } km</p></TableDataBorder>
+			<TableDataBorder>{ journey.duration }</TableDataBorder>
+			<TableDataBorder><a href={ "station/" + departureStation.stationId } className="link-secondary">{ departureStation.name }</a></TableDataBorder>
+			<TableDataBorder><a href={ "station/" + returnStation.stationId } className="link-secondary">{ returnStation.name }</a></TableDataBorder>
 			<td>
 				<a href={ "journey/" + journey.id } className="btn__link">&#8594;</a>
 			</td>
