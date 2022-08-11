@@ -49,12 +49,26 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 0.5em 0 0;
 }
 
+/* --- GENERAL --- */
+
+.box-shadow {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
 .borders {
     border: 1px solid #ff00fb;
 }
 
+footer {
+    margin-top: 1em;
+    padding-top: 1em;
+
+}
+
+/* --- CLASSES --- */
+
 .station__container {
-    border: 1px solid palevioletred;
-    width: 100%;
+    width: 90%;
     max-width: 600px;
+    margin: 0 auto;
 }

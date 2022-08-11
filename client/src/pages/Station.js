@@ -41,114 +41,101 @@ function Station () {
 	if ( loading ) return <p>Loading...</p>;
 	if ( error ) return <p>Error :(</p>;
 	
+	const station = data.getStation;
+	
 	return (
 		<div>
 			
 			<Row>
-				<Col>
-					<StationBasicInfo station={ data.getStation }/>
-				</Col>
+				
+				<StationBasicInfo station={ station }/>
+			
 			</Row>
-			<Row>
-				<Col>
-					<Row>
-						<Col>
-							<p className="info-header">Total number of <em>departing</em> journeys</p>
-							<p>{ data.getStation.numOfJourneysStartingFrom }</p>
-						</Col>
-					</Row>
-					<Row>
-						<Col>
-							<p className="info-header">Total number of <em>returning</em> journeys</p>
-							<p>{ data.getStation.numOfJourneysReturningTo }</p>
-						</Col>
-					</Row>
-				</Col>
-			</Row>
-			<Row>
-				<p className="info-header">Average distance driven, when departing</p>
-				<p>{ data.getStation.averageDistanceStartingFrom }km</p>
-				<p className="info-header">Average distance driven, when returning</p>
-				<p>{ data.getStation.averageDistanceReturnedTo }km</p>
-			</Row>
-			<Row>
-				<Col>
-					<p className="info-header">Most popular starting stations when ending journey
-						in { data.getStation.name }</p>
-					
-					<Table striped bordered>
-						<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th></th>
-						</tr>
-						</thead>
-						<tbody>
-						{ data.getStation.mostPopularDepartureStationsForJourneysReturnedTo.map( station => (
-							<tr key={ station.stationId }>
-								<td>{ station.stationId }</td>
-								<td>{ station.name }</td>
-								<td>
-									<a href={ "station/" + station.stationId }>&#8594;</a>
-								</td>
-							</tr>
-						) ) }
-						</tbody>
-					</Table>
+			
+			<Row className="mt-5 mb-5 text-center">
+				<h4 className="mb-3">Top 5 most popular...</h4>
+				<Col md>
+					<p className="info-header mb-2">Departure stations for journeys <em>ending</em> at { station.name }</p>
+					<MostPopularStationTable stations={ station.mostPopularDepartureStationsForJourneysReturnedTo }/>
 				</Col>
 				<Col>
-					<p className="info-header">Most popular ending stations when starting journey
-						from { data.getStation.name }</p>
-					
-					<Table striped bordered>
-						<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th></th>
-						</tr>
-						</thead>
-						<tbody>
-						{ data.getStation.mostPopularReturnStationsForJourneysStartingFrom.map( station => (
-							<tr key={ station.stationId }>
-								<td>{ station.stationId }</td>
-								<td>{ station.name }</td>
-								<td>
-									<a href={ "station/" + station.stationId }>&#8594;</a>
-								</td>
-							</tr>
-						) ) }
-						</tbody>
-					</Table>
+					<p className="info-header mb-2">Return stations for journeys <em>starting</em> from { station.name }:</p>
+					<MostPopularStationTable stations={ station.mostPopularReturnStationsForJourneysStartingFrom }/>
 				</Col>
 			</Row>
 		</div>
 	)
 }
 
+function MostPopularStationTable ({ stations }) {
+	
+	return (
+		<Table striped bordered className="box-shadow">
+			<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			{ stations.map( station => (
+				<tr key={ station.stationId }>
+					<td>{ station.stationId }</td>
+					<td>{ station.name }</td>
+					<td>
+						<a href={ "station/" + station.stationId }>&#8594;</a>
+					</td>
+				</tr>
+			) ) }
+			</tbody>
+		</Table>
+	)
+}
+
 
 function StationBasicInfo ({ station }) {
 	return (
-		<div>
-			<Row className="m-auto text-center border-bottom borders">
-				<Row className={ "borders m-auto" }>
-					<h2>{ station.stationId } { station.name } station</h2>
-				</Row>
-				<Row className="m-auto mt-2 p-0 station__container">
-					<Col sm={ 5 } className="borders ">
-						<p className="info-header">Address</p>
-						<p>{ station.address }</p>
-					</Col>
-					<Col xs className="borders">
-						<p className="info-header">City</p>
-						<p>{ station.city }</p>
-					</Col>
-					<Col xs className="borders">
-						<p className="info-header">Capacity</p>
-						<p>{ station.capacity }</p>
-					</Col>
-				</Row>
+		<div className="text-center station__container">
+			<h1 className="mb-4 ">{ station.stationId } { station.name } station</h1>
+			<Row className=" ">
+			</Row>
+			<Row className="border border-2 border-warning rounded box-shadow">
+				<Col sm={ 5 } className="border-end border-warning">
+					<p className="info-header">Address</p>
+					<p>{ station.address }</p>
+				</Col>
+				<Col xs className="border-end border-warning">
+					<p className="info-header">City</p>
+					<p>{ station.city }</p>
+				</Col>
+				<Col xs className="">
+					<p className="info-header">Capacity</p>
+					<p>{ station.capacity }</p>
+				</Col>
+			</Row>
+			<Row className="border border-2 border-warning rounded mt-2 box-shadow">
+				<h4 className="pt-2 pb-2">Total number of...</h4>
+				<Col className="border-end border-warning">
+					<p className="info-header"><em>Departing</em> journeys</p>
+					<p>{ station.numOfJourneysStartingFrom }</p>
+				</Col>
+				<Col>
+					<p className="info-header"><em>Returning</em> journeys</p>
+					<p>{ station.numOfJourneysReturningTo }</p>
+				</Col>
+			
+			</Row>
+			<Row className="border border-2 border-warning rounded pt-2 mt-2 box-shadow">
+				<h4 className="pt-2 pb-2">Average distance travelled...</h4>
+				<Col className="border-end border-warning">
+					<p className="info-header">From here</p>
+					<p>{ station.averageDistanceStartingFrom }km</p>
+				</Col>
+				<Col>
+					<p className="info-header">To here</p>
+					<p>{ station.averageDistanceReturnedTo }km</p>
+				</Col>
 			</Row>
 		</div>
 	);

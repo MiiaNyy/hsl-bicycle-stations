@@ -9,7 +9,7 @@ function App () {
 	return (
 		<BrowserRouter>
 			<Navigation/>
-			<Container className="mt-4">
+			<Container className="mt-4 mb-4">
 				<Routes>
 					<Route path="/" element={ <Home/> }/>
 					<Route path="/journey" element={ <Journey/> }>
@@ -20,6 +20,10 @@ function App () {
 					</Route>
 				</Routes>
 			</Container>
+			<footer className="bg-warning">
+				<p>This is footer</p>
+				<p className="mb-0">&copy; 2020</p>
+			</footer>
 		</BrowserRouter>
 	);
 }
