@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
-import GoogleMapReact from 'google-map-react';
+
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Table } from "react-bootstrap";
 
 
 const GET_STATION = gql`
-    query Query($stationId: Int!) {
-        getStation(stationId: $stationId) {
+    query Query($getStationId: Int!) {
+        getStation(id: $getStationId) {
             stationId
             name
             address
@@ -21,41 +21,106 @@ const GET_STATION = gql`
             mostPopularReturnStationsForJourneysStartingFrom {
                 stationId
                 name
-                city
             }
             mostPopularDepartureStationsForJourneysReturnedTo {
                 stationId
                 name
-                city
             }
         }
     }
 `;
 
+
 function Station () {
 	const { id } = useParams();
+	
 	const { loading, error, data } = useQuery( GET_STATION, {
-		variables: { stationId: id },
+		variables : { getStationId : Number( id ) }, // From params it is String, but we need Number
 	} );
 	
-	
 	if ( loading ) return <p>Loading...</p>;
-	if ( error ) {
-		console.log( error );
-		return <p>Error :(</p>;
-	}
+	if ( error ) return <p>Error :(</p>;
 	
 	return (
 		<div>
-			<h1>🎊 STATION VIEW</h1>
-			<p>Station id: { id }</p>
+			
 			<Row>
 				<Col>
-					<StationInfoTable station={ data.getStation }/>
+					<StationBasicInfo station={ data.getStation }/>
 				</Col>
-				
+			</Row>
+			<Row>
 				<Col>
-					<SimpleMap/>
+					<Row>
+						<Col>
+							<p className="info-header">Total number of <em>departing</em> journeys</p>
+							<p>{ data.getStation.numOfJourneysStartingFrom }</p>
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<p className="info-header">Total number of <em>returning</em> journeys</p>
+							<p>{ data.getStation.numOfJourneysReturningTo }</p>
+						</Col>
+					</Row>
+				</Col>
+			</Row>
+			<Row>
+				<p className="info-header">Average distance driven, when departing</p>
+				<p>{ data.getStation.averageDistanceStartingFrom }km</p>
+				<p className="info-header">Average distance driven, when returning</p>
+				<p>{ data.getStation.averageDistanceReturnedTo }km</p>
+			</Row>
+			<Row>
+				<Col>
+					<p className="info-header">Most popular starting stations when ending journey
+						in { data.getStation.name }</p>
+					
+					<Table striped bordered>
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						{ data.getStation.mostPopularDepartureStationsForJourneysReturnedTo.map( station => (
+							<tr key={ station.stationId }>
+								<td>{ station.stationId }</td>
+								<td>{ station.name }</td>
+								<td>
+									<a href={ "station/" + station.stationId }>&#8594;</a>
+								</td>
+							</tr>
+						) ) }
+						</tbody>
+					</Table>
+				</Col>
+				<Col>
+					<p className="info-header">Most popular ending stations when starting journey
+						from { data.getStation.name }</p>
+					
+					<Table striped bordered>
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						{ data.getStation.mostPopularReturnStationsForJourneysStartingFrom.map( station => (
+							<tr key={ station.stationId }>
+								<td>{ station.stationId }</td>
+								<td>{ station.name }</td>
+								<td>
+									<a href={ "station/" + station.stationId }>&#8594;</a>
+								</td>
+							</tr>
+						) ) }
+						</tbody>
+					</Table>
 				</Col>
 			</Row>
 		</div>
@@ -63,60 +128,28 @@ function Station () {
 }
 
 
-function StationInfoTable ({ station }) {
+function StationBasicInfo ({ station }) {
 	return (
-		<Table striped bordered>
-			<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Address</th>
-				<th>City</th>
-				<th>Capacity</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>{ station.stationId }</td>
-				<td>{ station.name }</td>
-				<td>{ station.address }</td>
-				<td>{ station.city }</td>
-				<td>{ station.capacity }</td>
-			</tr>
-			</tbody>
-		</Table>
-	);
-}
-
-
-const AnyReactComponent = (
-		  { text }
-	  ) =>
-		  <div>{ text }</div>
-;
-
-function SimpleMap () {
-	const defaultProps = {
-		center : {
-			lat : 10.99835602,
-			lng : 77.01502627
-		},
-		zoom : 11
-	};
-	
-	return (
-		<div style={ { height : '300px', maxWidth : '450px', width : '100%' } }>
-			<GoogleMapReact
-				bootstrapURLKeys={ { key : process.env.REACT_APP_GOOGLE_MAPS_API_KEY } }
-				defaultCenter={ defaultProps.center }
-				defaultZoom={ defaultProps.zoom }
-			>
-				<AnyReactComponent
-					lat={ 59.955413 }
-					lng={ 30.337844 }
-					text="My Marker"
-				/>
-			</GoogleMapReact>
+		<div>
+			<Row className="m-auto text-center border-bottom borders">
+				<Row className={ "borders m-auto" }>
+					<h2>{ station.stationId } { station.name } station</h2>
+				</Row>
+				<Row className="m-auto mt-2 p-0 station__container">
+					<Col sm={ 5 } className="borders ">
+						<p className="info-header">Address</p>
+						<p>{ station.address }</p>
+					</Col>
+					<Col xs className="borders">
+						<p className="info-header">City</p>
+						<p>{ station.city }</p>
+					</Col>
+					<Col xs className="borders">
+						<p className="info-header">Capacity</p>
+						<p>{ station.capacity }</p>
+					</Col>
+				</Row>
+			</Row>
 		</div>
 	);
 }

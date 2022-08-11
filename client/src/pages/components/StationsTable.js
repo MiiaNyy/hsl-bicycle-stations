@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 const GET_STATIONS = gql`
     query Query($amount: Int!) {
@@ -13,6 +13,7 @@ const GET_STATIONS = gql`
 `;
 
 function StationsTable () {
+	
 	const { loading, error, data } = useQuery( GET_STATIONS, {
 		variables : { amount : 20 },
 	} );
@@ -25,7 +26,7 @@ function StationsTable () {
 			<Table striped bordered>
 				<thead>
 				<tr>
-					<th>Station id</th>
+					<th>Id</th>
 					<th>Name</th>
 					<th>City</th>
 					<th>Capacity</th>
