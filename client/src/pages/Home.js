@@ -8,23 +8,20 @@ import StationsTable from "./components/StationsTable";
 
 function Home () {
 	
-	const border = {
-		border : "2px solid pink",
-		
-	};
-	
 	return (
 		<>
-			<Container style={ border }>
+			<Container>
+				<Row className="mt-5 mb-5 text-center">
+					<h1>Helsinki Region Transport’s (HSL) city bicycles </h1>
+					<p className="sub-header">Bicycle journeys and stations data from a year 2021 in the cities of Helsinki and Espoo.</p>
+				</Row>
 				<Row>
-					<Col md>
-						<h2>Stations</h2>
-						<StationsTable/>
-					</Col>
-					<Col md style={ border }>
-						<h2>Journeys</h2>
-						<JourneysTable/>
-					</Col>
+					<h3>HSL Bicycle Journeys </h3>
+					<JourneysTable/>
+				</Row>
+				<Row className="mt-5">
+					<h3>HSL Bicycle Stations</h3>
+					<StationsTable/>
 				</Row>
 			</Container>
 		</>

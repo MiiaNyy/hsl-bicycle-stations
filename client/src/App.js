@@ -20,7 +20,7 @@ function App () {
 					</Route>
 				</Routes>
 			</Container>
-			<footer className="bg-warning">
+			<footer className="bg-light">
 				<p>This is footer</p>
 				<p className="mb-0">&copy; 2020</p>
 			</footer>

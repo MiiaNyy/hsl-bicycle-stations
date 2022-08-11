@@ -4,6 +4,8 @@ import { gql, useQuery } from "@apollo/client";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Table } from "react-bootstrap";
+import TableBorder from "./components/TableBorder";
+import Container from "react-bootstrap/Container";
 
 
 const GET_STATION = gql`
@@ -55,11 +57,13 @@ function Station () {
 			<Row className="mt-5 mb-5 text-center">
 				<h4 className="mb-3">Top 5 most popular...</h4>
 				<Col md>
-					<p className="info-header mb-2">Departure stations for journeys <em>ending</em> at { station.name }</p>
+					<p className="info-header mb-2">Departure stations for journeys <em>ending</em> at { station.name }
+					</p>
 					<MostPopularStationTable stations={ station.mostPopularDepartureStationsForJourneysReturnedTo }/>
 				</Col>
 				<Col>
-					<p className="info-header mb-2">Return stations for journeys <em>starting</em> from { station.name }:</p>
+					<p className="info-header mb-2">Return stations for journeys <em>starting</em> from { station.name }:
+					</p>
 					<MostPopularStationTable stations={ station.mostPopularReturnStationsForJourneysStartingFrom }/>
 				</Col>
 			</Row>
@@ -70,26 +74,31 @@ function Station () {
 function MostPopularStationTable ({ stations }) {
 	
 	return (
-		<Table striped bordered className="box-shadow">
-			<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th></th>
-			</tr>
-			</thead>
-			<tbody>
-			{ stations.map( station => (
-				<tr key={ station.stationId }>
-					<td>{ station.stationId }</td>
-					<td>{ station.name }</td>
-					<td>
-						<a href={ "station/" + station.stationId }>&#8594;</a>
-					</td>
-				</tr>
-			) ) }
-			</tbody>
-		</Table>
+		<Container>
+			<TableBorder>
+				<Table striped borderless className="mb-0">
+					<thead className="border-bottom border-2 bg-warning">
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					{ stations.map( station => (
+						<tr key={ station.stationId }>
+							<td className="border-end border-2 border-warning">{ station.stationId }</td>
+							<td>{ station.name }</td>
+							<td className="border-start border-2 border-warning">
+								<a href={ "station/" + station.stationId }>&#8594;</a>
+							</td>
+						</tr>
+					) ) }
+					</tbody>
+				</Table>
+			</TableBorder>
+		</Container>
+	
 	)
 }
 
