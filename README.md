@@ -75,7 +75,9 @@ Data that the client can get:
 ## TODO
 - add tests
 - add UI to the app
-  - create single station and journey view
+  - create single journey view
+  - add loading bar
+  - Error page
   - create map and show the stations on it
   - show top 5 stations with most journeys
   - create pagination for the stations and journeys
