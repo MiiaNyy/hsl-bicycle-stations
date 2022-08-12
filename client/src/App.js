@@ -11,6 +11,7 @@ import Station from "./pages/Station";
 import Navigation from "./pages/components/Navigation";
 import Stations from "./pages/Stations";
 import Journeys from "./pages/Journeys";
+import PageNotFound from "./pages/PageNotFound";
 
 function App () {
 	return (
@@ -25,6 +26,7 @@ function App () {
 						<Route path="/journey/:id" element={<Journey />} />
 						<Route path="/station" element={<Stations />} />
 						<Route path="/station/:id" element={<Station />} />
+						<Route path="*" element={<PageNotFound/>} />
 					</Routes>
 				</Container>
 			</div>
