@@ -48,7 +48,8 @@ async function validateJourneysAndAddDataToDatabase (filePath) {
 						 console.log( '🎉 Journeys csv file validation complete. Adding last journeys to db...' );
 						 JourneyModel.insertMany( batch, (err, docs) => {
 							 if ( err ) throw err;
-							 console.log('🎊 Stream ended!! Journey stream started at: ' + startingTime + ' and ended' +
+							 console.log('🎊 Stream ended!! All journeys added to db!');
+							 console.log('Journey stream started at: ' + startingTime + ' and ended' +
 								 ' at: ' + getCurrentTimeInHMSS());
 						 } )
 						 

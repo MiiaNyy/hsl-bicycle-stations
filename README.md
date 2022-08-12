@@ -15,8 +15,10 @@ Also download the Helsinki city bike stations data.
 
 ### Local MongoDB
 This app uses a local database to store the data. For that reason, you need to have MongoDB on your computer before 
-you can run this app. If you don't have it installed you can install it by following these instructions; 
- 
+you can run this app.  
+
+If you are not comfortable using the terminal you can download MongoDB _Compass_ from [here](https://www.mongodb.com/download-center/compass).
+
 #### MacOS
 Install MongoDB by following these instructions:
 
@@ -34,13 +36,40 @@ _(If you are not comfortable using the terminal you can download MongoDB _Compas
 #### Windows
 Follow [these](https://treehouse.github.io/installation-guides/windows/mongo-windows.html) instructions.
 
-
-
 ## Configuration
 
+If you installed MongoDb via Homebrew, you are good to go 🎉!
+
+If you installed MongoDB via Compass, you need to configure it.
+1. Open MongoDB Compass.
+2. Set `HostName` to `localhost`and `Port` to `27017`.
+   1. These values are the default for all local MongoDB connections
+3. Press connect.
 
 ## How to run the app
-## Tests
+Before running app, make sure you have downloaded the data to `server/src/resources` folder and configured MongoDB.
+
+### Start server and add documents to database
+To install all dependencies on the server, run the following command:
+
+```bash
+cd server && npm install && npm run start
+```
+
+You should see messages telling how many documents are being validated and added to database. 
+This should take few minutes to complete, and you should see this message;
+
+```bash
+🎊 Stream ended!! All journeys added to db!
+```
+
+### Start client
+
+```bash
+cd client && npm install && npm start
+```
+After that you can access the app at `http://localhost:3000`.
+
 
 ## Description
 This app displays data from journeys made with Helsinki Region Transport’s (HSL) city bicycles and HSL bicycle
@@ -63,14 +92,20 @@ Data that the client can get:
 
 
 ## Technologies
-- MongoDB
-    - Mongoose
-    - MongoDB Compass (Local database)
-- Apollo Server
-- GraphQL
-- JavaScript (ES6)
-- Babel
-- csv parser
+- Client
+  - Apollo Client
+  - React
+  - CSS3
+  - Bootstrap
+- Server
+  - MongoDB
+      - Mongoose
+      - MongoDB Compass (Local database)
+  - Apollo Server
+  - GraphQL
+  - JavaScript (ES6)
+  - Babel
+  - csv parser
 
 ## TODO
 - add tests

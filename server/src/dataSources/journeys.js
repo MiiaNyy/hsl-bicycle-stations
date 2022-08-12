@@ -3,6 +3,7 @@ import { MongoDataSource } from "apollo-datasource-mongodb";
 class Journeys extends MongoDataSource {
     async getJourneys (amount) {
         return this.model.find().limit( amount );
+		
     }
     
     async getJourney (id) {

@@ -1,3 +1,4 @@
+
 import { gql, useQuery } from "@apollo/client";
 
 import { Table } from "react-bootstrap";
@@ -12,15 +13,15 @@ const GET_JOURNEYS = gql`
     query Query($amount: Int!) {
         getJourneys(amount: $amount) {
             id
-            duration
             coveredDistance
-            returnStation {
-                name
-                stationId
-            }
+            duration
             departureStation {
-                name
                 stationId
+                name
+            }
+            returnStation {
+                stationId
+                name
             }
         }
     }`;
@@ -30,8 +31,9 @@ function JourneysTable ({ amount }) {
 		variables : { amount : amount },
 	} );
 	
-	if ( loading ) return <LoadingSpinner/>;
+	if ( loading  ) return <LoadingSpinner/>;
 	if ( error ) return <Error error={ error }/>;
+	
 	
 	return (
 		<Container>
