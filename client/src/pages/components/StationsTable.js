@@ -15,10 +15,10 @@ const GET_STATIONS = gql`
     }
 `;
 
-function StationsTable () {
+function StationsTable ({ amount }) {
 	
 	const { loading, error, data } = useQuery( GET_STATIONS, {
-		variables : { amount : 10 },
+		variables : { amount : amount },
 	} );
 	
 	if ( loading ) return <p>Loading...</p>;
@@ -57,7 +57,7 @@ function TableRow ({ station }) {
 			<TableDataBorder>{ station.city }</TableDataBorder>
 			<TableDataBorder>{ station.capacity }</TableDataBorder>
 			<td>
-				<a href={ "station/" + station.stationId } className="btn__link">&#8594;</a>
+				<a href={ "/station/" + station.stationId } className="btn__link">&#8594;</a>
 			</td>
 		</tr>
 	);

@@ -47,12 +47,10 @@ function Station () {
 	const station = data.getStation;
 	
 	return (
-		<div>
+		<div className="">
 			
 			<Row>
-				
 				<StationBasicInfo station={ station }/>
-			
 			</Row>
 			
 			<Row className="mt-5 mb-5 text-center">
