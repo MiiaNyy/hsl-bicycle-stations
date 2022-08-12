@@ -1,5 +1,11 @@
 # Helsinki city bike app
 
+Clone the repository to your local machine.
+
+```bash
+git clone https://github.com/MiiaNyy/helsinki-city-bike-app.git
+```
+
 ## Prerequisites
 Before running the app you need to download the Helsinki city bike data to `server/src/resources` folder.
 
@@ -22,8 +28,6 @@ If you are not comfortable using the terminal you can download MongoDB _Compass_
 #### MacOS
 Install MongoDB by following these instructions:
 
-_(If you are not comfortable using the terminal you can download MongoDB _Compass_ from [here](https://www.mongodb.com/download-center/compass).)_
-
 1. **Install Homebrew**`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 2. **Find the MongoDB tap** `brew tap mongodb/brew`
 3. **Install MongoDB** `brew install mongodb-community`
@@ -38,7 +42,7 @@ Follow [these](https://treehouse.github.io/installation-guides/windows/mongo-win
 
 ## Configuration
 
-If you installed MongoDb via Homebrew, you are good to go 🎉!
+If you installed MongoDB via Homebrew, you are good to go 🎉!
 
 If you installed MongoDB via Compass, you need to configure it.
 1. Open MongoDB Compass.
@@ -47,6 +51,7 @@ If you installed MongoDB via Compass, you need to configure it.
 3. Press connect.
 
 ## How to run the app
+
 Before running app, make sure you have downloaded the data to `server/src/resources` folder and configured MongoDB.
 
 ### Start server and add documents to database
@@ -57,7 +62,8 @@ cd server && npm install && npm run start
 ```
 
 You should see messages telling how many documents are being validated and added to database. 
-This should take few minutes to complete, and you should see this message;
+This should take few minutes to complete. 
+After you see this messages all the data is added to database:
 
 ```bash
 🎊 Stream ended!! All journeys added to db!
@@ -109,13 +115,9 @@ Data that the client can get:
 
 ## TODO
 - add tests
-- add UI to the app
-  - create single journey view
-  - add loading bar
-  - Error page
-  - create map and show the stations on it
-  - show top 5 stations with most journeys
-  - create pagination for the stations and journeys
-  - create a search bar for stations and journeys
-  - create a filter for stations and journeys
+- create map and show the stations on it
+- show top 5 stations with most journeys
+- create pagination for the stations and journeys
+- create a search bar for stations and journeys
+- create a filter for stations and journeys
   
