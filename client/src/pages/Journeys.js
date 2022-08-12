@@ -1,9 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import JourneysTable from "./components/JourneysTable";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Journey from "./Journey";
-
 function Journeys() {
 	return (
 		<>

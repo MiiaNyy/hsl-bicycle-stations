@@ -7,6 +7,7 @@ import { Table } from "react-bootstrap";
 import TableBorder from "./components/TableBorder";
 import Container from "react-bootstrap/Container";
 import TableDataBorder from "./components/TableDataBorder";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 
 const GET_STATION = gql`
@@ -41,13 +42,13 @@ function Station () {
 		variables : { getStationId : Number( id ) }, // From params it is String, but we need Number
 	} );
 	
-	if ( loading ) return <p>Loading...</p>;
+	if ( loading ) return <LoadingSpinner/>;
 	if ( error ) return <p>Error :(</p>;
 	
 	const station = data.getStation;
 	
 	return (
-		<div className="">
+		<div>
 			
 			<Row>
 				<StationBasicInfo station={ station }/>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 

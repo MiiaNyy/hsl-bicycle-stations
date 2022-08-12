@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import TableBorder from "./TableBorder";
 import Container from "react-bootstrap/Container";
 import TableDataBorder from "./TableDataBorder";
+import LoadingSpinner from "./LoadingSpinner";
 
 const GET_STATIONS = gql`
     query Query($amount: Int!) {
@@ -21,7 +22,7 @@ function StationsTable ({ amount }) {
 		variables : { amount : amount },
 	} );
 	
-	if ( loading ) return <p>Loading...</p>;
+	if ( loading ) return <LoadingSpinner/>;
 	if ( error ) return <p>Error :(</p>;
 	
 	return (

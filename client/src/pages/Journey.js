@@ -3,6 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const GET_JOURNEY = gql`
     query Query($getJourneyId: ID!) {
@@ -40,7 +41,7 @@ function Journey () {
 		variables : { getJourneyId : id },
 	} );
 	
-	if ( loading ) return <p>Loading...</p>;
+	if ( loading ) return <LoadingSpinner/>;
 	if ( error ) return <p>Error :(</p>;
 	
 	const journey = data.getJourney;
