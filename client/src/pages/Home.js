@@ -15,7 +15,7 @@ function Home () {
 					<p className="sub-header">Bicycle journeys and stations data from a year 2021 in the cities of
 						Helsinki and Espoo.</p>
 				</Row>
-				<Row className="pb-5 mb-5">
+				<Row sm className="pb-5 mb-5">
 					<h3 className="mb-3">HSL Bicycle Journeys </h3>
 					<JourneysTable amount={ 10 }/>
 				</Row>

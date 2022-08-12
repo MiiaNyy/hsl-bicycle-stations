@@ -8,6 +8,7 @@ import TableBorder from "./components/TableBorder";
 import Container from "react-bootstrap/Container";
 import TableDataBorder from "./components/TableDataBorder";
 import LoadingSpinner from "./components/LoadingSpinner";
+import Error from "./components/Error";
 
 
 const GET_STATION = gql`
@@ -43,7 +44,7 @@ function Station () {
 	} );
 	
 	if ( loading ) return <LoadingSpinner/>;
-	if ( error ) return <p>Error :(</p>;
+	if ( error ) return <Error error={ error }/>;
 	
 	const station = data.getStation;
 	

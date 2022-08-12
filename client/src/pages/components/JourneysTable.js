@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import TableBorder from "./TableBorder";
 import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
+import Error from "./Error";
 
 const GET_JOURNEYS = gql`
     query Query($amount: Int!) {
@@ -30,7 +31,7 @@ function JourneysTable ({ amount }) {
 	} );
 	
 	if ( loading ) return <LoadingSpinner/>;
-	if ( error ) return <p>Error :(</p>;
+	if ( error ) return <Error error={ error }/>;
 	
 	return (
 		<Container>

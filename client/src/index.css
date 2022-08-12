@@ -88,6 +88,7 @@ table td {
     vertical-align: middle;
 }
 
+
 .btn__link {
     font-size: 1.5rem;
     text-decoration: none;
@@ -116,4 +117,9 @@ table td {
     width: 90%;
     max-width: 600px;
     margin: 0 auto;
+}
+
+.nav__color {
+    background-color: #F2F2F2;
+
 }

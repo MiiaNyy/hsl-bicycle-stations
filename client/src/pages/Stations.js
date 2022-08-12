@@ -6,7 +6,7 @@ function Stations () {
 	return (
 		<>
 			<Container>
-				<Row className="mt-2 text-center">
+				<Row className="mt-2 text-center m-auto">
 					<h1 className="mb-5">HSL Bicycle Stations</h1>
 					<StationsTable amount={ 25 }/>
 				</Row>
