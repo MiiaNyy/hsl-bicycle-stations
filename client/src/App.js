@@ -1,24 +1,30 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+	BrowserRouter,
+	Routes,
+	Route,
+} from "react-router-dom";
+import Container from "react-bootstrap/Container";
+
 import Home from "./pages/Home";
 import Journey from "./pages/Journey";
 import Station from "./pages/Station";
 import Navigation from "./pages/components/Navigation";
-import Container from "react-bootstrap/Container";
+import Stations from "./pages/Stations";
+import Journeys from "./pages/Journeys";
 
 function App () {
 	return (
 		<BrowserRouter>
 			<div className="content">
 				<Navigation/>
-				<Container className="mt-4 mb-4">
+				<Container className="mt-4 mb-5">
+					
 					<Routes>
-						<Route path="/" element={ <Home/> }/>
-						<Route path="/journey" element={ <Journey/> }>
-							<Route path=":id" element={ <Journey/> }/>
-						</Route>
-						<Route path="station" element={ <Station/> }>
-							<Route exact path=":id" element={ <Station/> }/>
-						</Route>
+						<Route path="/" element={<Home />} />
+						<Route path="/journey" element={<Journeys />} />
+						<Route path="/journey/:id" element={<Journey />} />
+						<Route path="/station" element={<Stations />} />
+						<Route path="/station/:id" element={<Station />} />
 					</Routes>
 				</Container>
 			</div>
@@ -29,5 +35,16 @@ function App () {
 		</BrowserRouter>
 	);
 }
+
+/*
+* <Route path="/" element={ <Home/> }/>
+ <Route path="/journey" element={ <Journeys/> }>
+ <Route path=":id" element={ <Journey/> }/>
+ </Route>
+ <Route path="station" element={ <Stations/> }>
+ <Route path=":id" element={ <Station/> }/>
+ </Route>
+*
+* */
 
 export default App;
