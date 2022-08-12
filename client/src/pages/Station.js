@@ -91,7 +91,7 @@ function MostPopularStationTable ({ stations }) {
 							<TableDataBorder>{ station.stationId }</TableDataBorder>
 							<td>{ station.name }</td>
 							<td className="border-start border-2 border-warning">
-								<a href={ "station/" + station.stationId } className="btn__link">&#8594;</a>
+								<a href={ "/station/" + station.stationId } className="btn__link">&#8594;</a>
 							</td>
 						</tr>
 					) ) }
