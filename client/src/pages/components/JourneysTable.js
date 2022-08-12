@@ -34,7 +34,6 @@ function JourneysTable ({ amount }) {
 	if ( loading  ) return <LoadingSpinner/>;
 	if ( error ) return <Error error={ error }/>;
 	
-	
 	return (
 		<Container>
 			<TableBorder>

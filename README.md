@@ -49,6 +49,7 @@ If you installed MongoDB via Compass, you need to configure it.
 2. Set `HostName` to `localhost`and `Port` to `27017`.
    1. These values are the default for all local MongoDB connections
 3. Press connect.
+4. Now you can browse the database hslBicycles and see the data after you first run the app.
 
 ## How to run the app
 
@@ -82,7 +83,7 @@ This app displays data from journeys made with Helsinki Region Transport’s (HS
 stations. The app validates data from CSV files using Apollo Server and MongoDB and creates a database using validated
 data with two collections, journeys, and stations.
 
-After the database is created and populated, the Apollo Server can be run on localhost:4000.
+After the database is created and populated, the app can be accessed at `localhost:3000`.
 
 The client gets the data from the database using graphQL queries.
 Data that the client can get:
@@ -94,8 +95,6 @@ Data that the client can get:
     - The average distance of a journey ending at the station
     - Top 5 most popular return stations for journeys starting from the station
     - Top 5 most popular departure stations for journeys ending at the station
-
-
 
 ## Technologies
 - Client

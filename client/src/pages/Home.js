@@ -6,7 +6,6 @@ import StationsTable from "./components/StationsTable";
 
 
 function Home () {
-	
 	return (
 		<>
 			<Container>
@@ -25,7 +24,6 @@ function Home () {
 				</Row>
 			</Container>
 		</>
-	
 	);
 }
 

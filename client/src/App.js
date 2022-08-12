@@ -38,15 +38,4 @@ function App () {
 	);
 }
 
-/*
-* <Route path="/" element={ <Home/> }/>
- <Route path="/journey" element={ <Journeys/> }>
- <Route path=":id" element={ <Journey/> }/>
- </Route>
- <Route path="station" element={ <Stations/> }>
- <Route path=":id" element={ <Station/> }/>
- </Route>
-*
-* */
-
 export default App;

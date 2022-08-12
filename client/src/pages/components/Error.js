@@ -1,5 +1,3 @@
-
-
 function Error ({error}) {
 	console.log(error);
 	return (

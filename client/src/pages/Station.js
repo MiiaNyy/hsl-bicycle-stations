@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import { Table } from "react-bootstrap";
 import TableBorder from "./components/TableBorder";
 import Container from "react-bootstrap/Container";
+
 import TableDataBorder from "./components/TableDataBorder";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Error from "./components/Error";
@@ -34,7 +35,6 @@ const GET_STATION = gql`
         }
     }
 `;
-
 
 function Station () {
 	const { id } = useParams();
@@ -102,7 +102,6 @@ function MostPopularStationTable ({ stations }) {
 	
 	)
 }
-
 
 function StationBasicInfo ({ station }) {
 	return (
