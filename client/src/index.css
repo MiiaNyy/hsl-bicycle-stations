@@ -21,7 +21,9 @@ code {
 body {
     margin: 0;
     line-height: 1.6;
-}
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;}
 
 img {
     display: block;
@@ -71,6 +73,7 @@ h1, h2, h3, h4, h5, h6, p {
 footer {
     margin-top: 1em;
     padding-top: 1em;
+
 
 }
 

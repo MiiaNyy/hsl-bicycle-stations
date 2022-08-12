@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { gql, useQuery } from "@apollo/client";
 
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const GET_JOURNEY = gql`
     query Query($getJourneyId: ID!) {
@@ -24,13 +24,6 @@ const GET_JOURNEY = gql`
             duration
         }
     }`;
-
-function getDate (date) {
-	const today = new Date( date );
-	const journeysDate = today.toISOString().split( 'T' )[0];
-	const journeysTime = today.toISOString().split( 'T' )[1].split( '.' )[0];
-	return journeysDate + " " + journeysTime;
-}
 
 function formatDate (date) {
 	return new Date( date ).toISOString().split( 'T' )[0];
@@ -54,50 +47,38 @@ function Journey () {
 	
 	return (
 		<div className="text-center station__container">
-			<h1 className="mb-4 ">Bicycle journey, {journey.coveredDistance}km</h1>
-			<Row className="border border-2 border-warning rounded box-shadow">
-				<Col xs className="border-end border-warning">
-					<p className="info-header">Start</p>
-					<p>{ formatDate(journey.departure) }</p>
-					<p>{ formatTime(journey.departure) }</p>
-				</Col>
-				<Col xs className="border-end border-warning">
-					<p className="info-header">End</p>
-					<p>{ formatDate(journey.return) }</p>
-					<p>{ formatTime(journey.return) }</p>
-				</Col>
-				<Col xs className="">
-					<p className="info-header">Duration</p>
-					<p>{ journey.duration } min</p>
-				</Col>
+			<h1 className="mb-4 ">Single journey</h1>
+			<p> ID <em>{ journey.id }</em></p>
+			<StationContainer journey={ journey } departure={ true }/>
+			<Row className="mt-4 mb-4">
+				<h4>Journey took { journey.duration } minutes</h4>
 			</Row>
-			<StationContainer journeysStation={ journey.departureStation } station={ "Departure" }/>
-			<StationContainer journeysStation={ journey.returnStation } station={ "Return" }/>
-		
+			<StationContainer journey={ journey } departure={ false }/>
+			<Row className="mt-4 mb-4">
+				<h4>Travelled Distance { journey.coveredDistance } km</h4>
+			</Row>
 		</div>
 	);
 }
 
-function StationContainer ({ journeysStation, station }) {
+function StationContainer ({ journey, departure }) {
+	
+	const station = departure ? journey.departureStation : journey.returnStation;
+	const destinationTime = departure ? journey.departure : journey.return;
+	
 	return (
 		<Row className="border border-2 border-warning rounded mt-2 box-shadow">
-			<h4 className="pt-2 pb-2">{ station } station</h4>
+			<h4 className="pt-2 pb-2">{ departure ? 'Started' : 'Ended' } { formatDate( destinationTime ) }</h4>
 			<Col className="border-end border-warning">
-				<p className="info-header">ID</p>
-				<p>{ journeysStation.stationId }</p>
+				<p className="info-header">At</p>
+				<p>{ formatTime( destinationTime ) }</p>
 			</Col>
-			<Col className="border-end border-warning">
-				<p className="info-header">Name</p>
-				<p><a href={ "station/" + journeysStation.stationId }
-					  className="link-secondary"> { journeysStation.name }</a>
+			<Col className=" border-warning">
+				<p className="info-header">{ departure ? 'From' : 'To' } station</p>
+				<p><a href={ "/station/" + station.stationId }
+					  className="link-secondary"> { station.name }</a>
 				</p>
 			</Col>
-			<Col>
-				<p className="info-header">City</p>
-				<p>{ journeysStation.city }</p>
-			</Col>
-		
-		
 		</Row>
 	)
 }
