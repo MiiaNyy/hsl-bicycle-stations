@@ -8,14 +8,19 @@ const typeDefs = gql`
         "Returns all stations"
         getStations: Stations!
 		"Get as many journeys as the amount is specified"
-        getJourneys(amount:Int!): [Journey]!
+        getJourneys(page: Int, limit: Int): Journeys!
 		"Get a journey by id"
         getJourney(id: ID!): Journey!
     }
 	
 	type Stations {
-		stations: [Station]
-		pagination: Pagination
+		stations: [Station]!
+		pagination: Pagination!
+    }
+	
+	type Journeys {
+		journeys: [Journey]!
+		pagination: Pagination!
     }
 
     type Station {
@@ -65,21 +70,21 @@ const typeDefs = gql`
 	
 	type Pagination {
         "The total amount of items"
-        totalDocs: Int!
+        totalDocs: Int
         "The amount of items per page"
-        limit: Int!
+        limit: Int
 		"The amount of pages"
-		totalPages: Int!
+		totalPages: Int
 		"The current page"
-		page: Int!
+		page: Int
 		"Current page has a next page"
-		hasNextPage: Boolean!
+		hasNextPage: Boolean
 		"Current page has a previous page"
-		hasPrevPage: Boolean!
+		hasPrevPage: Boolean
 		"The next pages number"
-		nextPage: Int!
+		nextPage: Int
 		"The previous pages number"
-		prevPage: Int!
+		prevPage: Int
     }
 	
 	scalar DateTime

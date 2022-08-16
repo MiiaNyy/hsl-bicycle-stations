@@ -1,12 +1,16 @@
 import { MongoDataSource } from "apollo-datasource-mongodb";
 
+import getPaginationInfo from "../helpers/getPaginationInfo";
+
 const options = {
-	page : 2,
+	page : 1,
 	limit : 10,
 	collation : {
 		locale : 'en',
 	},
-}
+};
+
+
 
 class Stations extends MongoDataSource {
 	
@@ -17,16 +21,7 @@ class Stations extends MongoDataSource {
 			}
 			return {
 				stations: result.docs,
-				pagination: {
-					totalDocs: result.totalDocs,
-					limit : result.limit,
-					totalPages: result.totalPages,
-					page: result.page,
-					hasNextPage: result.hasNextPage,
-					hasPrevPage: result.hasPrevPage,
-					nextPage: result.nextPage,
-					prevPage: result.prevPage,
-				}
+				pagination: getPaginationInfo(result),
 			}
 		} );
 	}

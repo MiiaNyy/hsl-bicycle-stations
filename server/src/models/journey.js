@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 
 const journeySchema = new mongoose.Schema( {
@@ -9,6 +10,8 @@ const journeySchema = new mongoose.Schema( {
 	coveredDistance: Number,
     duration: Number,
 });
+
+journeySchema.plugin(mongoosePaginate);
 
 const Journey = mongoose.model( "Journey", journeySchema );
 
