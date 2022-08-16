@@ -80,7 +80,9 @@ After that you can access the app at `http://localhost:3000`.
 
 ## Description
 This app displays data from journeys made with Helsinki Region Transport’s (HSL) city bicycles and HSL bicycle
-stations. The app validates data from CSV files using Apollo Server and MongoDB and creates a database using validated
+stations. The app shows only limited amount of data. Pagination is next on my todo list. 
+
+The app validates data from CSV files using Apollo Server and MongoDB and creates a database using validated
 data with two collections, journeys, and stations.
 
 After the database is created and populated, the app can be accessed at `localhost:3000`.
