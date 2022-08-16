@@ -6,7 +6,7 @@ const typeDefs = gql`
 		"Return station by id"
         getStation(id: Int!): Station
         "Returns all stations"
-        getStations: Stations!
+        getStations(page: Int, limit: Int): Stations!
 		"Get as many journeys as the amount is specified"
         getJourneys(page: Int, limit: Int): Journeys!
 		"Get a journey by id"

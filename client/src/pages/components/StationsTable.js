@@ -1,30 +1,57 @@
 import { gql, useQuery } from "@apollo/client";
+
+import { useState } from "react";
+
 import { Table } from "react-bootstrap";
-import TableBorder from "./TableBorder";
 import Container from "react-bootstrap/Container";
+
+import TableBorder from "./TableBorder";
 import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
+
 import Error from "./Error";
+import PaginationButtons from "./PaginationButtons";
 
 const GET_STATIONS = gql`
-    query Query($amount: Int!) {
-        getStations(amount: $amount) {
-            stationId
-            name
-            capacity
-            city
+    query Query($page: Int, $limit: Int) {
+        getStations(page: $page, limit: $limit) {
+            stations {
+                stationId
+                name
+                capacity
+                city
+            }
+            pagination {
+                totalDocs
+                limit
+                totalPages
+                page
+                hasNextPage
+                hasPrevPage
+                nextPage
+                prevPage
+            }
         }
     }
 `;
 
-function StationsTable ({ amount }) {
+function StationsTable () {
+	
+	const [currentPage, setCurrentPage] = useState( 1 );
+	
 	
 	const { loading, error, data } = useQuery( GET_STATIONS, {
-		variables : { amount : amount },
+		variables : {
+			"page" : currentPage,
+			"limit" : 10
+		},
 	} );
 	
 	if ( loading ) return <LoadingSpinner/>;
 	if ( error ) return <Error error={ error }/>;
+	
+	const stations = data.getStations.stations;
+	const pagination = data.getStations.pagination;
 	
 	return (
 		<Container>
@@ -40,12 +67,13 @@ function StationsTable ({ amount }) {
 					</tr>
 					</thead>
 					<tbody>
-					{ data.getStations.map( station => (
+					{ stations.map( station => (
 						<TableRow key={ station.id } station={ station }/>
 					) ) }
 					</tbody>
 				</Table>
 			</TableBorder>
+			<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
 		</Container>
 	);
 }

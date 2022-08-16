@@ -1,41 +1,69 @@
-
 import { gql, useQuery } from "@apollo/client";
 
 import { Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
+import Pagination from 'react-bootstrap/Pagination';
+
 
 import TableBorder from "./TableBorder";
 import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
+import Row from "react-bootstrap/Row";
+import { useState } from "react";
+import PaginationButtons from "./PaginationButtons";
 
 const GET_JOURNEYS = gql`
-    query Query($amount: Int!) {
-        getJourneys(amount: $amount) {
-            id
-            coveredDistance
-            duration
-            departureStation {
-                stationId
-                name
+    query Query($page: Int, $limit: Int) {
+        getJourneys(page: $page, limit: $limit) {
+            journeys {
+                id
+                coveredDistance
+                duration
+                departureStation {
+                    stationId
+                    name
+                }
+                returnStation {
+                    stationId
+                    name
+                }
             }
-            returnStation {
-                stationId
-                name
+            pagination {
+                totalDocs
+                limit
+                totalPages
+                page
+                hasNextPage
+                hasPrevPage
+                nextPage
+                prevPage
             }
         }
     }`;
 
-function JourneysTable ({ amount }) {
+function JourneysTable () {
+	
+	const [currentPage, setCurrentPage] = useState( 1 );
+	
+	
 	const { loading, error, data } = useQuery( GET_JOURNEYS, {
-		variables : { amount : amount },
+		variables : {
+			"page" : currentPage,
+			"limit" : 10
+		},
 	} );
 	
-	if ( loading  ) return <LoadingSpinner/>;
+	if ( loading ) return <LoadingSpinner/>;
 	if ( error ) return <Error error={ error }/>;
+	
+	const journeys = data.getJourneys.journeys;
+	const pagination = data.getJourneys.pagination;
+	
 	
 	return (
 		<Container>
+			<p>Journeys { currentPage * pagination.limit } / { pagination.totalDocs }</p>
 			<TableBorder>
 				<Table striped borderless className="mb-0 text-center">
 					<thead className="border-bottom border-2 bg-warning">
@@ -48,15 +76,17 @@ function JourneysTable ({ amount }) {
 					</tr>
 					</thead>
 					<tbody>
-					{ data.getJourneys.map( journey => (
+					{ journeys.map( journey => (
 						<TableRow key={ journey.id } journey={ journey }/>
 					) ) }
 					</tbody>
 				</Table>
 			</TableBorder>
+			<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
 		</Container>
 	)
 }
+
 
 function TableRow ({ journey }) {
 	const departureStation = journey.departureStation;
