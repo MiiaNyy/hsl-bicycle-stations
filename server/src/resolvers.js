@@ -19,9 +19,9 @@ const resolvers = {
 			return stations.getStation( id );
 		},
 		
-		getStations : async (_, { amount }, { dataSources : { stations } }) => {
-			console.log( "getStations", amount );
-			return stations.getStations( amount );
+		getStations : async (_, __, { dataSources : { stations } }) => {
+			console.log( "getStations:", await stations.getStations() );
+			return stations.getStations();
 		}
 	},
 	

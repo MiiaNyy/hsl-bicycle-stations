@@ -23,6 +23,7 @@
         "graphql-date-scalars": "^0.1.4",
         "graphql-scalars": "^1.17.0",
         "mongoose": "^6.5.0",
+        "mongoose-paginate-v2": "^1.7.0",
         "nodemon": "^2.0.19",
         "rimraf": "^3.0.2",
         "stream-to-mongo-db": "^1.6.0"

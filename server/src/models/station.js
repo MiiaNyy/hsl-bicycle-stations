@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const stationSchema = new mongoose.Schema( {
 	stationId: Number,
@@ -13,6 +14,8 @@ const stationSchema = new mongoose.Schema( {
 	longitude: Number,
 	latitude: Number,
 });
+
+stationSchema.plugin(mongoosePaginate);
 
 const Station = mongoose.model( "Station", stationSchema );
 
