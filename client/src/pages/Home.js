@@ -16,11 +16,11 @@ function Home () {
 				</Row>
 				<Row sm className="pb-5 mb-5">
 					<h3 className="mb-3">HSL Bicycle Journeys </h3>
-					<JourneysTable amount={ 10 }/>
+					<JourneysTable/>
 				</Row>
 				<Row className=" pb-5 mb-5">
 					<h3 className="mb-3">HSL Bicycle Stations</h3>
-					<StationsTable amount={ 10 }/>
+					<StationsTable/>
 				</Row>
 			</Container>
 		</>

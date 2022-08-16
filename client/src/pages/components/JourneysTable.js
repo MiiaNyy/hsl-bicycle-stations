@@ -2,14 +2,11 @@ import { gql, useQuery } from "@apollo/client";
 
 import { Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import Pagination from 'react-bootstrap/Pagination';
-
 
 import TableBorder from "./TableBorder";
 import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
-import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import PaginationButtons from "./PaginationButtons";
 
@@ -86,7 +83,6 @@ function JourneysTable () {
 		</Container>
 	)
 }
-
 
 function TableRow ({ journey }) {
 	const departureStation = journey.departureStation;

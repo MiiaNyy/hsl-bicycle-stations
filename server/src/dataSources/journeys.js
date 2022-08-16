@@ -1,18 +1,9 @@
 import { MongoDataSource } from "apollo-datasource-mongodb";
 import getPaginationInfo from "../helpers/getPaginationInfo";
 
-const options = {
-	page : 1,
-	limit : 10,
-	collation : {
-		locale : 'en',
-	},
-};
-
 class Journeys extends MongoDataSource {
 	// if page is not provided, it will be 1. If limit is not provided, it will be 10.
-	async getJourneys (page = 3, limit = 10) {
-		console.log( "getJourneys page and limit:", page, limit );
+	async getJourneys (page = 1, limit = 10) {
 		return this.model.paginate( {}, { page, limit, collation : { locale : 'en' } }, async (err, result) => {
 			if ( err ) {
 				console.log( err );

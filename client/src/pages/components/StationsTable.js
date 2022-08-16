@@ -53,8 +53,12 @@ function StationsTable () {
 	const stations = data.getStations.stations;
 	const pagination = data.getStations.pagination;
 	
+	console.log( pagination );
+	
 	return (
 		<Container>
+			<p>Stations { currentPage * pagination.limit } / { pagination.totalDocs }</p>
+			
 			<TableBorder>
 				<Table striped borderless className="mb-0 text-center">
 					<thead className="border-bottom border-2 bg-warning">

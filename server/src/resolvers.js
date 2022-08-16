@@ -15,13 +15,11 @@ const resolvers = {
 		
 		
 		getStation : async (_, { id }, { dataSources : { stations } }) => {
-			console.log( "getStation", id );
 			return stations.getStation( id );
 		},
 		
-		getStations : async (_, __, { dataSources : { stations } }) => {
-			console.log( "getStations:", await stations.getStations() );
-			return stations.getStations();
+		getStations : async (_, {page, limit}, { dataSources : { stations } }) => {
+			return stations.getStations(page, limit);
 		}
 	},
 	
