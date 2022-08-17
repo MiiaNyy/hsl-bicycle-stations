@@ -80,7 +80,7 @@ After that you can access the app at `http://localhost:3000`.
 
 ## Description
 This app displays data from journeys made with Helsinki Region Transport’s (HSL) city bicycles and HSL bicycle
-stations. The app shows only limited amount of data. Pagination is next on my todo list. 
+stations. 
 
 The app validates data from CSV files using Apollo Server and MongoDB and creates a database using validated
 data with two collections, journeys, and stations.
@@ -118,7 +118,14 @@ Data that the client can get:
 - add tests
 - create map and show the stations on it
 - show top 5 stations with most journeys
-- create pagination for the stations and journeys
+- Journey list view
+  - search journeys by month
+  - search journeys by day
+  - Filter journeys by month
+- Single station view
+  - Filter journeys by month
+  - Filter all the calculations for the station by month
 - create a search bar for stations and journeys
 - create a filter for stations and journeys
+- UI for adding journeys/stations
   
