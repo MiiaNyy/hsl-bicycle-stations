@@ -108,6 +108,8 @@ table td {
 }
 
 
+
+
 /* --- CLASSES --- */
 
 .station__container {
@@ -118,4 +120,19 @@ table td {
 
 .nav__color {
     background-color: #F2F2F2;
+}
+
+/* Override React Bootstrap pagination styles */
+.pagination > li > a, .pagination > li > span {
+    color: #000000;
+    margin: 0.3em;
+    text-decoration: none;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+.active>.page-link, .page-link.active {
+    background-color: #ff9c07;
+    border-color: #ff9c07;
+    color: #ffffff;
 }

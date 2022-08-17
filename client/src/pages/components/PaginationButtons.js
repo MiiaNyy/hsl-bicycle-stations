@@ -22,7 +22,7 @@ function PaginationButtons ({ pageSetter, pagination }) {
 	return (
 		<Container>
 			<Row className="mt-3">
-				<Pagination size="sm" className="border justify-content-center">
+				<Pagination size="sm" className="justify-content-center">
 					{ pagination.page > 3 ? <Pagination.First onClick={ () => pageSetter( 1 ) }/> : null }
 					{ pagination.hasPrevPage ?
 						<Pagination.Prev onClick={ () => pageSetter( pagination.prevPage ) }/> : null }

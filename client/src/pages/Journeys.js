@@ -7,9 +7,8 @@ function Journeys() {
 	return (
 		<>
 			<Container>
-				<Row className="mt-2 text-center">
-					<h1 className="mb-5">HSL Bicycle Journeys</h1>
-					<JourneysTable amount={ 25 }/>
+				<Row className="mt-2">
+					<JourneysTable/>
 				</Row>
 			</Container>
 		</>

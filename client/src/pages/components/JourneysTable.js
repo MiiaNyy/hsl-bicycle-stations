@@ -66,7 +66,7 @@ function JourneysTable () {
 				<TableHeadRow pagination={ pagination } tableName={ "journeys" } setLimit={ setLimit }
 							  currentLimit={ limit }/>
 				<TableBorder>
-					<Table striped borderless className="mb-0 text-center">
+					<Table striped borderless responsive="xl" className="mb-0 text-center">
 						<thead className="border-bottom border-2 bg-warning">
 						<tr>
 							<th>Covered Distance</th>

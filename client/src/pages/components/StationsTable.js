@@ -64,7 +64,7 @@ function StationsTable () {
 				<TableHeadRow pagination={ pagination } setLimit={ setLimit } tableName={ "stations" }
 							  currentLimit={ limit }/>
 				<TableBorder>
-					<Table striped borderless className="mb-0 text-center">
+					<Table striped borderless responsive="xl" className="mb-0 text-center">
 						<thead className="border-bottom border-2 bg-warning">
 						<tr>
 							<th>ID</th>
@@ -84,12 +84,10 @@ function StationsTable () {
 				<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
 			</Container>
 		</>
-	
 	);
 }
 
 function TableRow ({ station }) {
-	
 	return (
 		<tr key={ station.stationId + Math.random() }>
 			<TableDataBorder>{ station.stationId }</TableDataBorder>
