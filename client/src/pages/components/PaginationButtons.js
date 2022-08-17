@@ -1,13 +1,12 @@
 import Pagination from "react-bootstrap/Pagination";
 import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 
 function PaginationButtons ({ pageSetter, pagination }) {
-	
-	let active = pagination.page;
+	const active = pagination.page;
 	let items = [];
 	
 	const totalPages = Math.round( pagination.totalDocs / pagination.limit );
-	
 	
 	const startingPage = pagination.page < 4 ? 1 : ( pagination.page - 2 );
 	const endingPage = getEndingPage( pagination.page, totalPages );
@@ -21,9 +20,9 @@ function PaginationButtons ({ pageSetter, pagination }) {
 	}
 	
 	return (
-		<Row>
-			<Row>
-				<Pagination>
+		<Container>
+			<Row className="mt-3">
+				<Pagination size="sm" className="border justify-content-center">
 					{ pagination.page > 3 ? <Pagination.First onClick={ () => pageSetter( 1 ) }/> : null }
 					{ pagination.hasPrevPage ?
 						<Pagination.Prev onClick={ () => pageSetter( pagination.prevPage ) }/> : null }
@@ -34,7 +33,7 @@ function PaginationButtons ({ pageSetter, pagination }) {
 						<Pagination.Last onClick={ () => pageSetter( totalPages ) }/> : null }
 				</Pagination>
 			</Row>
-		</Row>
+		</Container>
 	);
 	
 }
@@ -48,4 +47,5 @@ function getEndingPage (currentPage, totalPages) {
 	}
 	return currentPage + 2;
 }
+
 export default PaginationButtons;

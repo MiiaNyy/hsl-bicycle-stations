@@ -58,29 +58,33 @@ function StationsTable () {
 	const pagination = data.getStations.pagination;
 	
 	return (
-		<Container>
-			<TableHeadRow pagination={ pagination } setLimit={ setLimit } tableName={ "stations" }
-						  currentLimit={ limit }/>
-			<TableBorder>
-				<Table striped borderless className="mb-0 text-center">
-					<thead className="border-bottom border-2 bg-warning">
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>City</th>
-						<th>Capacity</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
-					{ stations.map( station => (
-						<TableRow key={ station.stationId + Math.random() } station={ station }/>
-					) ) }
-					</tbody>
-				</Table>
-			</TableBorder>
-			<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
-		</Container>
+		<>
+			<h3 className="mb-3">HSL Bicycle Stations</h3>
+			<Container>
+				<TableHeadRow pagination={ pagination } setLimit={ setLimit } tableName={ "stations" }
+							  currentLimit={ limit }/>
+				<TableBorder>
+					<Table striped borderless className="mb-0 text-center">
+						<thead className="border-bottom border-2 bg-warning">
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>City</th>
+							<th>Capacity</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						{ stations.map( station => (
+							<TableRow key={ station.stationId + Math.random() } station={ station }/>
+						) ) }
+						</tbody>
+					</Table>
+				</TableBorder>
+				<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
+			</Container>
+		</>
+	
 	);
 }
 

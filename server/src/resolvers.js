@@ -13,7 +13,6 @@ const resolvers = {
 			return journeys.getJourney( id );
 		},
 		
-		
 		getStation : async (_, { id }, { dataSources : { stations } }) => {
 			return stations.getStation( id );
 		},

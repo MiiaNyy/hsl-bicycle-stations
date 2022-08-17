@@ -60,29 +60,32 @@ function JourneysTable () {
 	const pagination = data.getJourneys.pagination;
 	
 	return (
-		<Container>
-			<TableHeadRow pagination={ pagination } tableName={ "journeys" } setLimit={ setLimit }
-						  currentLimit={ limit }/>
-			<TableBorder>
-				<Table striped borderless className="mb-0 text-center">
-					<thead className="border-bottom border-2 bg-warning">
-					<tr>
-						<th>Covered Distance</th>
-						<th>Duration (min)</th>
-						<th>Departure station</th>
-						<th>Return station</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
-					{ journeys.map( journey => (
-						<TableRow key={ journey.id } journey={ journey }/>
-					) ) }
-					</tbody>
-				</Table>
-			</TableBorder>
-			<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
-		</Container>
+		<>
+			<h3 className="mb-3">HSL Bicycle Journeys </h3>
+			<Container>
+				<TableHeadRow pagination={ pagination } tableName={ "journeys" } setLimit={ setLimit }
+							  currentLimit={ limit }/>
+				<TableBorder>
+					<Table striped borderless className="mb-0 text-center">
+						<thead className="border-bottom border-2 bg-warning">
+						<tr>
+							<th>Covered Distance</th>
+							<th>Duration (min)</th>
+							<th>Departure station</th>
+							<th>Return station</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						{ journeys.map( journey => (
+							<TableRow key={ journey.id } journey={ journey }/>
+						) ) }
+						</tbody>
+					</Table>
+				</TableBorder>
+				<PaginationButtons pageSetter={ setCurrentPage } pagination={ pagination }/>
+			</Container>
+		</>
 	)
 }
 
