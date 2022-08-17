@@ -9,6 +9,8 @@ import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
 import { useState } from "react";
 import PaginationButtons from "./PaginationButtons";
+import addSpaceBetweenDigits from "../../helpers/addSpaceBetweenDigits";
+import TableHeadRow from "./TableHeadRow";
 
 const GET_JOURNEYS = gql`
     query Query($page: Int, $limit: Int) {
@@ -42,12 +44,12 @@ const GET_JOURNEYS = gql`
 function JourneysTable () {
 	
 	const [currentPage, setCurrentPage] = useState( 1 );
-	
+	const [limit, setLimit] = useState( 10 );
 	
 	const { loading, error, data } = useQuery( GET_JOURNEYS, {
 		variables : {
 			"page" : currentPage,
-			"limit" : 10
+			"limit" : limit
 		},
 	} );
 	
@@ -57,10 +59,10 @@ function JourneysTable () {
 	const journeys = data.getJourneys.journeys;
 	const pagination = data.getJourneys.pagination;
 	
-	
 	return (
 		<Container>
-			<p>Journeys { currentPage * pagination.limit } / { pagination.totalDocs }</p>
+			<TableHeadRow pagination={ pagination } tableName={ "journeys" } setLimit={ setLimit }
+						  currentLimit={ limit }/>
 			<TableBorder>
 				<Table striped borderless className="mb-0 text-center">
 					<thead className="border-bottom border-2 bg-warning">
