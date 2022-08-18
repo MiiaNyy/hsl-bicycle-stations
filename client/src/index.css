@@ -108,18 +108,27 @@ table td {
 }
 
 
-
-
 /* --- CLASSES --- */
 
 .station__container {
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
 }
 
 .nav__color {
     background-color: #F2F2F2;
+}
+
+/* Makes leaflet container visible */
+.leaflet-container {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    max-height: 380px;
+    min-height: 380px;
+    border: 2px solid deeppink;
+
 }
 
 /* Override React Bootstrap pagination styles */
@@ -131,7 +140,7 @@ table td {
     transition: all 0.2s ease-in-out;
 }
 
-.active>.page-link, .page-link.active {
+.active > .page-link, .page-link.active {
     background-color: #ff9c07;
     border-color: #ff9c07;
     color: #ffffff;

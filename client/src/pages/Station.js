@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Table } from "react-bootstrap";
@@ -20,6 +22,8 @@ const GET_STATION = gql`
             address
             city
             capacity
+            longitude
+            latitude
             numOfJourneysStartingFrom
             numOfJourneysReturningTo
             averageDistanceStartingFrom
@@ -47,12 +51,29 @@ function Station () {
 	if ( error ) return <Error error={ error }/>;
 	
 	const station = data.getStation;
+	const position = [station.latitude, station.longitude];
 	
 	return (
-		<div>
+		<Container>
 			
-			<Row>
-				<StationBasicInfo station={ station }/>
+			<h1 className="text-center">{ station.stationId }, { station.name }</h1>
+			<Row className="border mt-4 ">
+				<Col className="" xs={ { span : 12, order : 2 } } md={ { span : 6, order : 1 } }>
+					<StationBasicInfo station={ station }/>
+				</Col>
+				<Col className="border" xs={ { span : 12, order : 1 } } md={ { span : 6, order : 2 } }>
+					<MapContainer center={ position } zoom={ 14 } scrollWheelZoom={ false }>
+						<TileLayer
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+						/>
+						<Marker position={ position }>
+							<Popup>
+								<span>{ station.stationId }, { station.name }<br/>{ station.address }</span>
+							</Popup>
+						</Marker>
+					</MapContainer>
+				</Col>
 			</Row>
 			
 			<Row className="mt-5 mb-5 text-center">
@@ -68,7 +89,7 @@ function Station () {
 					<MostPopularStationTable stations={ station.mostPopularReturnStationsForJourneysStartingFrom }/>
 				</Col>
 			</Row>
-		</div>
+		</Container>
 	)
 }
 
@@ -105,10 +126,7 @@ function MostPopularStationTable ({ stations }) {
 
 function StationBasicInfo ({ station }) {
 	return (
-		<div className="text-center station__container">
-			<h1 className="mb-4 ">{ station.stationId }, { station.name }</h1>
-			<Row className=" ">
-			</Row>
+		<Container className="text-center station__container">
 			<Row className="border border-2 border-warning rounded box-shadow">
 				<Col sm={ 5 } className="border-end border-warning">
 					<p className="info-header">Address</p>
@@ -146,7 +164,7 @@ function StationBasicInfo ({ station }) {
 					<p>{ station.averageDistanceReturnedTo }km</p>
 				</Col>
 			</Row>
-		</div>
+		</Container>
 	);
 }
 
