@@ -15,6 +15,7 @@ function Home () {
 					Helsinki and Espoo.</p>
 			</Row>
 			<Row sm className="pb-5 mb-5" style={ { minHeight : "400px" } }>
+				<h3 className="mb-3">HSL Bicycle Journeys </h3>
 				<JourneysTable/>
 			</Row>
 			<Row className="pb-5 mb-5" style={ { minHeight : "400px" } }>

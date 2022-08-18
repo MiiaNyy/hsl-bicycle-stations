@@ -61,7 +61,6 @@ function JourneysTable () {
 	
 	return (
 		<>
-			<h3 className="mb-3">HSL Bicycle Journeys </h3>
 			<Container>
 				<TableHeadRow pagination={ pagination } tableName={ "journeys" } setLimit={ setLimit }
 							  currentLimit={ limit }/>

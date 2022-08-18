@@ -6,7 +6,6 @@ const resolvers = {
 	Query : {
 		getJourneys : async (_, { page, limit }, { dataSources }) => {
 			return dataSources.journeys.getJourneys( page, limit );
-			
 		},
 		
 		getJourney : async (_, { id }, { dataSources : { journeys } }) => {
@@ -21,7 +20,7 @@ const resolvers = {
 			return stations.getStations( page, limit );
 		},
 		
-		getAllStations : async (_, {}, { dataSources : { stations } }) => {
+		getAllStations : async (_, __, { dataSources : { stations } }) => {
 			return stations.getAllStations();
 		}
 	},

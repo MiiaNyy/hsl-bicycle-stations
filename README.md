@@ -116,11 +116,8 @@ Data that the client can get:
 
 ## TODO
 - add tests
-- create map and show the stations on it
 - show top 5 stations with most journeys
 - Journey list view
-  - search journeys by month
-  - search journeys by day
   - Filter journeys by month
 - Single station view
   - Filter journeys by month

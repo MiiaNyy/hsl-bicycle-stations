@@ -8,6 +8,7 @@ function Journeys() {
 		<>
 			<Container>
 				<Row className="mt-2">
+					<h3 className="mb-5 mt-3 text-center">HSL Bicycle Journeys </h3>
 					<JourneysTable/>
 				</Row>
 			</Container>
