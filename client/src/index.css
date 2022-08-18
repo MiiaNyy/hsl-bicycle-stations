@@ -113,7 +113,6 @@ table td {
 .station__container {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
 }
 
 .nav__color {
@@ -123,15 +122,19 @@ table td {
 /* Makes leaflet container visible */
 .leaflet-container {
     width: 100%;
-    max-width: 600px;
     height: 100%;
-    max-height: 380px;
-    min-height: 380px;
-    border: 2px solid deeppink;
+    max-height: 400px;
+    min-height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
 }
 
-/* Override React Bootstrap pagination styles */
+.markercluster-map {
+    height: 90vh;
+}
+
+
+    /* Override React Bootstrap pagination styles */
 .pagination > li > a, .pagination > li > span {
     color: #000000;
     margin: 0.3em;

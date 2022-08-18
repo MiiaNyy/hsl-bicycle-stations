@@ -6,7 +6,7 @@ import addSpaceBetweenDigits from "../../helpers/addSpaceBetweenDigits";
 // How many items are shown in a table
 const limitOptions = [10, 25, 50, 75, 100];
 
-function TableHeadRow ({ pagination, tableName, setLimit, currentLimit }) {
+function TableHeadRow ({ pagination, setLimit, currentLimit }) {
 	return (
 		<Row className="mb-2">
 			<Col className="align-self-center">

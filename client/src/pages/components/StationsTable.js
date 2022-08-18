@@ -11,10 +11,8 @@ import LoadingSpinner from "./LoadingSpinner";
 
 import Error from "./Error";
 import PaginationButtons from "./PaginationButtons";
-import addSpaceBetweenDigits from "../../helpers/addSpaceBetweenDigits";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import TableHeadRow from "./TableHeadRow";
+import AllStationsOnMap from "./AllStationsOnMap";
 
 const GET_STATIONS = gql`
     query Query($page: Int, $limit: Int) {
@@ -24,6 +22,8 @@ const GET_STATIONS = gql`
                 name
                 capacity
                 city
+                longitude
+                latitude
             }
             pagination {
                 totalDocs
@@ -57,9 +57,9 @@ function StationsTable () {
 	const stations = data.getStations.stations;
 	const pagination = data.getStations.pagination;
 	
+	
 	return (
 		<>
-			<h3 className="mb-3">HSL Bicycle Stations</h3>
 			<Container>
 				<TableHeadRow pagination={ pagination } setLimit={ setLimit } tableName={ "stations" }
 							  currentLimit={ limit }/>

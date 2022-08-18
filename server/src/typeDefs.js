@@ -11,6 +11,7 @@ const typeDefs = gql`
         getJourneys(page: Int, limit: Int): Journeys!
 		"Get a journey by id"
         getJourney(id: ID!): Journey!
+		getAllStations: [Station]!
     }
 	
 	type Stations {

@@ -17,8 +17,12 @@ const resolvers = {
 			return stations.getStation( id );
 		},
 		
-		getStations : async (_, {page, limit}, { dataSources : { stations } }) => {
-			return stations.getStations(page, limit);
+		getStations : async (_, { page, limit }, { dataSources : { stations } }) => {
+			return stations.getStations( page, limit );
+		},
+		
+		getAllStations : async (_, {}, { dataSources : { stations } }) => {
+			return stations.getAllStations();
 		}
 	},
 	

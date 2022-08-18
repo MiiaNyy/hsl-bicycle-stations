@@ -10,8 +10,8 @@ class Stations extends MongoDataSource {
 				console.log( err );
 			}
 			return {
-				stations: result.docs,
-				pagination: getPaginationInfo(result),
+				stations : result.docs,
+				pagination : getPaginationInfo( result ),
 			}
 		} );
 	}
@@ -22,6 +22,10 @@ class Stations extends MongoDataSource {
 	
 	async getMultipleStations (ids) {
 		return this.model.find( { stationId : ids } );
+	}
+	
+	async getAllStations () {
+		return this.model.find();
 	}
 }
 
