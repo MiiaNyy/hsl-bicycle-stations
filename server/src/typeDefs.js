@@ -8,13 +8,11 @@ const typeDefs = gql`
         "Returns all stations"
         getStations(page: Int, limit: Int): Stations!
         "Get journeys with pagination and filtering"
-        getJourneys(page: Int, limit: Int): Journeys!
+        getJourneys(page: Int, limit: Int, query: Int): Journeys!
         "Get a journey by id"
         getJourney(id: ID!): Journey!
         "Get all stations without pagination. Used for showing locations on map"
         getAllStations: [Station]!
-		getJourneysFilteredByMonth: Journeys!
-
     }
 
     type Stations {
@@ -90,7 +88,7 @@ const typeDefs = gql`
         "The previous pages number"
         prevPage: Int
     }
-
+	
 
     scalar DateTime
 `;

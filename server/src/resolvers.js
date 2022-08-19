@@ -4,8 +4,8 @@ import getMostFrequentIds from "./helpers/getMostFrequentIds";
 
 const resolvers = {
 	Query : {
-		getJourneys : async (_, { page, limit }, { dataSources }) => {
-			return dataSources.journeys.getJourneys( page, limit );
+		getJourneys : async (_, { page, limit, query }, { dataSources }) => {
+			return dataSources.journeys.getJourneys( page, limit, query );
 		},
 		
 		getJourney : async (_, { id }, { dataSources : { journeys } }) => {
@@ -22,7 +22,9 @@ const resolvers = {
 		
 		getAllStations : async (_, __, { dataSources : { stations } }) => {
 			return stations.getAllStations();
-		}
+		},
+		
+		
 	},
 	
 	Journey : {
