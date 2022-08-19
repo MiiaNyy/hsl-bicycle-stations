@@ -8,11 +8,15 @@ const typeDefs = gql`
         "Returns all stations"
         getStations(page: Int, limit: Int): Stations!
         "Get journeys with pagination and filtering"
-        getJourneys(page: Int, limit: Int, query: Int): Journeys!
+        getJourneys(page: Int, limit: Int, query: JourneyQuery): Journeys!
         "Get a journey by id"
         getJourney(id: ID!): Journey!
         "Get all stations without pagination. Used for showing locations on map"
         getAllStations: [Station]!
+    }
+	
+	input JourneyQuery {
+		month: Int!
     }
 
     type Stations {

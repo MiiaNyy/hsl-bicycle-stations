@@ -3,22 +3,25 @@ import { gql, useQuery } from "@apollo/client";
 import { Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 
+import { useState } from "react";
+
+import PaginationButtons from "./PaginationButtons";
+import TableHeadRow from "./TableHeadRow";
 import TableBorder from "./TableBorder";
 import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
-import { useState } from "react";
-import PaginationButtons from "./PaginationButtons";
-import addSpaceBetweenDigits from "../../helpers/addSpaceBetweenDigits";
-import TableHeadRow from "./TableHeadRow";
+import Row from "react-bootstrap/Row";
+import getMonthAndDay from "../../helpers/getMonthAndDay";
 
 const GET_JOURNEYS = gql`
-    query Query($page: Int, $limit: Int) {
-        getJourneys(page: $page, limit: $limit) {
+    query Query($page: Int, $limit: Int, $query: JourneyQuery) {
+        getJourneys(page: $page, limit: $limit, query: $query) {
             journeys {
                 id
                 coveredDistance
                 duration
+                departure
                 departureStation {
                     stationId
                     name
@@ -45,11 +48,13 @@ function JourneysTable () {
 	
 	const [currentPage, setCurrentPage] = useState( 1 );
 	const [limit, setLimit] = useState( 10 );
+	const [query, setQuery] = useState( { month : 0 } );
 	
 	const { loading, error, data } = useQuery( GET_JOURNEYS, {
 		variables : {
 			"page" : currentPage,
-			"limit" : limit
+			"limit" : limit,
+			"query" : query
 		},
 	} );
 	
@@ -62,12 +67,13 @@ function JourneysTable () {
 	return (
 		<>
 			<Container>
-				<TableHeadRow pagination={ pagination } tableName={ "journeys" } setLimit={ setLimit }
-							  currentLimit={ limit }/>
+				<TableHeadRow pagination={ pagination } setLimit={ setLimit } currentLimit={ limit } query={ query }
+							  setQuery={ setQuery }/>
 				<TableBorder>
 					<Table striped borderless responsive="xl" className="mb-0 text-center">
 						<thead className="border-bottom border-2 bg-warning">
 						<tr>
+							<th>Date</th>
 							<th>Covered Distance</th>
 							<th>Duration (min)</th>
 							<th>Departure station</th>
@@ -88,12 +94,14 @@ function JourneysTable () {
 	)
 }
 
+
 function TableRow ({ journey }) {
 	const departureStation = journey.departureStation;
 	const returnStation = journey.returnStation;
 	
 	return (
 		<tr key={ journey.id }>
+			<TableDataBorder><p className="m-1">{ getMonthAndDay( journey.departure ) }</p></TableDataBorder>
 			<TableDataBorder><p className="m-1">{ journey.coveredDistance } km</p></TableDataBorder>
 			<TableDataBorder>{ journey.duration }</TableDataBorder>
 			<TableDataBorder><a href={ "/station/" + departureStation.stationId }

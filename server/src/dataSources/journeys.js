@@ -5,7 +5,9 @@ import getPaginationInfo from "../helpers/getPaginationInfo";
 class Journeys extends MongoDataSource {
 	
 	async getJourneys (page, limit, filter) {
-		const query = !filter ? {} : getMonthFilter( filter );
+		// If there is no filter, return all journeys, otherwise return filtered journeys by month
+		const query = getJourneyQuery( filter );
+		console.log( "getJourneys", page, limit, query );
 		const options = {
 			page,
 			limit,
@@ -39,10 +41,20 @@ class Journeys extends MongoDataSource {
 	
 }
 
-function getMonthFilter (month) {
+function getJourneyQuery (filter) {
+	console.log( "getJourneyQuery", filter.month );
+	
+	if ( filter.month === 0 ){
+		console.log( "getJourneyQuery", "no filter. Return ALL Journeys" );
+		return {};
+	}
+	
+	console.log( "getJourneyQuery", "filter. Return Journeys in month:", filter.month );
 	// For some reason the time starts at 21:00:00 instead of 00:00:00. That's why we need to start from hour 3.
-	const firstDay = new Date( 2021, month - 1, 1, 3, 0, 0, 0 );
-	const lastDay = new Date( 2021, month, 0, 3, 0, 0, 0 );
+	const firstDay = new Date( 2021, filter.month - 1, 1, 3, 0, 0, 0 );
+	const lastDay = new Date( 2021, filter.month, 0, 3, 0, 0, 0 );
+	console.log( "firstDay", firstDay );
+	console.log( "lastDay", lastDay );
 	return {
 		departure : {
 			$gte : firstDay,

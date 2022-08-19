@@ -118,9 +118,14 @@ Data that the client can get:
 - add tests
 - show top 5 stations with most journeys
 - Journey list view
-  - Filter journeys by month
+  - Filter journeys distance
+    - longest to shortest
+    - shortest to longest
+  - Filter journeys duration
+    - longest to shortest
+    - shortest to longest
 - Single station view
-  - Filter journeys by month
+  - show all journeys by month
   - Filter all the calculations for the station by month
 - create a search bar for stations and journeys
 - create a filter for stations and journeys
