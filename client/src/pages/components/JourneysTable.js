@@ -11,12 +11,11 @@ import TableBorder from "./TableBorder";
 import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
-import Row from "react-bootstrap/Row";
 import getMonthAndDay from "../../helpers/getMonthAndDay";
 
 const GET_JOURNEYS = gql`
-    query Query($page: Int, $limit: Int, $query: JourneyQuery) {
-        getJourneys(page: $page, limit: $limit, query: $query) {
+    query Query($page: Int, $limit: Int, $query: JourneyQuery, $sort: JourneySort) {
+        getJourneys(page: $page, limit: $limit, query: $query, sort: $sort) {
             journeys {
                 id
                 coveredDistance
@@ -48,13 +47,15 @@ function JourneysTable () {
 	
 	const [currentPage, setCurrentPage] = useState( 1 );
 	const [limit, setLimit] = useState( 10 );
-	const [query, setQuery] = useState( { month : 0 } );
+	const [query, setQuery] = useState( {} );
+	const [sort, setSort] = useState( { field: "departure", value: "asc" } );
 	
 	const { loading, error, data } = useQuery( GET_JOURNEYS, {
 		variables : {
 			"page" : currentPage,
 			"limit" : limit,
-			"query" : query
+			"query" : query,
+			"sort" : sort
 		},
 	} );
 	
@@ -68,7 +69,7 @@ function JourneysTable () {
 		<>
 			<Container>
 				<TableHeadRow pagination={ pagination } setLimit={ setLimit } currentLimit={ limit } query={ query }
-							  setQuery={ setQuery }/>
+							  setQuery={ setQuery } sort={ sort } setSort={ setSort }/>
 				<TableBorder>
 					<Table striped borderless responsive="xl" className="mb-0 text-center">
 						<thead className="border-bottom border-2 bg-warning">

@@ -8,16 +8,37 @@ const typeDefs = gql`
         "Returns all stations"
         getStations(page: Int, limit: Int): Stations!
         "Get journeys with pagination and filtering"
-        getJourneys(page: Int, limit: Int, query: JourneyQuery): Journeys!
+        getJourneys(page: Int, limit: Int, query: JourneyQuery, sort: JourneySort): Journeys!
         "Get a journey by id"
         getJourney(id: ID!): Journey!
         "Get all stations without pagination. Used for showing locations on map"
         getAllStations: [Station]!
     }
 	
+	
 	input JourneyQuery {
-		month: Int!
-    }
+		month: Int
+	}
+	
+	input JourneySort {
+		"Field can be DURATION or DISTANCE. Field that tells how to sort query"
+		field: SortFields!
+		"Ascending or descending"
+		value: SortValues!
+	}
+	
+	enum SortFields {
+		duration
+		distance
+        departure
+	}
+	
+	enum SortValues {
+		"Ascending"
+		asc
+		"Descending"
+		desc
+	}
 
     type Stations {
         stations: [Station]!
