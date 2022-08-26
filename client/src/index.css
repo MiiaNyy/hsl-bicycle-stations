@@ -110,6 +110,15 @@ table td {
 
 /* --- CLASSES --- */
 
+.arrow-icon {
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.arrow-icon:hover {
+    transform: scale(1.1);
+}
+
 .station__container {
     width: 100%;
     max-width: 600px;
@@ -134,7 +143,7 @@ table td {
 }
 
 
-    /* Override React Bootstrap pagination styles */
+/* Override React Bootstrap pagination styles */
 .pagination > li > a, .pagination > li > span {
     color: #000000;
     margin: 0.3em;
