@@ -27,9 +27,11 @@ const typeDefs = gql`
 		value: SortValues!
 	}
 	
+	
+	
 	enum SortFields {
 		duration
-		distance
+		coveredDistance
         departure
 	}
 	
@@ -88,7 +90,7 @@ const typeDefs = gql`
         "Station where the journey starts"
         departureStation: Station!
         "Station where the journey ends"
-        returnStation: Station!
+        returnStation: Station
         "The journeys covered distance in kilometers"
         coveredDistance: Float!
         "The journeys duration in minutes"

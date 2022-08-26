@@ -5,7 +5,6 @@ import getMostFrequentIds from "./helpers/getMostFrequentIds";
 const resolvers = {
 	Query : {
 		getJourneys : async (_, { page, limit, query, sort }, { dataSources }) => {
-			console.log("Query is:", query);
 			return dataSources.journeys.getJourneys( page, limit, query, sort );
 		},
 		
@@ -41,6 +40,9 @@ const resolvers = {
 			return stations.getStation( parent.departureStationId );
 		},
 		returnStation : async (parent, __, { dataSources : { stations } }) => {
+			if ( !parent.returnStationId ) {
+				console.log("Null station id found! From parent:", parent.id)
+			}
 			return stations.getStation( parent.returnStationId );
 		},
 	},

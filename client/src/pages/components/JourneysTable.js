@@ -48,7 +48,10 @@ function JourneysTable () {
 	const [currentPage, setCurrentPage] = useState( 1 );
 	const [limit, setLimit] = useState( 10 );
 	const [query, setQuery] = useState( {} );
-	const [sort, setSort] = useState( { field: "departure", value: "asc" } );
+	const [sort, setSort] = useState( { field : "departure", value : "asc" } );
+	
+	const [duration, setDuration] = useState( "asc" );
+	const [distance, setDistance] = useState( "asc" );
 	
 	const { loading, error, data } = useQuery( GET_JOURNEYS, {
 		variables : {
@@ -69,14 +72,27 @@ function JourneysTable () {
 		<>
 			<Container>
 				<TableHeadRow pagination={ pagination } setLimit={ setLimit } currentLimit={ limit } query={ query }
-							  setQuery={ setQuery } sort={ sort } setSort={ setSort }/>
+							  setQuery={ setQuery }/>
 				<TableBorder>
 					<Table striped borderless responsive="xl" className="mb-0 text-center">
 						<thead className="border-bottom border-2 bg-warning">
 						<tr>
 							<th>Date</th>
-							<th>Covered Distance</th>
-							<th>Duration (min)</th>
+							<th>
+								Covered Distance
+								<i className="fa-solid fa-angle-down arrow-icon"
+								   onClick={ () => {
+									   setDistance( (current) => current === "asc" ? "desc" : "asc" );
+									   setSort({ field : "coveredDistance", value : distance })
+								   } }></i>
+							</th>
+							<th>Duration (min)
+								<i className="fa-solid fa-angle-down arrow-icon"
+								   onClick={ () => {
+									   setDuration( (current) => current === "asc" ? "desc" : "asc" );
+									   setSort({ field : "duration", value : duration })
+								   } }></i>
+							</th>
 							<th>Departure station</th>
 							<th>Return station</th>
 							<th></th>

@@ -17,16 +17,12 @@ const months = [
 ];
 
 function TableHeadRow (props) {
-	console.log( getSortObjFromString( "duration desc" ) )
 	
-	const { pagination, setLimit, currentLimit, query, setQuery, sort, setSort } = props;
+	const { pagination, setLimit, currentLimit, query, setQuery} = props;
 	return (
 		<Row className="mb-2">
 			<Col sm="12" lg className="align-self-center">
 				<p className="mb-0">Total { addSpaceBetweenDigits( pagination.totalDocs ) }</p>
-			</Col>
-			<Col xs="6" lg="2" className="align-self-center">
-				<DropdownDistanceAndDuration sort={ sort } setSort={ setSort }/>
 			</Col>
 			<Col xs="6" lg="2" className="align-self-center">
 				<DropdownMonth setQuery={ setQuery } query={ query }/>
@@ -36,28 +32,6 @@ function TableHeadRow (props) {
 			</Col>
 		</Row>
 	);
-}
-
-function getSortObjFromString (string) {
-	
-	const key = string.split( " " )[0];
-	const value = string.split( " " )[1];
-	return { field : key, value }
-}
-
-function DropdownDistanceAndDuration ({ sort, setSort }) {
-	return (
-		<form>
-			<select className="form-select" value="sort"
-					onChange={ (e) => setSort( getSortObjFromString( e.target.value ) ) }
-					aria-label="Sort journeys by duration or distance">
-				<option value="duration asc"> Duration ascending</option>
-				<option value="duration desc"> Duration descending</option>
-				<option value="distance asc"> Distance ascending</option>
-				<option value="distance desc"> Distance descending</option>
-			</select>
-		</form>
-	)
 }
 
 function DropdownLimit ({ currentLimit, setLimit }) {
