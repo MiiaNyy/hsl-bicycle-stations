@@ -86,7 +86,7 @@ function JourneysTable () {
 									   setSort({ field : "coveredDistance", value : distance })
 								   } }></i>
 							</th>
-							<th>Duration (min)
+							<th>Duration
 								<i className="fa-solid fa-angle-down arrow-icon"
 								   onClick={ () => {
 									   setDuration( (current) => current === "asc" ? "desc" : "asc" );
