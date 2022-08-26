@@ -1,4 +1,4 @@
-import formatSecondsToMSS from "./helpers/formatSecondsToMSS";
+import formatSeconds from "./helpers/formatSeconds";
 import getAverageDistance from "./helpers/getAverageDistance";
 import getMostFrequentIds from "./helpers/getMostFrequentIds";
 
@@ -33,7 +33,7 @@ const resolvers = {
 		},
 		
 		duration : async (parent) => {
-			return formatSecondsToMSS( parent.duration );
+			return formatSeconds( parent.duration );
 		},
 		
 		departureStation : async (parent, __, { dataSources : { stations } }) => {
