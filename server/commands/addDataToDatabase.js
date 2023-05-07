@@ -7,8 +7,6 @@ import path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(path.dirname(__filename));
 
-console.log("dirname", __dirname);
-
 const journeysCsvFilePath1 = path.join(__dirname, "src/resources/2021-05.csv");
 const journeysCsvFilePath2 = path.join(__dirname, "src/resources/2021-06.csv");
 const journeysCsvFilePath3 = path.join(__dirname, "src/resources/2021-07.csv");
@@ -30,41 +28,48 @@ import validateJourneysAndAddDataToDatabase from "../src/validation/validateJour
 const url = "mongodb://127.0.0.1:27017/hslBicycles";
 
 async function validateAllJourneys() {
-  await Promise.all(
-    journeysCsvFilePaths.map(async (filePath) => {
-      await validateJourneysAndAddDataToDatabase(filePath);
-    })
-  );
-
-  /*await journeysCsvFilePaths.forEach( async (filePath) => {
-    await validateJourneysAndAddDataToDatabase(filePath);
-    });*/
+  try {
+    await Promise.all(
+      journeysCsvFilePaths.map(async (filePath) => {
+        await validateJourneysAndAddDataToDatabase(filePath);
+      })
+    );
+    console.log("All journeys validated successfully!");
+  } catch (error) {
+    console.error("Error occurred during journey validation:", error);
+    process.exit(1);
+  }
 }
-const main = async () => {
-  await mongoose.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    async (err) => {
-      if (err) throw err;
-      console.log(`🎉 Connected to database successfully!!`);
 
-      // Run this only once when the database is created for the first time
-      await validateStationsAndAddDataToDatabase(stationsCsvFilePath);
-      await validateAllJourneys();
-      //process.exit();
-    }
-  );
+const main = async () => {
+  try {
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`🎉 Connected to the database successfully!`);
+
+    await validateStationsAndAddDataToDatabase(stationsCsvFilePath);
+    await validateJourneysAndAddDataToDatabase(journeysCsvFilePaths);
+    console.log(`Validation and database insertion completed successfully!`);
+
+    process.exit();
+  } catch (error) {
+    console.error(
+      `Error occurred during validation and database insertion:`,
+      error
+    );
+    process.exit(1);
+  }
 };
 
-main()
-  .then(() => {
-    const db = mongoose.connection;
-    db.once("open", (_) => {
-      console.log("Database connected:", url);
-    });
+const db = mongoose.connection;
+db.once("open", (_) => {
+  console.log(`Database connected: ${url}`);
+});
 
-    db.on("error", (err) => {
-      console.error("connection error:", err);
-    });
-  })
-  .catch((error) => console.error(error));
+db.on("error", (err) => {
+  console.error(`Connection error:`, err);
+});
+
+main();

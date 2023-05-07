@@ -8,92 +8,88 @@ import validateJourneyData from "./validateJourneyData.js";
 
 import { Journey as JourneyModel } from "../models/journey.js";
 
-import { Transform } from "stream";
-import { promisify } from "util";
+async function validateJourneysAndAddDataToDatabase(filePaths) {
+  const batchSize = 5000;
+  let totalJourneys = 0;
 
-async function validateJourneysAndAddDataToDatabase(filePath) {
-  console.log(
-    "Validating journeys and adding them to database for file path: " + filePath
-  );
-  let counter = 0;
-  let batchCounter = 0;
-  const batchSize = 1000;
-  const batch = [];
+  for (let i = 0; i < filePaths.length; i++) {
+    const filePath = filePaths[i];
+    let counter = 0;
+    let batchCounter = 0;
+    let batch = [];
 
-  const startingTime = getCurrentTimeInHMSS();
+    const startingTime = getCurrentTimeInHMSS();
 
-  const validateJourneyDataAsync = promisify(validateJourneyData);
-
-  const stream = fs
-    .createReadStream(filePath)
-    .pipe(
+    const stream = fs.createReadStream(filePath).pipe(
       csv({
-        mapHeaders: ({ header, index }) => mapJourneyHeaders(header, index),
-        mapValues: ({ header, value }) => mapJourneyValues({ header, value }),
+        mapHeaders: ({ header, index }) => {
+          return mapJourneyHeaders(header, index);
+        },
+        mapValues: ({ header, value }) => {
+          return mapJourneyValues({ header, value });
+        },
         strict: true,
       })
-    )
-    .pipe(
-      new Transform({
-        objectMode: true,
-        transform: (row, encoding, callback) => {
-          validateJourneyDataAsync(row)
-            .then(() => {
-              batch.push(row);
-              counter++;
-              batchCounter++;
+    );
 
-              if (batchCounter >= batchSize) {
-                stream.pause();
+    const fileProgressMessage = `Validating file ${i + 1}/${filePaths.length}`;
+    const journeysProgressMessage = "Journeys added: ";
 
-                JourneyModel.bulkWrite(
-                  batch.map((journey) => ({
-                    insertOne: { document: journey },
-                  }))
-                )
-                  .then(() => {
-                    batch.length = 0;
-                    batchCounter = 0;
-                    console.log(`${counter} journeys written to database`);
-                    stream.resume();
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
-              }
+    process.stdout.write(fileProgressMessage);
 
-              callback();
-            })
-            .catch((error) => {
-              console.error(error);
-              callback();
-            });
-        },
-      })
-    )
-    .on("end", () => {
-      console.log(
-        "🎉 Journeys csv file validation complete. Adding last journeys to db..."
-      );
-
-      JourneyModel.bulkWrite(
-        batch.map((journey) => ({
-          insertOne: { document: journey },
-        }))
-      )
-        .then(() => {
-          console.log("🎊 Stream ended!! All journeys added to db!");
-          console.log(
-            "Journey stream started at: " +
-              startingTime +
-              " and ended at: " +
-              getCurrentTimeInHMSS()
-          );
+    await new Promise((resolve, reject) => {
+      stream
+        .on("data", (row) => {
+          validateJourneyData(row, () => {
+            batch.push(row);
+            counter++;
+            batchCounter++;
+            if (batchCounter >= batchSize) {
+              stream.pause();
+              JourneyModel.insertMany(batch, (err, docs) => {
+                if (err) {
+                  stream.destroy();
+                  reject(err);
+                } else {
+                  totalJourneys += batchCounter;
+                  batch = [];
+                  batchCounter = 0;
+                  process.stdout.clearLine();
+                  process.stdout.cursorTo(0);
+                  process.stdout.write(
+                    `${fileProgressMessage} - ${journeysProgressMessage}${totalJourneys}`
+                  );
+                  stream.resume();
+                }
+              });
+            }
+          });
         })
-        .catch((error) => {
-          console.error(error);
+        .on("end", () => {
+          JourneyModel.insertMany(batch, (err, docs) => {
+            if (err) {
+              reject(err);
+            } else {
+              totalJourneys += batchCounter;
+              process.stdout.clearLine();
+              process.stdout.cursorTo(0);
+              resolve();
+            }
+          });
+        })
+        .on("error", (error) => {
+          reject(error);
         });
     });
+  }
+
+  console.log(`🎊 Stream ended!! All journeys added to the database!`);
+  console.log(
+    "Journey stream started at:",
+    startingTime,
+    "and ended at:",
+    getCurrentTimeInHMSS()
+  );
 }
 
 function mapJourneyHeaders(header, index) {

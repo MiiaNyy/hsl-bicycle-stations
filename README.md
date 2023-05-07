@@ -25,19 +25,19 @@ you can run this app.
 
 If you are not comfortable using the terminal you can download MongoDB _Compass_ from [here](https://www.mongodb.com/download-center/compass).
 
-#### MacOS
+### MacOS
 Install MongoDB by following these instructions:
 
-1. **Install Homebrew**`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+1. **Install Homebrew** `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 2. **Find the MongoDB tap** `brew tap mongodb/brew`
 3. **Install MongoDB** `brew install mongodb-community`
 4. **Start MongoDB** `brew services run mongodb-community`
 5. **Verify that MongoDB is running** `brew services list`
-6. WhenMongoDB is running, you should be able to access the Mongo shell with the `mongosh` command.
+6. When MongoDB is running, you should be able to access the Mongo shell with the `mongosh` command.
 7. Now your local MongoDB should be running 🎉
 8. More info on installing MongoDB [here](https://zellwk.com/blog/install-mongodb/).
 
-#### Windows
+### Windows
 Follow [these](https://treehouse.github.io/installation-guides/windows/mongo-windows.html) instructions.
 
 ## Configuration
@@ -55,19 +55,31 @@ If you installed MongoDB via Compass, you need to configure it.
 
 Before running app, make sure you have downloaded the data to `server/src/resources` folder and configured MongoDB.
 
-### Start server and add documents to database
-To install all dependencies on the server, run the following command:
+
+
+### Start server install all of the dependecies
 
 ```bash
-cd server && npm install && npm run start
+cd server && npm install
 ```
 
+### Add HSL Bicycle journey and station data to database
+
+```bash
+npm run add-data
+```
 You should see messages telling how many documents are being validated and added to database. 
 This should take few minutes to complete. 
 After you see this messages all the data is added to database:
 
 ```bash
 🎊 Stream ended!! All journeys added to db!
+```
+
+### Install all dependencies on the server, run the following command:
+```bash
+
+npm run start
 ```
 
 ### Start client
@@ -79,7 +91,7 @@ After that you can access the app at `http://localhost:3000`.
 
 
 ## Description
-This app displays data from journeys made with Helsinki Region Transport’s (HSL) city bicycles and HSL bicycle
+This app displays data from journeys made with Helsinki Region Transport’s (HSL) city bicycles during 1.5. - 31.7.2021 and HSL bicycle
 stations. 
 
 The app validates data from CSV files using Apollo Server and MongoDB and creates a database using validated

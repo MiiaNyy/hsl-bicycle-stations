@@ -19,17 +19,17 @@ const journeysCsvFilePaths = [
   journeysCsvFilePath3,
 ];
 
-import { typeDefs } from "./typeDefs";
-import { resolvers } from "./resolvers";
+import { typeDefs } from "./typeDefs.js";
+import { resolvers } from "./resolvers.js";
 
-import { Journey as JourneyModel } from "./models/journey";
-import { Station as StationModel } from "./models/station";
+import { Journey as JourneyModel } from "./models/journey.js";
+import { Station as StationModel } from "./models/station.js";
 
-import Stations from "./dataSources/stations";
-import Journeys from "./dataSources/journeys";
+import Stations from "./dataSources/stations.js";
+import Journeys from "./dataSources/journeys.js";
 
-import validateStationsAndAddDataToDatabase from "./validation/validateStationsAndAddDataToDatabase";
-import validateJourneysAndAddDataToDatabase from "./validation/validateJourneysAndAddDataToDatabase";
+//import validateStationsAndAddDataToDatabase from "./validation/validateStationsAndAddDataToDatabase";
+//import validateJourneysAndAddDataToDatabase from "./validation/validateJourneysAndAddDataToDatabase";
 
 const url = "mongodb://127.0.0.1:27017/hslBicycles";
 

@@ -11,14 +11,13 @@ import { Station as StationModel } from "../models/station.js";
 async function validateStationsAndAddDataToDatabase(filePath) {
   let counter = 0;
   let batchCounter = 0;
-  let batchSize = 100;
-  let batch = [];
+  const batchSize = 100;
+  const batch = [];
 
   const startingTime = getCurrentTimeInHMSS();
 
-  const stream = fs
-    .createReadStream(filePath)
-    .pipe(
+  return new Promise((resolve, reject) => {
+    const stream = fs.createReadStream(filePath).pipe(
       csv({
         mapHeaders: ({ header, index }) => {
           header = header.trim();
@@ -29,40 +28,53 @@ async function validateStationsAndAddDataToDatabase(filePath) {
         },
         strict: true,
       })
-    )
+    );
 
-    .on("data", (row) => {
-      validateStationData(row, () => {
-        batch.push(row);
-        counter++;
-        batchCounter++;
-        if (batchCounter >= batchSize) {
-          stream.pause();
-          StationModel.insertMany(batch, (err, docs) => {
-            if (err) throw err;
-            batch = [];
-            batchCounter = 0;
-            console.log(`${counter} stations written to database`);
-            stream.resume();
+    stream
+      .on("data", async (row) => {
+        await new Promise((innerResolve, innerReject) => {
+          validateStationData(row, () => {
+            batch.push(row);
+            counter++;
+            batchCounter++;
+            if (batchCounter >= batchSize) {
+              stream.pause();
+              StationModel.insertMany(batch, (err, docs) => {
+                if (err) {
+                  innerReject(err);
+                  return;
+                }
+                batch.length = 0;
+                batchCounter = 0;
+                console.log(`${counter} stations written to database`);
+                stream.resume();
+                innerResolve();
+              });
+            } else {
+              innerResolve();
+            }
           });
+        });
+      })
+      .on("end", async () => {
+        try {
+          await StationModel.insertMany(batch);
+          console.log(
+            "🎊 Stream ended!! Station stream started at: " +
+              startingTime +
+              " and ended" +
+              " at: " +
+              getCurrentTimeInHMSS()
+          );
+          resolve();
+        } catch (error) {
+          reject(error);
         }
+      })
+      .on("error", (error) => {
+        reject(error);
       });
-    })
-    .on("end", () => {
-      console.log(
-        "🎉 Station csv file validation complete. Adding last stations to db..."
-      );
-      StationModel.insertMany(batch, (err, docs) => {
-        if (err) throw err;
-        console.log(
-          "🎊 Stream ended!! Station stream started at: " +
-            startingTime +
-            " and ended" +
-            " at: " +
-            getCurrentTimeInHMSS()
-        );
-      });
-    });
+  });
 }
 
 function mapStationHeaders(header, index) {
