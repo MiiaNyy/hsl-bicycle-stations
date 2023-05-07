@@ -1,159 +1,162 @@
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 img {
-    display: block;
-    max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 
 button {
-    transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 button:hover {
-    opacity: 0.8;
-    transform: scale(1.1);
+  opacity: 0.8;
+  transform: scale(1.1);
 }
 
 /*---TYPOGRAPHY---*/
 
-h1, h2, h3, h4, h5, h6, p {
-    margin-top: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
 }
 
 .sub-header {
-    font-size: 1.1rem;
-    font-weight: 500;
-    font-style: italic;
-    line-height: 1.5;
-    margin-top: .5em;
-    margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.5;
+  margin-top: 0.5em;
+  margin-bottom: 1rem;
 }
 
 .info-header {
-    font-size: 1.1rem;
-    font-weight: bolder;
-    margin: 0.5em 0 0;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  margin: 0.5em 0 0;
 }
 
 /* --- GENERAL --- */
 
 .box-shadow {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .borders {
-    border: 1px solid #ff00fb;
+  border: 1px solid #ff00fb;
 }
 
 .content {
-    min-height: 85vh;
+  min-height: 85vh;
 }
 
 footer {
-    padding: 1.9em;
+  padding: 1.9em;
 }
 
 table {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 table td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
-
 .btn__link {
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: #000000;
-    opacity: 1;
-    transition: all 0.2s ease-in-out;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #000000;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
 }
 
 .btn__link:hover {
-    color: #ffc107;
+  color: #ffc107;
 }
 
 .spinner-wrapper {
-    height: 90px;
-    width: 90px;
-    margin: auto;
+  height: 90px;
+  width: 90px;
+  margin: auto;
 }
-
 
 /* --- CLASSES --- */
 
 .arrow-icon {
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
 .arrow-icon:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .station__container {
-    width: 100%;
-    max-width: 600px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .nav__color {
-    background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 /* Makes leaflet container visible */
 .leaflet-container {
-    width: 100%;
-    height: 100%;
-    max-height: 400px;
-    min-height: 400px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+  min-height: 400px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .markercluster-map {
-    height: 90vh;
+  height: 90vh;
 }
-
 
 /* Override React Bootstrap pagination styles */
-.pagination > li > a, .pagination > li > span {
-    color: #000000;
-    margin: 0.3em;
-    text-decoration: none;
-    opacity: 1;
-    transition: all 0.2s ease-in-out;
+.pagination > li > a,
+.pagination > li > span {
+  color: #000000;
+  margin: 0.3em;
+  text-decoration: none;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
 }
 
-.active > .page-link, .page-link.active {
-    background-color: #ff9c07;
-    border-color: #ff9c07;
-    color: #ffffff;
+.active > .page-link,
+.page-link.active {
+  background-color: #ff9c07;
+  border-color: #ff9c07;
+  color: #ffffff;
 }
