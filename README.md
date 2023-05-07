@@ -7,16 +7,20 @@ git clone https://github.com/MiiaNyy/helsinki-city-bike-app.git
 ```
 
 ## Prerequisites
-Before running the app you need to download the Helsinki city bike data to `server/src/resources` folder.
+Before running the app you need to download the Helsinki city bicycle journeys and station data to the project. The data is owned by City Bike Finland.
 
-Download three datasets of journey data. The data is owned by City Bike Finland.
+### Go to server
 
-- https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
-- https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
-- https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
+```bash
+cd server
+```
 
-Also download the Helsinki city bike stations data.
-- https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
+### Download datasets 
+
+```bash
+npm run download-data
+```
+
 - [License and information](https://www.avoindata.fi/data/en/dataset/hsl-n-kaupunkipyoraasemat/resource/a23eef3a-cc40-4608-8aa2-c730d17e8902)
 
 ### Local MongoDB
