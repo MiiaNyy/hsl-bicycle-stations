@@ -1,37 +1,43 @@
 {
-    "name": "server",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon --exec babel-node src/index.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "description": "",
-    "dependencies": {
-        "@fast-csv/format": "^4.3.5",
-        "apollo-datasource-mongodb": "^0.5.4",
-        "apollo-server": "^3.10.0",
-        "csv-parser": "^3.0.0",
-        "csv-write-stream": "^2.0.0",
-        "csvtojson": "^2.0.10",
-        "dotenv": "^16.0.1",
-        "fast-csv": "^4.3.6",
-        "graphql": "^15.8.0",
-        "graphql-date-scalars": "^0.1.4",
-        "graphql-scalars": "^1.17.0",
-        "mongoose": "^6.5.0",
-        "mongoose-paginate-v2": "^1.7.0",
-        "nodemon": "^2.0.19",
-        "rimraf": "^3.0.2",
-        "stream-to-mongo-db": "^1.6.0"
-    },
-    "devDependencies": {
-        "@babel/cli": "^7.18.9",
-        "@babel/core": "^7.18.9",
-        "@babel/node": "^7.18.9",
-        "@babel/preset-env": "^7.18.9"
-    }
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/index.js",
+    "add-data": "node commands/addDataToDatabase.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@fast-csv/format": "^4.3.5",
+    "apollo-datasource-mongodb": "^0.5.4",
+    "apollo-server": "^3.10.0",
+    "csv-parser": "^3.0.0",
+    "csv-write-stream": "^2.0.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.1",
+    "fast-csv": "^4.3.6",
+    "graphql": "^15.8.0",
+    "graphql-date-scalars": "^0.1.4",
+    "graphql-scalars": "^1.17.0",
+    "mongoose": "^6.5.0",
+    "mongoose-paginate-v2": "^1.7.0",
+    "nodemon": "^2.0.19",
+    "rimraf": "^3.0.2",
+    "stream-to-mongo-db": "^1.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/node": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2"
+  }
 }
