@@ -70,7 +70,7 @@ function Station() {
       </h1>
       <Row className="station-info">
         <Col
-          className=""
+          className="px-0"
           xs={{ span: 12, order: 2 }}
           md={{ span: 6, order: 1 }}
         >
