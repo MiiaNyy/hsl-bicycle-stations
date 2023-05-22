@@ -80,13 +80,12 @@ After you see this messages all the data is added to database:
 🎊 Stream ended!! All journeys added to db!
 ```
 
-### Install all dependencies on the server, run the following command:
+### Start the server
 ```bash
-
 npm run start
 ```
 
-### Start client
+### Open another terminal, navigate to client, install all of the dependencies and start client
 
 ```bash
 cd client && npm install && npm start
