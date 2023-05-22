@@ -9,6 +9,7 @@ import validateJourneyData from "./validateJourneyData.js";
 import { Journey as JourneyModel } from "../models/journey.js";
 
 async function validateJourneysAndAddDataToDatabase(filePaths) {
+  const startingTime = getCurrentTimeInHMSS();
   const batchSize = 5000;
   let totalJourneys = 0;
 
@@ -17,8 +18,6 @@ async function validateJourneysAndAddDataToDatabase(filePaths) {
     let counter = 0;
     let batchCounter = 0;
     let batch = [];
-
-    const startingTime = getCurrentTimeInHMSS();
 
     const stream = fs.createReadStream(filePath).pipe(
       csv({
