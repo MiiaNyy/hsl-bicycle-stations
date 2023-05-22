@@ -2,49 +2,84 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import { Table } from "react-bootstrap";
+
+import TableBorder from "./TableBorder";
+import TableDataBorder from "./TableDataBorder";
+
 function StationBasicInfo({ station }) {
   return (
     <Container className="text-center station__container mt-4 mt-md-0">
-      <Row className="border border-2 border-warning rounded box-shadow">
-        <Col sm={5} className="border-end border-warning">
-          <p className="info-header">Address</p>
-          <p>{station.address}</p>
-        </Col>
-        <Col xs className="border-end border-warning">
-          <p className="info-header">City</p>
-          <p>{station.city}</p>
-        </Col>
-        <Col xs className="">
-          <p className="info-header">Capacity</p>
-          <p>{station.capacity}</p>
-        </Col>
-      </Row>
-      <Row className="border border-2 border-warning rounded mt-2 box-shadow">
-        <h4 className="pt-2 pb-2">Total number of...</h4>
-        <Col className="border-end border-warning">
-          <p className="info-header">
-            <em>Departing</em> journeys
-          </p>
-          <p>{station.numOfJourneysStartingFrom}</p>
-        </Col>
-        <Col>
-          <p className="info-header">
-            <em>Returning</em> journeys
-          </p>
-          <p>{station.numOfJourneysReturningTo}</p>
-        </Col>
-      </Row>
-      <Row className="border border-2 border-warning rounded pt-2 mt-2 box-shadow">
-        <h4 className="pt-2 pb-2">Average distance travelled...</h4>
-        <Col className="border-end border-warning">
-          <p className="info-header">From here</p>
-          <p>{station.averageDistanceStartingFrom}km</p>
-        </Col>
-        <Col>
-          <p className="info-header">To here</p>
-          <p>{station.averageDistanceReturnedTo}km</p>
-        </Col>
-      </Row>
+      <div className="mb-3">
+        <TableBorder>
+          <Table borderless responsive="xl" className="mb-0 text-center">
+            <thead className="border-radius accent-background">
+              <tr className="border-bottom-black">
+                <th>address</th>
+                <th>city</th>
+                <th>Capacity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <TableDataBorder>{station.address}</TableDataBorder>
+                <TableDataBorder>
+                  {typeof station.city === "undefined" || !station.city.trim()
+                    ? "unknown"
+                    : station.city}
+                </TableDataBorder>
+                <td>{station.capacity}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </TableBorder>
+      </div>
+
+      <div className="mb-3">
+        <TableBorder>
+          <Table borderless responsive="xl" className="mb-0 text-center">
+            <thead className="border-radius accent-background">
+              <tr className="border-bottom-black">
+                <th colSpan="2">total number of...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <TableDataBorder>
+                  <p>departing journeys</p>
+                  {station.numOfJourneysStartingFrom}
+                </TableDataBorder>
+                <td>
+                  <p>returning journeys</p>
+                  {station.numOfJourneysReturningTo}
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </TableBorder>
+      </div>
+
+      <TableBorder>
+        <Table borderless responsive="xl" className="mb-0 text-center">
+          <thead className="border-radius accent-background">
+            <tr className="border-bottom-black">
+              <th colSpan="2">Average distance travelled...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <TableDataBorder>
+                <p>from here</p>
+                {station.averageDistanceStartingFrom}km
+              </TableDataBorder>
+              <td>
+                <p>to here</p>
+                {station.averageDistanceReturnedTo}km
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      </TableBorder>
     </Container>
   );
 }
