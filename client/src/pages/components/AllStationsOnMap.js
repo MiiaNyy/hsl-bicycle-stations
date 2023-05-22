@@ -6,6 +6,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
+import mapMarker from "../../assets/map-marker.png";
 
 const GET_ALL_STATIONS = gql`
   query Query {
@@ -22,14 +23,13 @@ const GET_ALL_STATIONS = gql`
 const centerPosition = [60.20876159060835, 24.945689345540597];
 
 const customIcon = new L.Icon({
-  iconUrl:
-    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
+  iconUrl: mapMarker,
   shadowUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-  iconSize: [25, 41],
+  iconSize: [28, 31],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41],
+  shadowSize: [40, 30],
 });
 
 function AllStationsOnMap() {
@@ -41,7 +41,7 @@ function AllStationsOnMap() {
   const stations = data.getAllStations;
 
   return (
-    <Container className="mb-4">
+    <Container className="mb-4 p-0">
       <MapContainer
         preferCanvas={true}
         renderer={L.canvas()}
