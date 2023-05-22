@@ -13,6 +13,7 @@ import Error from "./Error";
 import PaginationButtons from "./PaginationButtons";
 import TableHeadRow from "./TableHeadRow";
 import AllStationsOnMap from "./AllStationsOnMap";
+import IconArrowRight from "../../assets/ArrowRight";
 
 const GET_STATIONS = gql`
   query Query($page: Int, $limit: Int) {
@@ -59,26 +60,24 @@ function StationsTable() {
   return (
     <>
       <Container>
+        <h2>Stations</h2>
         <TableHeadRow
           pagination={pagination}
           setLimit={setLimit}
           tableName={"stations"}
           currentLimit={limit}
         />
+        <AllStationsOnMap />
+
         <TableBorder>
-          <Table
-            striped
-            borderless
-            responsive="xl"
-            className="mb-0 text-center"
-          >
-            <thead className="border-bottom border-2 bg-warning">
-              <tr>
+          <Table borderless responsive="xl" className="mb-0 text-center">
+            <thead className="border-radius accent-background">
+              <tr className="border-bottom-black">
+                <th></th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>City</th>
                 <th>Capacity</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -103,15 +102,15 @@ function StationsTable() {
 function TableRow({ station }) {
   return (
     <tr key={station.stationId + Math.random()}>
+      <TableDataBorder>
+        <a href={"/station/" + station.stationId} className="btn__link">
+          <IconArrowRight />
+        </a>
+      </TableDataBorder>
       <TableDataBorder>{station.stationId}</TableDataBorder>
       <TableDataBorder>{station.name}</TableDataBorder>
       <TableDataBorder>{station.city}</TableDataBorder>
-      <TableDataBorder>{station.capacity}</TableDataBorder>
-      <td>
-        <a href={"/station/" + station.stationId} className="btn__link">
-          &#8594;
-        </a>
-      </td>
+      <td>{station.capacity}</td>
     </tr>
   );
 }

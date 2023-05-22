@@ -21,7 +21,7 @@ function TableHeadRow(props) {
   return (
     <Row className="mb-2">
       <Col sm="12" lg className="align-self-center">
-        <p className="mb-0">
+        <p className="mb-0 text-lowercase">
           Total {addSpaceBetweenDigits(pagination.totalDocs)}
         </p>
       </Col>
@@ -39,7 +39,7 @@ function DropdownLimit({ currentLimit, setLimit }) {
   return (
     <form>
       <select
-        className="form-select"
+        className="form-select dropdown text-lowercase"
         value={currentLimit}
         onChange={(e) => setLimit(parseInt(e.target.value))}
         aria-label="Select how many items are shown in a table"
@@ -58,7 +58,7 @@ function DropdownMonth({ query, setQuery }) {
   return (
     <form>
       <select
-        className="form-select"
+        className="form-select dropdown text-lowercase"
         value={query ? query.month : months[0].name}
         onChange={(e) => setQuery({ month: parseInt(e.target.value) })}
         aria-label="Select in which months journeys are shown in a table"
