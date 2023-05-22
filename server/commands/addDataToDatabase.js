@@ -13,9 +13,8 @@ const journeysCsvFilePath3 = path.join(__dirname, "src/resources/2021-07.csv");
 
 const stationsCsvFilePath = path.join(
   __dirname,
-  "src/resources/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv"
+  "src/resources/hsl-city-bicycle-stations.csv"
 );
-
 const journeysCsvFilePaths = [
   journeysCsvFilePath1,
   journeysCsvFilePath2,
@@ -26,20 +25,6 @@ import { validateStationsAndAddDataToDatabase } from "../src/validation/validate
 import validateJourneysAndAddDataToDatabase from "../src/validation/validateJourneysAndAddDataToDatabase.js";
 
 const url = "mongodb://127.0.0.1:27017/hslBicycles";
-
-async function validateAllJourneys() {
-  try {
-    await Promise.all(
-      journeysCsvFilePaths.map(async (filePath) => {
-        await validateJourneysAndAddDataToDatabase(filePath);
-      })
-    );
-    console.log("All journeys validated successfully!");
-  } catch (error) {
-    console.error("Error occurred during journey validation:", error);
-    process.exit(1);
-  }
-}
 
 const main = async () => {
   try {
