@@ -12,6 +12,8 @@ import Error from "./components/Error";
 import StationBasicInfo from "./components/StationBasicInfo";
 import MostPopularStationTable from "./components/MostPopularStationTable";
 
+import mapMarker from "../assets/map-marker.png";
+
 const GET_STATION = gql`
   query Query($getStationId: Int!) {
     getStation(id: $getStationId) {
@@ -38,6 +40,16 @@ const GET_STATION = gql`
   }
 `;
 
+const customIcon = new L.Icon({
+  iconUrl: mapMarker,
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [33, 36],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [40, 30],
+});
+
 function Station() {
   const { id } = useParams();
 
@@ -52,11 +64,11 @@ function Station() {
   const position = [station.latitude, station.longitude];
 
   return (
-    <Container>
+    <Container className="station-container">
       <h1 className="text-center">
         {station.stationId}, {station.name}
       </h1>
-      <Row className=" mt-4 ">
+      <Row className="station-info">
         <Col
           className=""
           xs={{ span: 12, order: 2 }}
@@ -70,7 +82,7 @@ function Station() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={position}>
+            <Marker icon={customIcon} position={position}>
               <Popup>
                 <span>
                   {station.stationId}, {station.name}
@@ -83,19 +95,21 @@ function Station() {
         </Col>
       </Row>
 
-      <Row className="mt-5 mb-5 text-center">
+      <Row className="mb-5 text-center">
         <h4 className="mb-3">Top 5 most popular...</h4>
-        <Col md>
-          <p className="info-header mb-2">
-            Departure stations for journeys <em>ending</em> at {station.name}
+        <Col md className="mt-3">
+          <p>
+            <strong>Departure stations </strong>for journeys
+            <strong> ending </strong>at {station.name}
           </p>
           <MostPopularStationTable
             stations={station.mostPopularDepartureStationsForJourneysReturnedTo}
           />
         </Col>
-        <Col>
-          <p className="info-header mb-2">
-            Return stations for journeys <em>starting</em> from {station.name}:
+        <Col className="mt-3">
+          <p>
+            <strong>Return stations</strong> for journeys{" "}
+            <strong>starting</strong> from {station.name}:
           </p>
           <MostPopularStationTable
             stations={station.mostPopularReturnStationsForJourneysStartingFrom}
