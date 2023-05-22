@@ -1,6 +1,6 @@
 import { MongoDataSource } from "apollo-datasource-mongodb";
 
-import getPaginationInfo from "../helpers/getPaginationInfo";
+import getPaginationInfo from "../helpers/getPaginationInfo.js";
 
 class Stations extends MongoDataSource {
   async getStations(page = 1, limit = 10) {

@@ -1,7 +1,6 @@
 import { MongoDataSource } from "apollo-datasource-mongodb";
-import getPaginationInfo from "../helpers/getPaginationInfo";
-import getFilterForJourneyQuery from "../helpers/getFilterForJourneyQuery";
-import { re } from "@babel/core/lib/vendor/import-meta-resolve";
+import getPaginationInfo from "../helpers/getPaginationInfo.js";
+import getFilterForJourneyQuery from "../helpers/getFilterForJourneyQuery.js";
 
 function objIsEmpty(obj) {
   return Object.keys(obj).length === 0;

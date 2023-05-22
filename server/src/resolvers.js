@@ -1,6 +1,6 @@
-import formatSeconds from "./helpers/formatSeconds";
-import getAverageDistance from "./helpers/getAverageDistance";
-import getMostFrequentIds from "./helpers/getMostFrequentIds";
+import formatSeconds from "./helpers/formatSeconds.js";
+import getAverageDistance from "./helpers/getAverageDistance.js";
+import getMostFrequentIds from "./helpers/getMostFrequentIds.js";
 
 const resolvers = {
   Query: {
