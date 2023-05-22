@@ -56,9 +56,6 @@ function JourneysTable() {
   const [query, setQuery] = useState({});
   const [sort, setSort] = useState({ field: "departure", value: "asc" });
 
-  const [duration, setDuration] = useState("asc");
-  const [distance, setDistance] = useState("asc");
-
   const { loading, error, data } = useQuery(GET_JOURNEYS, {
     variables: {
       page: currentPage,

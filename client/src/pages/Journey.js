@@ -49,7 +49,7 @@ function Journey() {
   const journey = data.getJourney;
 
   return (
-    <div className="text-center station__container">
+    <div className="text-center">
       <h1 className="mb-4 ">Single journey</h1>
       <p>
         {" "}

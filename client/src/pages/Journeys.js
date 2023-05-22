@@ -5,14 +5,11 @@ import JourneysTable from "./components/JourneysTable";
 
 function Journeys() {
   return (
-    <>
-      <Container>
-        <Row className="mt-2">
-          <h2 className="mb-5 mt-3 text-center">Journeys</h2>
-          <JourneysTable />
-        </Row>
-      </Container>
-    </>
+    <Container className="mt-5">
+      <Row className="mt-2">
+        <JourneysTable />
+      </Row>
+    </Container>
   );
 }
 

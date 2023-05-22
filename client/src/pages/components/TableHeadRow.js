@@ -8,12 +8,9 @@ const limitOptions = [10, 25, 50, 75, 100];
 
 const months = [
   { name: "All", value: 0 },
-  { name: "Apr", value: 4 },
   { name: "May", value: 5 },
   { name: "Jun", value: 6 },
   { name: "Jul", value: 7 },
-  { name: "Aug", value: 8 },
-  { name: "Sep", value: 9 },
 ];
 
 function TableHeadRow(props) {
