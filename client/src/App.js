@@ -8,6 +8,7 @@ import Navigation from "./pages/components/Navigation";
 import Stations from "./pages/Stations";
 import Journeys from "./pages/Journeys";
 import PageNotFound from "./pages/PageNotFound";
+import Logo from "./assets/Logo";
 
 function App() {
   return (
@@ -25,9 +26,25 @@ function App() {
           </Routes>
         </Container>
       </div>
-      <footer className="bg-warning">
-        <p>This is footer</p>
-        <p className="mb-0">&copy; 2020</p>
+      <footer>
+        <Container>
+          <div className="footer-container">
+            <Logo />
+            <div className="footer-links">
+              <a className="footer-link" href="https://github.com/miiakivi">
+                @miiakivi
+              </a>
+              <a
+                className="footer-link"
+                href="https://www.avoindata.fi/data/en/dataset/hsl-n-kaupunkipyoraasemat/resource/a23eef3a-cc40-4608-8aa2-c730d17e8902"
+              >
+                info and licencing
+              </a>
+            </div>
+          </div>
+        </Container>
+
+        <div className="footer-accent"></div>
       </footer>
     </BrowserRouter>
   );
