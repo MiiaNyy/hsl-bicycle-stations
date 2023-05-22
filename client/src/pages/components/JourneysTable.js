@@ -12,6 +12,7 @@ import TableDataBorder from "./TableDataBorder";
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
 import getMonthAndDay from "../../helpers/getMonthAndDay";
+import IconArrowRight from "../../assets/ArrowRight";
 
 const GET_JOURNEYS = gql`
   query Query(
@@ -75,6 +76,7 @@ function JourneysTable() {
 
   return (
     <>
+      <h2 className="mb-4">Journeys</h2>
       <Container>
         <TableHeadRow
           pagination={pagination}
@@ -84,42 +86,16 @@ function JourneysTable() {
           setQuery={setQuery}
         />
         <TableBorder>
-          <Table
-            striped
-            borderless
-            responsive="xl"
-            className="mb-0 text-center"
-          >
-            <thead className="border-bottom border-2 bg-warning">
-              <tr>
+          <Table borderless responsive="xl" className="mb-0 text-center">
+            <thead className="border-radius accent-background">
+              <tr className="border-bottom-black">
+                <th></th>
+
                 <th>Date</th>
-                <th>
-                  Covered Distance
-                  <i
-                    className="fa-solid fa-angle-down arrow-icon"
-                    onClick={() => {
-                      setDistance((current) =>
-                        current === "asc" ? "desc" : "asc"
-                      );
-                      setSort({ field: "coveredDistance", value: distance });
-                    }}
-                  ></i>
-                </th>
-                <th>
-                  Duration
-                  <i
-                    className="fa-solid fa-angle-down arrow-icon"
-                    onClick={() => {
-                      setDuration((current) =>
-                        current === "asc" ? "desc" : "asc"
-                      );
-                      setSort({ field: "duration", value: duration });
-                    }}
-                  ></i>
-                </th>
+                <th>Covered Distance</th>
+                <th>Duration</th>
                 <th>Departure station</th>
                 <th>Return station</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -145,6 +121,11 @@ function TableRow({ journey }) {
   return (
     <tr key={journey.id}>
       <TableDataBorder>
+        <a href={"/journey/" + journey.id} className="btn__link">
+          <IconArrowRight></IconArrowRight>
+        </a>
+      </TableDataBorder>
+      <TableDataBorder>
         <p className="m-1">{getMonthAndDay(journey.departure)}</p>
       </TableDataBorder>
       <TableDataBorder>
@@ -159,17 +140,12 @@ function TableRow({ journey }) {
           {departureStation.name}
         </a>
       </TableDataBorder>
-      <TableDataBorder>
+      <td>
         <a
           href={"/station/" + returnStation.stationId}
           className="link-secondary"
         >
           {returnStation.name}
-        </a>
-      </TableDataBorder>
-      <td>
-        <a href={"/journey/" + journey.id} className="btn__link">
-          &#8594;
         </a>
       </td>
     </tr>

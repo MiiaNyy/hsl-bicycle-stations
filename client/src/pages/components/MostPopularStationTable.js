@@ -2,32 +2,33 @@ import Container from "react-bootstrap/Container";
 import TableBorder from "./TableBorder";
 import { Table } from "react-bootstrap";
 import TableDataBorder from "./TableDataBorder";
+import IconArrowRight from "../../assets/ArrowRight";
 
 function MostPopularStationTable({ stations }) {
   return (
     <Container>
       <TableBorder>
-        <Table striped borderless className="mb-0">
+        <Table borderless className="mb-0">
           <thead className="border-bottom border-2 bg-warning">
             <tr>
+              <th></th>
               <th>ID</th>
               <th>Name</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             {stations.map((station) => (
               <tr key={station.stationId}>
-                <TableDataBorder>{station.stationId}</TableDataBorder>
-                <td>{station.name}</td>
-                <td className="border-start border-2 border-warning">
+                <TableDataBorder>
                   <a
                     href={"/station/" + station.stationId}
                     className="btn__link"
                   >
-                    &#8594;
+                    <IconArrowRight />
                   </a>
-                </td>
+                </TableDataBorder>
+                <TableDataBorder>{station.stationId}</TableDataBorder>
+                <td>{station.name}</td>
               </tr>
             ))}
           </tbody>
