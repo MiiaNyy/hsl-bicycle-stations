@@ -1,3 +1,6 @@
+import React, { useRef, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
@@ -11,6 +14,8 @@ import { Table } from "react-bootstrap";
 
 import TableBorder from "./components/TableBorder";
 import TableDataBorder from "./components/TableDataBorder";
+import departureMapMarker from "../assets/map-marker.png";
+import returnMapMarker from "../assets/map-marker-dark.png";
 
 const GET_JOURNEY = gql`
   query Query($getJourneyId: ID!) {
@@ -57,7 +62,7 @@ function Journey() {
   if (error) return <Error error={error} />;
 
   const journey = data.getJourney;
-  console.log("journey", journey);
+
   return (
     <Container>
       <div className="text-center journey__container">
@@ -76,8 +81,65 @@ function Journey() {
           <StationContainer journey={journey} departure={true} />
           <StationContainer journey={journey} departure={false} />
         </Row>
+        <Row className="mt-5">
+          <JourneyMap
+            departureStation={journey.departureStation}
+            returnStation={journey.returnStation}
+          />
+        </Row>
       </div>
     </Container>
+  );
+}
+
+function JourneyMap({ departureStation, returnStation }) {
+  const iconAttributes = {
+    shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+    iconSize: [28, 31],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [40, 30],
+  };
+
+  const departureStationIcon = new L.Icon({
+    iconUrl: departureMapMarker,
+    ...iconAttributes,
+  });
+
+  const returnStationIcon = new L.Icon({
+    iconUrl: returnMapMarker,
+    ...iconAttributes,
+  });
+
+  const bounds = [
+    [departureStation.latitude, departureStation.longitude],
+    [returnStation.latitude, returnStation.longitude],
+  ];
+
+  return (
+    <MapContainer bounds={bounds} scrollWheelZoom={false}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <StationMarker station={departureStation} icon={departureStationIcon} />
+      <StationMarker station={returnStation} icon={returnStationIcon} />
+    </MapContainer>
+  );
+}
+
+function StationMarker({ station, icon }) {
+  return (
+    <Marker icon={icon} position={[station.latitude, station.longitude]}>
+      <Popup>
+        <span>
+          {station.stationId}, {station.name}
+          <br />
+          {station.address}
+        </span>
+      </Popup>
+    </Marker>
   );
 }
 
