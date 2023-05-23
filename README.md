@@ -3,10 +3,10 @@
 Clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/MiiaNyy/helsinki-city-bike-app.git
+git clone https://github.com/miiakivi/helsinki-city-bike-app.git
 ```
 
-## Prerequisites
+# Prerequisites
 Before running the app you need to download the Helsinki city bicycle journeys and station data to the project. The data is owned by City Bike Finland.
 
 ### Go to server
@@ -60,7 +60,6 @@ If you installed MongoDB via Compass, you need to configure it.
 Before running app, make sure you have downloaded the data to `server/src/resources` folder and configured MongoDB.
 
 
-
 ### Start server install all of the dependecies
 
 ```bash
@@ -93,32 +92,38 @@ cd client && npm install && npm start
 After that you can access the app at `http://localhost:3000`.
 
 
-## Description
-This app displays data from journeys made with Helsinki Region Transport’s (HSL) city bicycles during 1.5. - 31.7.2021 and HSL bicycle
-stations. 
+# Description
+This project is a full-stack JavaScript application that showcases data from journeys made with Helsinki Region Transport’s (HSL) city bicycles between 1.5. - 31.7.2021, along with information about HSL bicycle stations. 
 
-The app validates data from CSV files using Apollo Server and MongoDB and creates a database using validated
-data with two collections, journeys, and stations.
+The application utilizes the npm console command to download CSV files from the web and save them to the `server/src/resources directory`. To ensure data integrity, the app includes a command that validates the downloaded data and adds it to a local MongoDB database. The database consists of two collections: **journeys** and **stations**.
 
-After the database is created and populated, the app can be accessed at `localhost:3000`.
+Once the database is created and populated, the application can be accessed locally at `http://localhost:3000`. The client-side of the application retrieves data from the database using GraphQL queries.
 
-The client gets the data from the database using graphQL queries.
-Data that the client can get:
-- List of all journeys
-- List of all stations
-    - Total number of journeys starting from the specific station
-    - Total number of journeys ending at the specific station
-    - The average distance of a journey starting from the station
-    - The average distance of a journey ending at the station
-    - Top 5 most popular return stations for journeys starting from the station
-    - Top 5 most popular departure stations for journeys ending at the station
+This project serves as my first major full-stack application, combining Node.js on the backend and React on the frontend. The primary objectives were to gain practical experience in developing a full-stack JavaScript project and to further my understanding of GraphQL, a powerful query language for APIs. To handle data storage and retrieval, a local MongoDB database was utilized.
 
-## Technologies
+One of the main focuses of this project was to practice validating and handling data, particularly data sourced from CSV files. By implementing data validation processes, the application ensures the integrity and accuracy of the information stored in the database.
+
+Additionally, this project provided an opportunity to enhance my UI design skills by utilizing Figma, a popular design tool. The goal was to create a larger-scale application while maintaining a clean and organized codebase.
+
+## Data Available to the Client
+The client interface provides various data points related to the journeys and stations. Users can access the following information:
+
+- **List of all journeys**: Displaying all recorded journeys.
+- **List of all stations**: Showing information about every station, including:
+- Total number of journeys starting from a specific station.
+- Total number of journeys ending at a specific station.
+- The average distance of a journey starting from the station.
+- The average distance of a journey ending at the station.
+- The top 5 most popular return stations for journeys starting from the station.
+- The top 5 most popular departure stations for journeys ending at the station.
+
+# Technologies
 - Client
   - Apollo Client
   - React
   - CSS3
   - Bootstrap
+  - Figma
 - Server
   - MongoDB
       - Mongoose
@@ -129,7 +134,7 @@ Data that the client can get:
   - Babel
   - csv parser
 
-## TODO
+# TODO
 - add tests
 - show top 5 stations with most journeys
 - Journey list view
