@@ -105,7 +105,8 @@ One of the main focuses of this project was to practice validating and handling 
 
 Additionally, this project provided an opportunity to enhance my UI design skills by utilizing Figma, a popular design tool. The goal was to create a larger-scale application while maintaining a clean and organized codebase.
 
-## Data Available to the Client
+## [Check the Figma design](https://www.figma.com/file/SYowhuPeCasVdhQwBlak7c/hsl-bicycle-app?type=design&node-id=0%3A1&t=1liz1qXOwoUYa3GN-1)
+# Data Available to the Client
 The client interface provides various data points related to the journeys and stations. Users can access the following information:
 
 - **List of all journeys**: Displaying all recorded journeys.
