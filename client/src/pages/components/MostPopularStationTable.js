@@ -9,8 +9,8 @@ function MostPopularStationTable({ stations }) {
     <Container>
       <TableBorder>
         <Table borderless className="mb-0">
-          <thead className="border-bottom border-2 bg-warning">
-            <tr>
+          <thead className="border-radius accent-background">
+            <tr className="border-bottom-black">
               <th></th>
               <th>ID</th>
               <th>Name</th>
