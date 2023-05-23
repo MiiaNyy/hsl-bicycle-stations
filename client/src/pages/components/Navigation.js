@@ -7,7 +7,7 @@ function Navigation() {
   return (
     <Navbar expand="sm" className="navigation">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <Logo />
           Hsl city bicycles
         </Navbar.Brand>
