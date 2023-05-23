@@ -21,9 +21,9 @@ cd server
 npm run download-data
 ```
 
-- [License and information](https://www.avoindata.fi/data/en/dataset/hsl-n-kaupunkipyoraasemat/resource/a23eef3a-cc40-4608-8aa2-c730d17e8902)
+### [License and information](https://www.avoindata.fi/data/en/dataset/hsl-n-kaupunkipyoraasemat/resource/a23eef3a-cc40-4608-8aa2-c730d17e8902)
 
-### Local MongoDB
+## Local MongoDB
 This app uses a local database to store the data. For that reason, you need to have MongoDB on your computer before 
 you can run this app.  
 
